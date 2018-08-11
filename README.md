@@ -1,6 +1,10 @@
 # Jekyll Diagrams
 
-[![Gem Version](https://badge.fury.io/rb/jekyll-diagrams.svg)](https://badge.fury.io/rb/jekyll-diagrams)
+[![Travis](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
+[![Gem](https://img.shields.io/gem/v/jekyll-diagrams.svg?style=flat-square)](https://rubygems.org/gems/jekyll-diagrams)
+[![Coveralls github](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams/master.svg?style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams)
+[![Depfu](https://img.shields.io/depfu/zhustec/jekyll-diagrams.svg?style=flat-square)](https://depfu.com/repos/zhustec/jekyll-diagrams)
+[![license](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
 
 Jekyll Diagrams is a jekyll plugins for creating amazing diagrams, including:
 
@@ -34,7 +38,7 @@ $ gem install jekyll-diagrams
 And then add this line to your application's `_config.yml` file:
 
 ```yaml
-gems:
+plugins:
   - jekyll-diagrams
 ```
 
@@ -83,9 +87,9 @@ B -> D [label=d];
 {% endgraphviz %}
 ```
 
-### Diag
+### Blockdiag
 
-Diag contains:
+Blockdiag contains:
 
 * `blockdiag` : simple block-diagram image generator
 * `seqdiag` : simple sequence-diagram image generator
