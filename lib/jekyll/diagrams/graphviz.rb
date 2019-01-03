@@ -55,6 +55,7 @@ module Jekyll
           raise "Non-zero exit status '#{cmd}': #{status}"
         end
 
+        svg.sub! /^<!DOCTYPE(([^>]|\n)*)>(\n?)/, ''
         svg.force_encoding 'UTF-8'
 
         "<div class='graphviz'>#{svg}</div>"
