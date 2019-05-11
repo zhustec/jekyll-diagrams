@@ -132,14 +132,15 @@ seqdiag {
 
 ## Configuration
 
-A simple configuration shows below:
+You need to provide a configuration.
+A simple configuration is shown below:
 
 ```yaml
 diagrams:
   graphviz:
     engine: dot
     options: '-Tsvg'
-  diag:
+  blockdiag:
     options: '-Tsvg --nodoctype'
 ```
 
@@ -164,11 +165,11 @@ digraph {
 {% endgraphviz %}
 ```
 
-`options` is the command line options, and will be appended to the command. Default is set to '-Tsvg'.
+`options` is the command line options, and will be appended to the command.
 
-### Blockiag
+### Blockdiag
 
-`options` is the command line options, and will be appended to the command. Default is set to '-Tsvg --nodoctype'.
+`options` is the command line options, and will be appended to the command.
 
 ## Contributing
 
