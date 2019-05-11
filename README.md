@@ -84,7 +84,7 @@ S -> A [label=a];
 S -> B [label=b];
 A -> D [label=c];
 B -> D [label=d];
-{% endgraphviz %}
+{% enddigraph %}
 ```
 
 ### Blockdiag
