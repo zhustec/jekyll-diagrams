@@ -16,10 +16,10 @@ class TestJekyllDiagrams < Minitest::Test
 
 
   def test_render_graphviz
-    assert_match %r!<div class="graphviz">!, @graphviz_contents
+    assert_match %r!<div class="diagrams graphviz">!, @graphviz_contents
   end
 
   def test_render_blockdiag
-    assert_match %r!<div class="diag \w+">!, @blockdiag_contents
+    assert_match %r!<div class="diagrams \w+">!, @blockdiag_contents
   end
 end

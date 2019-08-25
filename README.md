@@ -45,12 +45,7 @@ plugins:
 
 ### Graphviz
 
-You need first install graphviz with package manager on your system. e.g.
-
-* Gentoo Linux : `emerge graphviz`
-* Arch Linux : `pacman -S graphviz`
-
-Then you can use `graphviz`, `graph`, and `digraph` Liquid Tag for creating amazing Graphviz images!
+You need first install graphviz with package manager on your system. Then you can use `graphviz` Liquid Tag to create amazing Graphviz images!
 
 ```
 {% graphviz %}
@@ -69,41 +64,18 @@ digraph {
 {% endgraphviz %}
 ```
 
-You can also use `diagraph` and `graph` tag. e.g.
-
-```
-{% digraph %}
-node [shape=circle, style=filled];
-S [fillcolor=green];
-A [fillcolor=yellow];
-B [fillcolor=yellow];
-C [fillcolor=yellow];
-D [shape=doublecircle, fillcolor=green];
-S -> A [label=a];
-S -> B [label=b];
-A -> D [label=c];
-B -> D [label=d];
-{% enddigraph %}
-```
-
 ### Blockdiag
 
 Blockdiag contains:
 
-* `blockdiag` : simple block-diagram image generator
-* `seqdiag` : simple sequence-diagram image generator
-* `actdiag` : simple activity-diagram image generator
-* `nwdiag` : simple network-diagram image generators
+* `blockdiag` : generates block diagram image
+* `seqdiag` : generates sequence diagram image
+* `actdiag` : generates activity diagram image
+* `nwdiag` : generates network diagram image
+* `rackdiag` : generates rack structure diagram
+* `packetdiag` : generates packet header diagram
 
-Fisrt you should install them via `pip`:
-
-```bash
-$ pip install blockdiag seqdiag actdiag nwdiag
-```
-
-And set `$PATH` to make sure your system can find it in `$PATH`.
-
-Then you can use `blockdiag`, `seqdiag`, `actdiag` and `nwdiag` Liquid Tag. e.g.
+You need first install it and set path properly to make sure your system can find it. Then you can use `blockdiag`, `seqdiag`, `actdiag`, `nwdiag`, `rackdiag`, `packetdiag` Liquid Tag.
 
 ```
 {% blockdiag %}
@@ -131,40 +103,21 @@ seqdiag {
 
 ## Configuration
 
-You need to provide a configuration.
-A simple configuration is shown below:
+You can to provide a configuration, this is optional.
+
+A simple example configuration is shown below:
 
 ```yaml
 diagrams:
   graphviz:
     engine: dot
-    options: '-Tsvg'
   blockdiag:
-    options: '-Tsvg --nodoctype'
+    options: '--antialias'
 ```
 
 ### Graphviz
 
-`engine` is the default image render engine. Default is set to `dot`. You can also specify for every single image via:
-
-```
-{% graphviz neato %}
-digraph {
-  node [shape=circle, style=filled];
-  S [fillcolor=green];
-  A [fillcolor=yellow];
-  B [fillcolor=yellow];
-  C [fillcolor=yellow];
-  D [shape=doublecircle, fillcolor=green];
-  S -> A [label=a];
-  S -> B [label=b];
-  A -> D [label=c];
-  B -> D [label=d];
-}
-{% endgraphviz %}
-```
-
-`options` is the command line options, and will be appended to the command.
+`engine` is the default image render engine. Default is set to `dot`.
 
 ### Blockdiag
 
