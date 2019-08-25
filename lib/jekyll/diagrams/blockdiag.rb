@@ -4,62 +4,43 @@ require 'tempfile'
 module Jekyll
   module Diagrams
     class BlockdiagBlock < Liquid::Block
+      DEFAULTS = {
+      }
+      OPTIONS = '-T svg --nodoctype'
+
       def initialize(tag_name, text, tokens)
         super
         @tag_name = tag_name
       end
 
       def render(context)
-        config = context.registers[:site].config["diagrams"]
+        code = super.to_s
+        config = DEFAULTS.merge(Utils.config_for(context, 'blockdiag'))
 
-        @renderer = DiagRenderer.new(config['blockdiag'])
+        tmpfile = Tempfile.new(@tag_name).path
+        output = "#{tmpfile}.svg"
 
-        render_diagram(super)
-      end
-
-      private
-
-      def render_diagram(code)
-        @renderer.render(code, @tag_name)
-      end
-    end
-
-    class DiagRenderer
-      DEFAULTS = {
-        'options' => '-Tsvg --nodoctype'
-      }
-
-      def initialize(config)
-        @config = DEFAULTS.merge(config)
-      end
-
-      def render(code, engine)
-        tmp = Tempfile.new(engine).path
-        dest = "#{tmp}.svg"
-
-        File.write(tmp, code)
-        cmd = "#{engine} #{@config['options']} #{tmp} -o #{dest}"
-        ret, status = Open3.capture2(cmd, binmode: true)
+        File.write(tmpfile, code)
+        cmd = "#@tag_name #{OPTIONS} #{config['options']} #{tmpfile} -o #{output}"
+        _, status = Open3.capture2(cmd, binmode: true)
 
         if !status.success?
           raise "Non-zero exit status '#{cmd}': #{status}"
         end
 
-        svg = File.read(dest).force_encoding 'UTF-8'
-
-        wrap_div(svg, engine)
+        svg = File.read(output)
+        wrap(svg.force_encoding('UTF-8'))
       end
 
       private
 
-      def wrap_div(svg, engine)
-        "<div class='diag #{engine}'>#{svg}</div>"
+      def wrap(svg)
+        "<div class='diagrams #@tag_name'>#{svg}</div>"
       end
     end
   end
 end
 
-
 %w(blockdiag seqdiag actdiag nwdiag rackdiag packetdiag).each do |tag|
-  Liquid::Template.register_tag tag, Jekyll::Diagrams::BlockdiagBlock
+  Liquid::Template.register_tag(tag, Jekyll::Diagrams::BlockdiagBlock)
 end
