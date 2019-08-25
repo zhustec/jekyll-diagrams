@@ -1,10 +1,8 @@
 /.bundle/
-/.yardoc
 /Gemfile.lock
-/_yardoc/
-/coverage/
 /doc/
 /pkg/
-/spec/reports/
+/test/dest/
+/test/fixtures/.jekyll-cache/
 /tmp/
 *.gem

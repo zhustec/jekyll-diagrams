@@ -1,0 +1,6 @@
+diagrams:
+  graphviz:
+    engine: dot
+    options: '-Tsvg'
+  blockdiag:
+    options: '-Tsvg --nodoctype'
