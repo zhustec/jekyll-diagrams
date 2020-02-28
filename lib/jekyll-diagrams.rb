@@ -1,1 +1,6 @@
-require 'jekyll/diagrams'
+require_relative 'jekyll-diagrams/util'
+require_relative 'jekyll-diagrams/renderer'
+require_relative 'jekyll-diagrams/block'
+require_relative 'jekyll-diagrams/blockdiag'
+require_relative 'jekyll-diagrams/graphviz'
+require_relative 'jekyll-diagrams/plantuml'

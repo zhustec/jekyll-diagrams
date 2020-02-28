@@ -9,6 +9,7 @@ Jekyll Diagrams is a jekyll plugins for creating amazing diagrams, including:
 
 - Graphviz
 - Blockdiag, Seqdiag, Actdiag and Nwdiag
+- PlantUML
 
 ## Installation
 
@@ -47,7 +48,7 @@ plugins:
 
 You need first install graphviz with package manager on your system. Then you can use `graphviz` Liquid Tag to create amazing Graphviz images!
 
-```
+```text
 {% graphviz %}
 digraph {
   node [shape=circle, style=filled];
@@ -64,6 +65,26 @@ digraph {
 {% endgraphviz %}
 ```
 
+#### Configuration
+
+A simple configuration example is shown below:
+
+```yaml
+jekyll-diagrams:
+  graphviz:
+    default_layout: dot
+    graph_attribute: color=red
+    node_attribute:
+      - color=blue
+      - fillcolor=red
+    edge_attribute:
+      color: red
+      fillcolor: blue
+```
+
+- `default_layout`: Change the default layout here.
+- `graph/node/edge_attribute`: Default graph/node/edge attribute, can be String(when just one attribute), Array or Hash.
+
 ### Blockdiag
 
 Blockdiag contains:
@@ -77,7 +98,7 @@ Blockdiag contains:
 
 You need first install it and set path properly to make sure your system can find it. Then you can use `blockdiag`, `seqdiag`, `actdiag`, `nwdiag`, `rackdiag`, `packetdiag` Liquid Tag.
 
-```
+```text
 {% blockdiag %}
 blockdiag {
    A -> B -> C -> D;
@@ -88,7 +109,7 @@ blockdiag {
 
 And `seqdiag`:
 
-```
+```text
 {% seqdiag %}
 seqdiag {
   browser  -> webserver [label = "GET /index.html"];
@@ -101,27 +122,32 @@ seqdiag {
 {% endseqdiag %}
 ```
 
-## Configuration
-
-You can to provide a configuration, this is optional.
-
-A simple example configuration is shown below:
+#### Configuration
 
 ```yaml
-diagrams:
-  graphviz:
-    engine: dot
+jekyll-diagrams:
   blockdiag:
-    options: '--antialias'
+    antialias: true
+    config: configuration_file
+    font: your_custom_font
+    fontmap: your_custom_font
+    size: 320x400
 ```
 
-### Graphviz
+### PlantUML
 
-`engine` is the default image render engine. Default is set to `dot`.
+```text
+{% plantuml %}
+@startuml
+class Car
 
-### Blockdiag
+Driver - Car : drives >
+Car *- Wheel : have 4 >
+Car -- Person : < owns
 
-`options` is the command line options, and will be appended to the command.
+@enduml
+{% endplantuml %}
+```
 
 ## Contributing
 
