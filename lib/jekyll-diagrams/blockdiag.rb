@@ -7,7 +7,7 @@ module Jekyll
       def render_svg(code, config)
         command = build_command(config)
         
-        render_with_tempfile(command, code, :svg) do |command, input, output|
+        render_with_tempfile(command, code) do |command, input, output|
           "#{command} #{input} -o #{output}"
         end
       end
@@ -18,16 +18,10 @@ module Jekyll
 
       def build_command(config)
         command = "#{block_name} -Tsvg --nodoctype"
+        command << ' --antialias' if config.has_key?('antialias')
 
-        antialias = config.fetch('antialias', false)
-
-        if antialias && antialias != 'false'
-          command << ' --antialias'
-        end
-
-        %w(config font fontmap size).each do |key|
-          value = config.fetch(key, nil)
-          command << " --#{key}=#{value}" if value
+        %w(config font fontmap size).each do |conf|
+          command << " --#{conf}=#{config[conf]}" if config.has_key?(conf)
         end
 
         command

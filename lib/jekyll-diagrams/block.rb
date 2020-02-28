@@ -17,7 +17,7 @@ module Jekyll
       end
       
       def wrap_class(content)
-        "<div class='diagrams #{block_name}'>#{content}</div>"
+        "<div class='jekyll-diagrams diagrams #{block_name}'>#{content}</div>"
       end
     end
   end

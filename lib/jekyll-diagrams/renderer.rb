@@ -10,8 +10,8 @@ module Jekyll
         render_with_command(command, :stdout, stdin_data: content, binmode: true)
       end
 
-      def render_with_stdin(command, content, format)
-        Tempfile.open(['jekyll_diagrams_output', ".#{format}"]) do |output|
+      def render_with_stdin(command, content)
+        Tempfile.open(['jekyll_diagrams_output', ".svg"]) do |output|
           output.close
           command = yield command, output.path
 
@@ -19,11 +19,11 @@ module Jekyll
         end
       end
 
-      def render_with_tempfile(command, content, format)
+      def render_with_tempfile(command, content)
         Tempfile.open('jekyll_diagrams_input') do |input|
           File.write(input.path, content)
           
-          Tempfile.open(['jekyll_diagrams_output', ".#{format}"]) do |output|
+          Tempfile.open(['jekyll_diagrams_output', ".svg"]) do |output|
             output.close
             command = yield command, input.path, output.path
 
