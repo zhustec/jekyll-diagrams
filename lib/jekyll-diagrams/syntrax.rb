@@ -1,6 +1,8 @@
 module Jekyll
     module Diagrams
       class SyntraxBlock < Block
+        CONFIGURATIONS = %w(scale style).freeze
+
         def render_svg(code, config)
           render_with_tempfile(build_command(config), code) do |command, input, output|
             "#{command} --input #{input} --output #{output}"
@@ -10,7 +12,7 @@ module Jekyll
         def build_command(config)
           command = 'syntrax'
 
-          %w(scale style).each do |conf|
+          CONFIGURATIONS.each do |conf|
             command << " --#{conf} #{config[conf]}" if config.has_key?(conf)
           end
 

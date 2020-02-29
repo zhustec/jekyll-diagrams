@@ -53,17 +53,6 @@ sequenceDiagram
 {% endmermaid %}
 
 {% mermaid %}
-stateDiagram
-    [*] --> Still
-    Still --> [*]
-
-    Still --> Moving
-    Moving --> Still
-    Moving --> Crash
-    Crash --> [*]
-{% endmermaid %}
-
-{% mermaid %}
 gantt
     title A Gantt Diagram
     dateFormat  YYYY-MM-DD
@@ -73,13 +62,4 @@ gantt
     section Another
     Task in sec      :2014-01-12  , 12d
     another task      : 24d
-{% endmermaid %}
-
-{% mermaid %}
-pie
-    title Key elements in Product X
-    "Calcium" : 42.96
-    "Potassium" : 50.05
-    "Magnesium" : 10.01
-    "Iron" :  5
 {% endmermaid %}

@@ -7,13 +7,13 @@
 
 Jekyll Diagrams is a jekyll plugins for creating amazing diagrams, including:
 
-- Blockdiag(Blockdia, Seqdiag, Actdiag, Nwdiag, Rackdiag and Packatdiag)
-- Erd
-- Graphviz
-- Mermaid
-- PlantUML
-- State Machine cat
-- Syntrax
+- [**Blockdiag**](#blockdiag)
+- [**Erd**](#erd)
+- [**Graphviz**](#graphviz)
+- [**Mermaid**](#mermaid)
+- [**PlantUML**](#plantUML)
+- [**State Machine Cat**](#state-machine-cat)
+- [**Syntrax**](#syntrax)
 
 ## Installation
 
@@ -112,6 +112,7 @@ jekyll-diagrams:
 
 - Install Graphviz
 - [**Install Erd**](https://github.com/BurntSushi/erd#installation)
+- Set path properly, make sure your system can find it
 
 #### Examples
 
@@ -191,6 +192,7 @@ jekyll-diagrams:
 #### Prerequisites
 
 - [**Install mermaid.cli**](https://github.com/mermaidjs/mermaid.cli#mermaidcli)
+- Set path properly, make sure your system can find it
 
 #### Configurations
 
@@ -229,13 +231,13 @@ Car -- Person : < owns
 {% endplantuml %}
 ```
 
-### State Machine cat
+### State Machine Cat
 
 #### Prerequisites
 
 - Nodejs Runtime
 - Install it `npm install [-g] state-machine-cat`
-- Set path
+- Set path properly, make sure your system can find it
 
 #### Examples
 
@@ -267,15 +269,16 @@ jekyll-diagrams:
     direction: top-down
 ```
 
-- `input-type`: smcat|scxml|json (default: "smcat")
-- `engine`: dot|circo|fdp|neato|osage|twopi (default: "dot")
-- `direction`: top-down|bottom-top|left-right|right-left (default: "top-down")
+- `input-type`: `smcat|scxml|json` (Default: `smcat`)
+- `engine`: `dot|circo|fdp|neato|osage|twopi` (Default: `dot`)
+- `direction`: `top-down|bottom-top|left-right|right-left` (Default: `top-down`)
 
 ### Syntrax
 
 #### Prerequisites
 
-- [Install it with Pango and PangoCairo](https://kevinpt.github.io/syntrax/#requirements)
+- [Install Syntrax, Pango and PangoCairo](https://kevinpt.github.io/syntrax/#requirements)
+- Set path properly, make sure your system can find it
 
 #### Examples
 

@@ -12,7 +12,7 @@ module Jekyll
             "#{command} #{input} --output-to #{output}"
           end
 
-          svg.sub!(/^<\?xml(([^>]|\n)*>\n?){4}/, '')
+          svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
         end
   
         def build_command(config)

@@ -17,6 +17,7 @@ module Jekyll
         def build_command(config)
           command = 'mmdc'
           command << ' --transparent' if config.has_key?('transparent')
+          command << " --puppeteerConfigFile #{Util.vendor_path('mermaid_puppeteer_config.json')}"
 
           CONFIGURATIONS.merge(config).each do |conf, value|
             command << " --#{conf} #{value}"

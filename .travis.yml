@@ -9,14 +9,17 @@ rvm:
 addons:
   apt:
     packages:
+      - cabal-install
       - default-jre
       - gnuplot
       - graphviz
+      - npm
       - python3
       - python3-pip
       - python3-setuptools
 
 before_install:
-  - sudo pip3 install blockdiag seqdiag actdiag nwdiag
-  - gem update --system && gem install bundler
-  - npm install -g wavedrom-cli mermaid.cli
+  - sudo cabal update && sudo cabal install erd
+  - sudo gem update --system && sudo gem install bundler
+  - sudo npm install -g mermaid.cli state-machine-cat wavedrom-cli 
+  - sudo pip3 install blockdiag seqdiag actdiag nwdiag syntrax

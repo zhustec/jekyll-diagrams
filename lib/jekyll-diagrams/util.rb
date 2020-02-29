@@ -19,12 +19,8 @@ module Jekyll
           diagrams_config(context).fetch(name, {})
         end
 
-        def java_classpath(jar)
-          File.join(vendor_path, jar)
-        end
-
-        def vendor_path
-          File.expand_path('../../vendor', __dir__)
+        def vendor_path(file = '')
+          File.join(File.expand_path('../../vendor', __dir__), file)
         end
       end
     end

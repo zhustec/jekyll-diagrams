@@ -10,7 +10,7 @@ module Jekyll
       
       def render_svg(code, config)
         svg = render_with_stdin_stdout(build_command(config), code)
-        svg.sub!(/^<\?xml(([^>]|\n)*>\n?){4}/, '')
+        svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
       end
 
       def build_command(config)
