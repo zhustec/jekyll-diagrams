@@ -1,8 +1,5 @@
+.jekyll-cache
+Gemfile.lock
 /.bundle/
-/Gemfile.lock
-/doc/
 /pkg/
-/test/dest/
-/test/fixtures/.jekyll-cache/
-/tmp/
-/*.gem
+/test/dummy_site/_site/

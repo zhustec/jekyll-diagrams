@@ -1,0 +1,21 @@
+title: Dummy Site
+description: This is a dummy site for testing.
+
+theme: minima
+plugins:
+  - jekyll-diagrams
+
+jekyll-diagrams:
+  graphviz:
+    default_layout: dot
+    graph_attribute: color=red
+    node_attribute:
+      - color=blue
+      - fillcolor=red
+    edge_attribute:
+      color: red
+      fillcolor: blue
+  blockdiag:
+    antialias: true
+  syntax:
+    transparent: true
