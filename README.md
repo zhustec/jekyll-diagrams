@@ -7,19 +7,33 @@
 
 Jekyll Diagrams is a jekyll plugins for creating amazing diagrams, including:
 
-- [**Blockdiag**](#blockdiag)
-- [**Erd**](#erd)
-- [**Graphviz**](#graphviz)
-- [**Mermaid**](#mermaid)
-- [**PlantUML**](#plantUML)
-- [**State Machine Cat**](#state-machine-cat)
-- [**Syntrax**](#syntrax)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+  - [Blockdiag](#blockdiag)
+  - [Erd](#erd)
+  - [Graphviz](#graphviz)
+  - [Mermaid](#mermaid)
+  - [Nomnoml](#nomnoml)
+  - [PlantUML](#plantuml)
+  - [State Machine Cat](#state-machine-cat)
+  - [Svgbob](#svgbob)
+  - [Syntrax](#syntrax)
+  - [Vega](#vega)
+  - [Wavedrom](#wavedrom)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Installation
 
-### When using bundler
+Add the following to your site's `_config.yml`:
 
-Add these lines to your application's `Gemfile` file:
+```yaml
+plugins:
+  - jekyll-diagrams
+```
+
+And the following to your site's `Gemfile`:
 
 ```ruby
 group :jekyll_plugins do
@@ -27,23 +41,23 @@ group :jekyll_plugins do
 end
 ```
 
-And then execute:
+Finally run:
 
 ```bash
-$ bundle
+$ bundle install
 ```
 
-### Or installing manually
+## Configuration
 
-```bash
-$ gem install jekyll-diagrams
-```
-
-And then add this line to your application's `_config.yml` file:
+All configurations are at `_config.yml` file under `jekyll-diagrams`, e.g:
 
 ```yaml
-plugins:
-  - jekyll-diagrams
+jekyll-diagrams:
+  graphviz:
+    # configurations for graphviz
+  blockdiag:
+    # configurations for blockdiag
+  # and so on
 ```
 
 ## Usage
@@ -210,6 +224,35 @@ jekyll-diagrams:
 - `height`: Height of the page. (default: 600)
 - `backgroundColor`: Background color. Example: transparent, red, '#F0F0F0'. (default: white)
 
+### Nomnoml
+
+#### Examples
+
+```text
+{% nomnoml %}
+[Pirate|eyeCount: Int|raid();pillage()|
+  [beard]--[parrot]
+  [beard]-:>[foul mouth]
+]
+
+[<abstract>Marauder]<:--[Pirate]
+[Pirate]- 0..7[mischief]
+[jollyness]->[Pirate]
+[jollyness]->[rum]
+[jollyness]->[singing]
+[Pirate]-> *[rum|tastiness: Int|swig()]
+[Pirate]->[singing]
+[singing]<->[rum]
+
+[<start>st]->[<state>plunder]
+[plunder]->[<choice>more loot]
+[more loot]->[st]
+[more loot] no ->[<end>e]
+
+[<actor>Sailor] - [<usecase>shiver me;timbers]
+{% endnomnoml %}
+```
+
 ### PlantUML
 
 #### Prerequisites
@@ -273,6 +316,8 @@ jekyll-diagrams:
 - `engine`: `dot|circo|fdp|neato|osage|twopi` (Default: `dot`)
 - `direction`: `top-down|bottom-top|left-right|right-left` (Default: `top-down`)
 
+### Svgbob
+
 ### Syntrax
 
 #### Prerequisites
@@ -302,6 +347,10 @@ jekyll-diagrams:
     style: 'Style config file'
     transparent: 'Transparent background'
 ```
+
+### Vega
+
+### Wavedrom
 
 ## Contributing
 
