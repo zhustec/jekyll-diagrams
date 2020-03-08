@@ -5,7 +5,9 @@
 [![Depfu](https://img.shields.io/depfu/zhustec/jekyll-diagrams.svg?style=flat-square)](https://depfu.com/repos/zhustec/jekyll-diagrams)
 [![license](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
 
-Jekyll Diagrams is a jekyll plugins for creating amazing diagrams, including:
+Jekyll Diagrams is a jekyll plugins for creating diagrams, currently support for [**Blockdiag**](http://blockdiag.com/en/), [**Erd**](https://github.com/BurntSushi/erd), [**GraphViz**](http://graphviz.org/), [**Mermaid**](https://mermaid-js.github.io/mermaid/), [**Nomnoml**](http://nomnoml.com/), [**PlantUML**](https://plantuml.com/), [**Svgbob**](https://ivanceras.github.io/svgbob-editor/), [**Syntrax**](https://kevinpt.github.io/syntrax/), [**Vega**](https://vega.github.io/vega/), [**Vega-Lite**](https://vega.github.io/vega-lite/) and [**WaveDrom**](https://wavedrom.com/). More diagrams support will be added in future versions.
+
+**NOTICE:** This plugin render **SVG** format image and directly **embed into html file**, so you don't need to worry about where to store the image. But, please feel free to tell me if you **unlikely** want other image format.
 
 - [Installation](#installation)
 - [Configuration](#configuration)
@@ -49,7 +51,7 @@ $ bundle install
 
 ## Configuration
 
-All configurations are at `_config.yml` file under `jekyll-diagrams`, e.g:
+All configurations are under `jekyll-diagrams`, e.g:
 
 ```yaml
 jekyll-diagrams:
@@ -57,6 +59,8 @@ jekyll-diagrams:
     # configurations for graphviz
   blockdiag:
     # configurations for blockdiag
+  syntrax:
+    # configurations for syntrax
   # and so on
 ```
 
@@ -64,23 +68,22 @@ jekyll-diagrams:
 
 ### Blockdiag
 
-Blockdiag contains:
-
-* `blockdiag` : generates block diagram image
-* `seqdiag` : generates sequence diagram image
-* `actdiag` : generates activity diagram image
-* `nwdiag` : generates network diagram image
-* `rackdiag` : generates rack structure diagram
-* `packetdiag` : generates packet header diagram
-
 #### Prerequisites
 
-- Install it via pip or other methods
-- Set path properly, make sure your system can find it
+Install it.
 
 ```bash
-$ pip install blockdiag seqdiag actiag nwdiag
+$ pip3 install blockdiag seqdiag actiag nwdiag
 ```
+
+Then you can use following tags:
+
+* `blockdiag`
+* `seqdiag`
+* `actdiag`
+* `nwdiag`
+* `rackdiag`
+* `packetdiag`
 
 #### Examples
 
@@ -110,23 +113,24 @@ seqdiag {
 
 #### Configurations
 
-```yaml
-jekyll-diagrams:
-  blockdiag:
-    antialias: true
-    config: configuration_file
-    font: your_custom_font
-    fontmap: your_custom_font
-    size: 320x400
-```
+| Config      | Default     | Description                             |
+| ----------- | ----------- | --------------------------------------- |
+| `antialias` | unspecified | Pass diagram image to anti-alias filter |
+| `font`      | unspecified | use FONT to draw diagram                |
+| `fontmap`   | unspecified | use FONTMAP file to draw diagram        |
+| `size`      | unspecified | Size of diagram (ex. 320x240)           |
 
 ### Erd
 
 #### Prerequisites
 
 - Install Graphviz
-- [**Install Erd**](https://github.com/BurntSushi/erd#installation)
-- Set path properly, make sure your system can find it
+- Install Erd
+
+```bash
+$ sudo apt install graphviz cabal-install
+$ cabal update && cabal install erd
+```
 
 #### Examples
 
@@ -151,18 +155,17 @@ Person *--1 `Birth Place`
 
 #### Configurations
 
-```yaml
-jekyll-diagrams:
-  erd:
-    config: path_to_config_file
-    edge: 'one type of edge: compound, noedge, ortho, poly, spline'
-```
+| Config       | Default     | Description                                                                                             |
+| ------------ | ----------- | ------------------------------------------------------------------------------------------------------- |
+| `config`     | unspecified | Configuration file                                                                                      |
+| `edge`       | unspecified | Select one type of edge: compound, noedge, ortho, poly, spline                                          |
+| `dot-entity` | unspecified | When set, output will consist of regular dot tables instead of HTML tables. Formatting will be disabled |
 
 ### Graphviz
 
 #### Prerequisites
 
-- Install it.
+Install it.
 
 #### Examples
 
@@ -185,47 +188,43 @@ digraph {
 
 #### Configurations
 
-```yaml
-jekyll-diagrams:
-  graphviz:
-    default_layout: dot
-    graph_attribute: color=red
-    node_attribute:
-      - color=blue
-      - fillcolor=red
-    edge_attribute:
-      color: red
-      fillcolor: blue
-```
+| Config             | Default     | Description                 |
+| ------------------ | ----------- | --------------------------- |
+| `default_layout`   | dot         | Set default layout engine   |
+| `graph_attributes` | unspecified | Set default graph attribute |
+| `node_attributes`  | unspecified | Set default node attribute  |
+| `edge_attributes`  | unspecified | Set default edge attribute  |
 
-- `default_layout`: Change the default layout here.
-- `graph/node/edge_attribute`: Default graph/node/edge attribute, can be String(when just one attribute), Array or Hash.
+**NOTICE:** attributes can be `String`(when just one attribute), `Array` or `Hash`.
 
 ### Mermaid
 
 #### Prerequisites
 
-- [**Install mermaid.cli**](https://github.com/mermaidjs/mermaid.cli#mermaidcli)
-- Set path properly, make sure your system can find it
+Install `mermaid.cli`.
+
+```bash
+$ npm install -g mermaid.cli
+```
 
 #### Configurations
 
-```yaml
-jekyll-diagrams:
-  mermaid:
-    theme: default,
-    width: 800,
-    height: 600,
-    backgroundColor: white
-```
-
-- `theme`: Theme of the chart, could be default, forest, dark or neutral. (default: default)
-- `width`: Width of the page. (default: 800)
-- `height`: Height of the page. (default: 600)
-- `backgroundColor`: Background color. Example: transparent, red, '#F0F0F0'. (default: white)
+| Config            | Default | Description                                                   |
+| ----------------- | ------- | ------------------------------------------------------------- |
+| `theme`           | default | Theme of the chart, could be default, forest, dark or neutral |
+| `width`           | 800     | Width of the page                                             |
+| `height`          | 600     | Height of the page                                            |
+| `backgroundColor` | white   | Background color. Example: transparent, red, '#F0F0F0'        |
 
 ### Nomnoml
 
+#### Prerequisites
+
+Install it.
+
+```bash
+$ npm install -g nomnoml
+```
 #### Examples
 
 ```text
@@ -257,7 +256,11 @@ jekyll-diagrams:
 
 #### Prerequisites
 
-- Java Runtime
+Install java runtime.
+
+```bash
+$ sudo apt install default-jre
+```
 
 #### Examples
 
@@ -278,9 +281,11 @@ Car -- Person : < owns
 
 #### Prerequisites
 
-- Nodejs Runtime
-- Install it `npm install [-g] state-machine-cat`
-- Set path properly, make sure your system can find it
+Install it.
+
+```bash
+$ npm install -g state-machine-cat
+```
 
 #### Examples
 
@@ -304,26 +309,44 @@ initial           => "tape player off";
 
 #### Configuration
 
-```yaml
-jekyll-diagrams:
-  smcat:
-    input-type: smcat
-    engine: dot
-    direction: top-down
-```
-
-- `input-type`: `smcat|scxml|json` (Default: `smcat`)
-- `engine`: `dot|circo|fdp|neato|osage|twopi` (Default: `dot`)
-- `direction`: `top-down|bottom-top|left-right|right-left` (Default: `top-down`)
+| Config       | Default    | Description                                                                         |
+| ------------ | ---------- | ----------------------------------------------------------------------------------- |
+| `input-type` | `smcat`    | Input type. `smcat|scxml|json`                                                      |
+| `engine`     | `dot`      | Layout engine to use. `dot|circo|fdp|neato|osage|twopi`                             |
+| `direction`  | `top-down` | Direction of the state machine diagram. `top-down|bottom-top|left-right|right-left` |
 
 ### Svgbob
+
+#### Prerequisites
+
+- Install `cargo`
+- Install `svgbob_cli`
+
+```bash
+$ sudo apt install cargo
+$ cargo install svgbob_cli
+```
+
+#### Configuration
+
+| Config         | Default | Description                                                |
+| -------------- | ------- | ---------------------------------------------------------- |
+| `font-family`  | arial   | Font                                                       |
+| `font-size`    | 12      | Font size                                                  |
+| `scale`        | 1       | Scale the entire svg (dimensions, font size, stroke width) |
+| `stroke-width` | 2       | stroke width for all lines                                 |
 
 ### Syntrax
 
 #### Prerequisites
 
-- [Install Syntrax, Pango and PangoCairo](https://kevinpt.github.io/syntrax/#requirements)
-- Set path properly, make sure your system can find it
+- Install Pango, Cairo and PangoCairo
+- Install `syntrax`
+
+```bash
+$ sudo apt install libpango1.0-dev python3-cairo python3-gi
+$ pip3 install syntrax
+```
 
 #### Examples
 
@@ -340,17 +363,52 @@ indentstack(10,
 
 #### Configurations
 
-```yaml
-jekyll-diagrams:
-  syntrax:
-    scale: 'Scale image'
-    style: 'Style config file'
-    transparent: 'Transparent background'
-```
+| Config        | Default     | Description            |
+| ------------- | ----------- | ---------------------- |
+| `scale`       | 1           | Scale image            |
+| `style`       | unspecified | Style config file      |
+| `transparent` | false       | Transparent background |
 
 ### Vega
 
+#### Prerequisites
+
+Install `vega-cli` and `vega-lite`.
+
+```bash
+$ npm install -g vega-cli vega-lite
+```
+
+The you can use `vega` and `vegalite` tag.
+
+#### Configurations
+
+| Config  | Default | Description         |
+| ------- | ------- | ------------------- |
+| `scale` | 1       | Scale image[Number] |
+
 ### Wavedrom
+
+#### Prerequisites
+
+Install `wavedrom-cli`.
+
+```bash
+$ npm install -g wavedrom-cli
+```
+
+#### Examples
+
+```text
+{% wavedrom %}
+{signal: [
+  {name: 'clk', wave: 'p.....|...'},
+  {name: 'dat', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data']},
+  {name: 'req', wave: '0.1..0|1.0'},
+  {name: 'ack', wave: '1.....|01.'}
+]}
+{% endwavedrom %}
+```
 
 ## Contributing
 

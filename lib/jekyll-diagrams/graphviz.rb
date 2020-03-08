@@ -3,9 +3,9 @@ module Jekyll
     class GraphvizBlock < Block
       CONFIGRATIONS = {
         'K' => 'default_layout',
-        'G' => 'graph_attribute',
-        'N' => 'node_attribute',
-        'E' => 'edge_attribute'
+        'G' => 'graph_attributes',
+        'N' => 'node_attributes',
+        'E' => 'edge_attributes'
       }.freeze
 
       def render_svg(code, config)
