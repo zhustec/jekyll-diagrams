@@ -7,9 +7,11 @@ module Jekyll
         'N' => 'node_attribute',
         'E' => 'edge_attribute'
       }.freeze
-      
+
       def render_svg(code, config)
-        svg = render_with_stdin_stdout(build_command(config), code)
+        command = build_command(config)
+
+        svg = render_with_stdin_stdout(command, code)
         svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
       end
 
@@ -18,9 +20,9 @@ module Jekyll
 
         CONFIGRATIONS.each do |prefix, conf|
           next unless config.has_key?(conf)
-            
+
           attrs = config[conf]
-          
+
           attrs = case attrs
           when String
             attrs

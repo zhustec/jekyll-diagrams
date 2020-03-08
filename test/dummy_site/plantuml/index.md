@@ -1,10 +1,7 @@
 ---
-layout: post
+layout: home
 title: PlantUML Test
-date: 2020-01-03 00:00:00 +0800
 ---
-
-# PlantUML Test
 
 {% plantuml %}
 @startuml

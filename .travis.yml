@@ -1,46 +1,97 @@
-dist: bionic
-
 language: ruby
 
-rvm:
-  - 2.4
-  - 2.5
-  - 2.6
-  - 2.7
+dist: bionic
 
 cache:
   apt: true
   bundler: true
-  npm: true
-  pip: true
-  directories:
-    - "$HOME/.cabal"
 
-addons:
-  apt:
-    update: true
-    packages:
-      - build-essential
-      - git
-      - graphviz
-      - default-jre-headless
-      - cabal-install
-      - gnuplot
-      - graphviz
-      - npm
-      - libpython3-dev
-      - libpango1.0-dev
-      - python3-pip
-      - python3-setuptools
-      - python3-cairo
-      - python3-gi
+jobs:
+  fast_finish: true
+  include:
+    - name: Graphviz Build
+      env: DIAGRAM=graphviz
+      addons:
+        apt:
+          update: true
+          packages:
+            - graphviz
+    - name: PlantUML Build
+      env: DIAGRAM=plantuml
+      addons:
+        apt:
+          update: true
+          packages:
+            - default-jre-headless
+    - name: Mermaid Build
+      env: DIAGRAM=mermaid
+      addons:
+        apt:
+          update: true
+          packages:
+            - npm
+      before_install:
+        - npm install -g mermaid.cli
+      cache: npm
+    - name: State Machine Cat Build
+      env: DIAGRAM=smcat
+      addons:
+        apt:
+          update: true
+          packages:
+            - npm
+      before_install:
+        - npm install -g state-machine-cat
+      cache: npm
+    - name: Wavedrom Build
+      env: DIAGRAM=wavedrom
+      addons:
+        apt:
+          update: true
+          packages:
+            - npm
+      before_install:
+        - npm install -g wavedrom-cli
+      cache: npm
+    - name: Blockdiag Build
+      env: DIAGRAM=blockdiag
+      addons:
+        apt:
+          update: true
+          packages:
+            - python3-pip
+            - python3-setuptools
+      before_install:
+        - pip3 install blockdiag seqdiag actdiag nwdiag
+      cache: pip
+    - name: Syntrax Build
+      env: DIAGRAM=syntrax
+      addons:
+        apt:
+          update: true
+          packages:
+            - libpython3-dev
+            - libpango1.0-dev
+            - python3-pip
+            - python3-setuptools
+            - python3-cairo
+            - python3-gi
+      before_install:
+        - pip3 install syntrax
+      cache: pip
+  allow_failures:
+    - name: Erd Build
+      env: DIAGRAM=erd
+      addons:
+        apt:
+          update: true
+          packages:
+            - cabal-install
+      before_install:
+        - cabal update
+        - cabal install erd
+      cache:
+        directories:
+          - "$HOME/.cabal"
 
-install:
-  - npm install -g mermaid.cli state-machine-cat wavedrom-cli
-  - pip3 install blockdiag seqdiag actdiag nwdiag syntrax
-  - gem update -N --system && gem install -N bundler
-  - cabal update && cabal install erd
-  - bundle install --jobs=3 --retry=3
-
-script:
-  - bundle exec rake dummy_site
+script: bundle exec rake 'dummy_site:build[$DIAGRAM]'

@@ -8,15 +8,15 @@ module Jekyll
 
       def render_svg(code, config)
         command = build_command(config)
-        
+
         render_with_tempfile(command, code) do |command, input, output|
           "#{command} #{input} -o #{output}"
         end
       end
 
       def read_config(context)
-        Util.config_for(context, 'blockdiag').merge(
-          Util.config_for(context, block_name)
+        config_for(context, 'blockdiag').merge(
+          config_for(context, block_name)
         )
       end
 

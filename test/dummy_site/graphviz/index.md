@@ -1,10 +1,7 @@
 ---
-layout: post
+layout: home
 title: Graphviz Test
-date: 2020-01-01 00:00:00 +0800
 ---
-
-# Graphviz Test
 
 {% graphviz %}
 digraph {

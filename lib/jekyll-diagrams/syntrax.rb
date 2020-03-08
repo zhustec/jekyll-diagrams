@@ -4,11 +4,13 @@ module Jekyll
         CONFIGURATIONS = %w(scale style).freeze
 
         def render_svg(code, config)
-          render_with_tempfile(build_command(config), code) do |command, input, output|
+          command = build_command(config)
+
+          render_with_tempfile(command, code) do |command, input, output|
             "#{command} --input #{input} --output #{output}"
           end
         end
-  
+
         def build_command(config)
           command = 'syntrax'
 
@@ -21,5 +23,5 @@ module Jekyll
       end
     end
   end
-  
+
   Liquid::Template.register_tag(:syntrax, Jekyll::Diagrams::SyntraxBlock)

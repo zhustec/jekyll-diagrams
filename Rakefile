@@ -9,13 +9,21 @@ end
 
 task default: :test
 
-desc 'Run dummy site'
-task :dummy_site do
-  dummy_site_path = File.expand_path('test/dummy_site', __dir__)
 
-  Dir.chdir(dummy_site_path) do
-    puts "Current directory: #{Dir.pwd}"
+namespace :dummy_site do
+  DUMMY_SITE_PATH = File.expand_path('test/dummy_site', __dir__)
+  DIAGRAMS = %w(blockdiag erd graphviz mermaid plantuml smcat wavedrom)
 
-    %x(bundle install && bundle exec jekyll build)
+  %w(build serve).each do |action|
+    desc "#{action.capitalize} the dummy site"
+    task action.to_sym, :diagram do |t, args|
+      args.with_defaults(diagram: '')
+      diagram = args[:diagram]
+      path = File.join(DUMMY_SITE_PATH, diagram)
+
+      Dir.chdir(DUMMY_SITE_PATH) do
+        %x(bundle install && bundle exec jekyll #{action} --config _config.yml -s #{path})
+      end
+    end
   end
 end

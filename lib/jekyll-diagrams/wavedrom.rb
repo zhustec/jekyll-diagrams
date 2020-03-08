@@ -6,12 +6,12 @@ module Jekyll
             "#{command} --input #{input} --svg #{output}"
           end
         end
-  
+
         def build_command(config)
           'wavedrom-cli'
         end
       end
     end
   end
-  
+
   Liquid::Template.register_tag(:wavedrom, Jekyll::Diagrams::WavedromBlock)

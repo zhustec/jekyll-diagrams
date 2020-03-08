@@ -1,10 +1,7 @@
 ---
-layout: post
+layout: home
 title: Wavedrom Test
-date: 2020-01-05 00:00:00 +0800
 ---
-
-# Wavedrom Test
 
 {% wavedrom %}
 {signal: [

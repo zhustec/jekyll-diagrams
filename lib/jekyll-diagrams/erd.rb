@@ -2,12 +2,14 @@ module Jekyll
     module Diagrams
       class ErdBlock < Block
         CONFIGURATIONS = %w(config edge).freeze
-        
+
         def render_svg(code, config)
-          svg = render_with_stdin_stdout(build_command(config), code)
+          command = build_command(config)
+
+          svg = render_with_stdin_stdout(command, code)
           svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
         end
-  
+
         def build_command(config)
           command = 'erd --fmt=svg'
           command << ' --dot-entity' if config.has_key?('dot-entity')
@@ -21,5 +23,5 @@ module Jekyll
       end
     end
   end
-  
+
   Liquid::Template.register_tag(:erd, Jekyll::Diagrams::ErdBlock)

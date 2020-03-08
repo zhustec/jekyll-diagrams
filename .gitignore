@@ -1,5 +1,5 @@
+.bundle
 .jekyll-cache
+_site
+pkg
 Gemfile.lock
-/.bundle/
-/pkg/
-/test/dummy_site/_site/

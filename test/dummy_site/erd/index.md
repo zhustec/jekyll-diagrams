@@ -1,7 +1,6 @@
 ---
-layout: post
+layout: home
 title: Erd Test
-date: 2020-01-07 00:00:00 +0800
 ---
 
 # Erd Test

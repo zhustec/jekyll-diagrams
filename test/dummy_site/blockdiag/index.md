@@ -1,10 +1,7 @@
 ---
-layout: post
+layout: home
 title: Blockdiag Test
-date: 2020-01-02 00:00:00 +0800
 ---
-
-# Blockdiag Test
 
 ## Blockdiag
 

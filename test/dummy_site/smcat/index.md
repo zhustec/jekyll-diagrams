@@ -1,10 +1,7 @@
 ---
-layout: post
+layout: home
 title: State Machine Cat Test
-date: 2020-01-06 00:00:00 +0800
 ---
-
-# State Machine Cat Test
 
 {% smcat %}
 initial,

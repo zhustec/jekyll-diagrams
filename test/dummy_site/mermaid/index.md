@@ -1,10 +1,7 @@
 ---
-layout: post
+layout: home
 title: Mermaid Test
-date: 2020-01-04 00:00:00 +0800
 ---
-
-# Mermaid Test
 
 {% mermaid %}
 graph TB
