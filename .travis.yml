@@ -33,6 +33,15 @@ jobs:
       before_install:
         - npm install -g mermaid.cli
       cache: npm
+    - name: Nomnoml Build
+      env: DIAGRAM=nomnoml
+      addons:
+        apt:
+          update: true
+          packages:
+            - npm
+      before_install:
+        - npm install -g nomnoml
     - name: State Machine Cat Build
       env: DIAGRAM=smcat
       addons:

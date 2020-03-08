@@ -12,7 +12,7 @@ task default: :test
 
 namespace :dummy_site do
   DUMMY_SITE_PATH = File.expand_path('test/dummy_site', __dir__)
-  DIAGRAMS = %w(blockdiag erd graphviz mermaid plantuml smcat wavedrom)
+  DIAGRAMS = %w(blockdiag erd graphviz mermaid nomnoml plantuml smcat wavedrom)
 
   %w(build serve).each do |action|
     desc "#{action.capitalize} the dummy site"
