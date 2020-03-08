@@ -16,6 +16,6 @@ task :dummy_site do
   Dir.chdir(dummy_site_path) do
     puts "Current directory: #{Dir.pwd}"
 
-    %x(bundle exec jekyll serve --trace)
+    %x(bundle install && bundle exec jekyll build)
   end
 end

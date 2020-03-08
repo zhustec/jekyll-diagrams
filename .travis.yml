@@ -1,25 +1,46 @@
+dist: bionic
+
 language: ruby
-cache: bundler
+
 rvm:
   - 2.4
   - 2.5
   - 2.6
   - 2.7
 
+cache:
+  apt: true
+  bundler: true
+  npm: true
+  pip: true
+  directories:
+    - "$HOME/.cabal"
+
 addons:
   apt:
+    update: true
     packages:
+      - build-essential
+      - git
+      - graphviz
+      - default-jre-headless
       - cabal-install
-      - default-jre
       - gnuplot
       - graphviz
       - npm
-      - python3
+      - libpython3-dev
+      - libpango1.0-dev
       - python3-pip
       - python3-setuptools
+      - python3-cairo
+      - python3-gi
 
-before_install:
-  - sudo cabal update && sudo cabal install erd
-  - sudo gem update --system && sudo gem install bundler
-  - sudo npm install -g mermaid.cli state-machine-cat wavedrom-cli 
-  - sudo pip3 install blockdiag seqdiag actdiag nwdiag syntrax
+install:
+  - npm install -g mermaid.cli state-machine-cat wavedrom-cli
+  - pip3 install blockdiag seqdiag actdiag nwdiag syntrax
+  - gem update -N --system && gem install -N bundler
+  - cabal update && cabal install erd
+  - bundle install --jobs=3 --retry=3
+
+script:
+  - bundle exec rake dummy_site
