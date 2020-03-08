@@ -9,10 +9,9 @@ end
 
 task default: :test
 
-
 namespace :dummy_site do
   DUMMY_SITE_PATH = File.expand_path('test/dummy_site', __dir__)
-  DIAGRAMS = %w(blockdiag erd graphviz mermaid nomnoml plantuml smcat wavedrom)
+  DIAGRAMS = %w(apt cabal cargo java npm pip)
 
   %w(build serve).each do |action|
     desc "#{action.capitalize} the dummy site"

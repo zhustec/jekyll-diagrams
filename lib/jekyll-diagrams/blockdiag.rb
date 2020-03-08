@@ -4,7 +4,7 @@ require 'tempfile'
 module Jekyll
   module Diagrams
     class BlockdiagBlock < Block
-      CONFIGURATIONS = %w(config font fontmap size).freeze
+      CONFIGURATIONS = %w( config font fontmap size ).freeze
 
       def render_svg(code, config)
         command = build_command(config)

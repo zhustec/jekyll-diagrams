@@ -1,7 +1,7 @@
 module Jekyll
     module Diagrams
       class ErdBlock < Block
-        CONFIGURATIONS = %w(config edge).freeze
+        CONFIGURATIONS = %w( config edge ).freeze
 
         def render_svg(code, config)
           command = build_command(config)

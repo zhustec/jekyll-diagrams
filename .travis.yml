@@ -8,73 +8,62 @@ cache:
 
 jobs:
   fast_finish: true
+  allow_failures:
+    - name: Cabal Packages
+      env: DIAGRAM=cabal
+      cache:
+        directories:
+          - "$HOME/.cabal"
+      addons:
+        apt:
+          update: true
+          packages:
+            - cabal-install
+      before_install:
+        - cabal update
+        - cabal install erd
   include:
-    - name: Graphviz Build
-      env: DIAGRAM=graphviz
+    - name: Apt Packages
+      env: DIAGRAM=apt
       addons:
         apt:
           update: true
           packages:
             - graphviz
-    - name: PlantUML Build
-      env: DIAGRAM=plantuml
+
+    - name: Cargo Packages
+      env: DIAGRAM=cargo
+      cache: cargo
+      addons:
+        apt:
+          update: true
+          packages:
+            - cargo
+      before_install:
+        - cargo install svgbob_cli
+
+    - name: Java Packages
+      env: DIAGRAM=java
       addons:
         apt:
           update: true
           packages:
             - default-jre-headless
-    - name: Mermaid Build
-      env: DIAGRAM=mermaid
-      addons:
-        apt:
-          update: true
-          packages:
-            - npm
-      before_install:
-        - npm install -g mermaid.cli
+
+    - name: Npm Packages
+      env: DIAGRAM=npm
       cache: npm
-    - name: Nomnoml Build
-      env: DIAGRAM=nomnoml
       addons:
         apt:
           update: true
           packages:
             - npm
       before_install:
-        - npm install -g nomnoml
-    - name: State Machine Cat Build
-      env: DIAGRAM=smcat
-      addons:
-        apt:
-          update: true
-          packages:
-            - npm
-      before_install:
-        - npm install -g state-machine-cat
-      cache: npm
-    - name: Wavedrom Build
-      env: DIAGRAM=wavedrom
-      addons:
-        apt:
-          update: true
-          packages:
-            - npm
-      before_install:
-        - npm install -g wavedrom-cli
-      cache: npm
-    - name: Blockdiag Build
-      env: DIAGRAM=blockdiag
-      addons:
-        apt:
-          update: true
-          packages:
-            - python3-pip
-            - python3-setuptools
-      before_install:
-        - pip3 install blockdiag seqdiag actdiag nwdiag
+        - npm install -g mermaid.cli nomnoml state-machine-cat wavedrom-cli
+
+    - name: Pip Packages
+      env: DIAGRAM=pip
       cache: pip
-    - name: Syntrax Build
-      env: DIAGRAM=syntrax
       addons:
         apt:
           update: true
@@ -86,21 +75,6 @@ jobs:
             - python3-cairo
             - python3-gi
       before_install:
-        - pip3 install syntrax
-      cache: pip
-  allow_failures:
-    - name: Erd Build
-      env: DIAGRAM=erd
-      addons:
-        apt:
-          update: true
-          packages:
-            - cabal-install
-      before_install:
-        - cabal update
-        - cabal install erd
-      cache:
-        directories:
-          - "$HOME/.cabal"
+        - pip3 install blockdiag seqdiag actdiag nwdiag syntrax
 
 script: bundle exec rake 'dummy_site:build[$DIAGRAM]'

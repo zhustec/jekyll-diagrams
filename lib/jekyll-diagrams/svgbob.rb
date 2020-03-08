@@ -1,18 +1,16 @@
 module Jekyll
     module Diagrams
-      class SyntraxBlock < Block
-        CONFIGURATIONS = %w( scale style ).freeze
+      class SvgbobBlock < Block
+        CONFIGURATIONS = %w( font-family font-size scale stroke-width ).freeze
 
         def render_svg(code, config)
           command = build_command(config)
 
-          render_with_tempfile(command, code) do |command, input, output|
-            "#{command} --input #{input} --output #{output}"
-          end
+          render_with_stdin_stdout(command, code)
         end
 
         def build_command(config)
-          command = 'syntrax'
+          command = 'svgbob'
 
           CONFIGURATIONS.each do |conf|
             command << " --#{conf} #{config[conf]}" if config.has_key?(conf)
@@ -24,4 +22,4 @@ module Jekyll
     end
   end
 
-  Liquid::Template.register_tag(:syntrax, Jekyll::Diagrams::SyntraxBlock)
+  Liquid::Template.register_tag(:svgbob, Jekyll::Diagrams::SvgbobBlock)
