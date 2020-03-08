@@ -1,6 +1,3 @@
-require 'open3'
-require 'tempfile'
-
 module Jekyll
   module Diagrams
     class BlockdiagBlock < Block
@@ -15,9 +12,7 @@ module Jekyll
       end
 
       def read_config(context)
-        config_for(context, 'blockdiag').merge(
-          config_for(context, block_name)
-        )
+        config_for(context, 'blockdiag').merge(config_for(context, block_name))
       end
 
       def build_command(config)

@@ -59,7 +59,8 @@ jobs:
           packages:
             - npm
       before_install:
-        - npm install -g mermaid.cli nomnoml state-machine-cat wavedrom-cli
+        - npm install -g mermaid.cli nomnoml state-machine-cat
+        - npm install -g vega-cli vega-lite wavedrom-cli
 
     - name: Pip Packages
       env: DIAGRAM=pip

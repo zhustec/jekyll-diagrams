@@ -1,7 +1,7 @@
 module Jekyll
   module Diagrams
-    class SvgbobBlock < Block
-      CONFIGURATIONS = %w( font-family font-size scale stroke-width ).freeze
+    class VegaBlock < Block
+      CONFIGURATIONS = %w( scale )
 
       def render_svg(code, config)
         command = build_command(config)
@@ -10,16 +10,21 @@ module Jekyll
       end
 
       def build_command(config)
-        command = 'svgbob'
+        command = case block_name
+        when 'vega'
+          'vg2svg'
+        when 'vegalite'
+          'vl2svg'
+        end
 
         CONFIGURATIONS.each do |conf|
           command << " --#{conf} #{config[conf]}" if config.has_key?(conf)
         end
-
-        command
       end
     end
   end
 end
 
-Liquid::Template.register_tag(:svgbob, Jekyll::Diagrams::SvgbobBlock)
+%i(vega vegalite).each do |tag|
+  Liquid::Template.register_tag(tag, Jekyll::Diagrams::VegaBlock)
+end

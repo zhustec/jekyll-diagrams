@@ -1,12 +1,7 @@
 module Jekyll
     module Diagrams
       class MermaidBlock < Block
-        CONFIGURATIONS = {
-          'theme' => 'default',
-          'width' => 800,
-          'height' => 600,
-          'backgroundColor' => 'white'
-        }.freeze
+        CONFIGURATIONS = %w( backgroundColor height theme width).freeze
 
         def render_svg(code, config)
           command = build_command(config)
@@ -21,8 +16,8 @@ module Jekyll
           command << ' --transparent' if config.has_key?('transparent')
           command << " --puppeteerConfigFile #{vendor_path('mermaid_puppeteer_config.json')}"
 
-          CONFIGURATIONS.merge(config).each do |conf, value|
-            command << " --#{conf} #{value}"
+          CONFIGURATIONS.each do |conf|
+            command << " --#{conf} #{config[conf]}" if config.has_key?(conf)
           end
 
           command

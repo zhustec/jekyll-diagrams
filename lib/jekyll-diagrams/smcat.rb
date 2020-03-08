@@ -1,33 +1,29 @@
 module Jekyll
-    module Diagrams
-      class SMCatBlock < Block
-        CONFIGURATIONS = {
-          'input-type' => 'smcat',
-          'engine' => 'dot',
-          'direction' => 'top-down'
-        }.freeze
+  module Diagrams
+    class SMCatBlock < Block
+      CONFIGURATIONS = %w( direction engine input-type ).freeze
 
-        def render_svg(code, config)
-          command = build_command(config)
+      def render_svg(code, config)
+        command = build_command(config)
 
-          svg = render_with_stdout(command, code) do |command, input|
-            "#{command} #{input} -"
-          end
-
-          svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
+        svg = render_with_stdout(command, code) do |command, input|
+          "#{command} #{input} -"
         end
 
-        def build_command(config)
-          command = 'smcat'
+        svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
+      end
 
-          CONFIGURATIONS.merge(config).each do |conf, value|
-            command << " --#{conf} #{value}"
-          end
+      def build_command(config)
+        command = 'smcat'
 
-          command
+        CONFIGURATIONS.each do |conf|
+          command << " --#{conf} #{config[conf]}" if config.has_key?(conf)
         end
+
+        command
       end
     end
   end
+end
 
-  Liquid::Template.register_tag(:smcat, Jekyll::Diagrams::SMCatBlock)
+Liquid::Template.register_tag(:smcat, Jekyll::Diagrams::SMCatBlock)
