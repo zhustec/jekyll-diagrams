@@ -10,16 +10,12 @@ RUN set -eux; \
 RUN set -eux; \
         gem update -N --system; \
         gem install -N bundler; \
-        npm install -g --silent mermaid.cli nomnoml state-machine-cat wavedrom-cli; \
+        npm install -g --silent mermaid.cli nomnoml state-machine-cat; \
+        npm install -g vega-cli vega-lite wavedrom-cli; \
         pip3 install blockdiag seqdiag actdiag nwdiag syntrax
 
 WORKDIR /opt/jekyll-diagrams
 
 COPY . .
 
-# RUN set -eux; \
-#         apt-get install -y --no-install-recommends cabal-install; \
-#         cabal update; \
-#         cabal install erd
-
-# RUN bundle install
+RUN bundle install
