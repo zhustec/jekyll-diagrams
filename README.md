@@ -207,6 +207,20 @@ Install `mermaid.cli`.
 $ npm install -g mermaid.cli
 ```
 
+**Notice:** You may need to install some missing libraries, follow the output of `mmdc`.
+
+#### Examples
+
+```text
+{% mermaid %}
+sequenceDiagram
+    participant John
+    participant Alice
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+{% endmermaid %}
+```
+
 #### Configurations
 
 | Config            | Default | Description                                                   |
@@ -319,12 +333,24 @@ initial           => "tape player off";
 
 #### Prerequisites
 
-- Install `cargo`
-- Install `svgbob_cli`
+Install `svgbob_cli`.
 
 ```bash
 $ sudo apt install cargo
 $ cargo install svgbob_cli
+```
+
+#### Examples
+
+```text
+{% svgbob %}
+                           .--->  F
+  A       B      C  D     /
+  *-------*-----*---*----*----->  E
+           \            ^ \
+            v          /   '--->  G
+             B --> C -'
+{% endsvgbob %}
 ```
 
 #### Configuration
@@ -340,11 +366,11 @@ $ cargo install svgbob_cli
 
 #### Prerequisites
 
-- Install Pango, Cairo and PangoCairo
+- Install Pango, Cairo and PangoCairo support
 - Install `syntrax`
 
 ```bash
-$ sudo apt install libpango1.0-dev python3-cairo python3-gi
+$ sudo apt install libpango1.0-dev python3-cairo python3-gi python3-gi-cairo
 $ pip3 install syntrax
 ```
 
@@ -380,6 +406,30 @@ $ npm install -g vega-cli vega-lite
 ```
 
 The you can use `vega` and `vegalite` tag.
+
+
+#### Examples
+
+```text
+{% vegalite %}
+{
+  "": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A simple bar chart with embedded data.",
+  "data": {
+    "values": [
+      {"a": "A", "b": 28}, {"a": "B", "b": 55}, {"a": "C", "b": 43},
+      {"a": "D", "b": 91}, {"a": "E", "b": 81}, {"a": "F", "b": 53},
+      {"a": "G", "b": 19}, {"a": "H", "b": 87}, {"a": "I", "b": 52}
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {"field": "a", "type": "ordinal"},
+    "y": {"field": "b", "type": "quantitative"}
+  }
+}
+{% endvegalite %}
+```
 
 #### Configurations
 

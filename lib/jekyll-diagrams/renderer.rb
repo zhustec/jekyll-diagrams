@@ -21,23 +21,18 @@ module Jekyll
         end
       end
 
-      def render_with_stdout(command, content)
+      def render_with_tempfile(command, content, stdout: false)
         Tempfile.open('jekyll_diagrams_input') do |input|
           File.write(input.path, content)
 
-          command = yield command, input.path if block_given?
+          if stdout == true
+            command = yield command, input.path
 
-          render_with_command(command, :stdout)
-        end
-      end
-
-      def render_with_tempfile(command, content)
-        Tempfile.open('jekyll_diagrams_input') do |input|
-          File.write(input.path, content)
-
-          Tempfile.open(['jekyll_diagrams_output', ".svg"]) do |output|
+            render_with_command(command, :stdout)
+          else
+            output = Tempfile.open(['jekyll_diagrams_output', ".svg"])
             output.close
-            command = yield command, input.path, output.path if block_given?
+            command = yield command, input.path, output.path
 
             render_with_command(command, output.path)
           end

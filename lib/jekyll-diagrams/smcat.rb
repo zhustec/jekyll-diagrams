@@ -6,7 +6,7 @@ module Jekyll
       def render_svg(code, config)
         command = build_command(config)
 
-        svg = render_with_stdout(command, code) do |command, input|
+        svg = render_with_tempfile(command, code, stdout: true) do |command, input|
           "#{command} #{input} -"
         end
 
