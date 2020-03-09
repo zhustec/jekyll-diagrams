@@ -20,9 +20,10 @@ RUN set -eux; \
                 libpango1.0-dev \
                 libpython3-dev \
                 python3-pip \
+                python3-setuptools \
                 python3-cairo \
                 python3-gi \
-                python3-setuptools \
+                python3-gi-cairo \
                 ruby \
                 ruby-dev
 
