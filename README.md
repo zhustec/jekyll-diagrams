@@ -195,6 +195,7 @@ digraph {
 | `graph_attributes` | unspecified | Set default graph attribute |
 | `node_attributes`  | unspecified | Set default node attribute  |
 | `edge_attributes`  | unspecified | Set default edge attribute  |
+| `encoding`         | utf-8       | Set default SVG encoding    |
 
 **NOTICE:** attributes can be `String`(when just one attribute), `Array` or `Hash`.
 
