@@ -8,11 +8,13 @@ module Jekyll
         'E' => 'edge_attributes'
       }.freeze
 
+      @@xml_regex = /^<!DOCTYPE(([^>]|\n)*)>(\n?)/ # avoid expensive recreation of regexp
+
       def render_svg(code, config)
         command = build_command(config)
 
         svg = render_with_stdin_stdout(command, code)
-        svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
+        svg.sub!(@@xml_regex, '').force_encoding(config.fetch('encoding', 'utf-8')) # allow overriding encoding of output
       end
 
       def build_command(config)
