@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'bundler/gem_tasks'
-require "rake/testtask"
+
+require 'rake/testtask'
 
 Rake::TestTask.new(:test) do |t|
   t.libs << 'test'
@@ -7,4 +10,13 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList['test/**/*_test.rb']
 end
 
-task default: :test
+require 'cucumber/rake/task'
+Cucumber::Rake::Task.new(:features)
+
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new(:rubocop)
+
+require 'coveralls/rake/task'
+Coveralls::RakeTask.new
+
+task default: %i[test features]

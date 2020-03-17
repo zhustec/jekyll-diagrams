@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     module Util
-      extend self
+      module_function
 
       def diagrams_config(context)
         site_config = context.registers[:site].config
@@ -10,8 +12,8 @@ module Jekyll
 
         return new_config if old_config.empty?
 
-        Jekyll.warn "Configuration `diagram` in _config.yml will be depreated"
-        Jekyll.warn "    Rename it to `jekyll-diagram` instead."
+        Jekyll.warn 'Configuration `diagram` in _config.yml will be depreated'
+        Jekyll.warn '    Rename it to `jekyll-diagram` instead.'
 
         old_config.merge(new_config)
       end

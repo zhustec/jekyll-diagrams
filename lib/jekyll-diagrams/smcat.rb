@@ -1,23 +1,25 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     class SMCatBlock < Block
-      CONFIGURATIONS = %w( direction engine input-type ).freeze
+      CONFIGURATIONS = %w[direction engine input-type].freeze
 
       def render_svg(code, config)
         command = build_command(config)
 
-        svg = render_with_tempfile(command, code, stdout: true) do |command, input|
-          "#{command} #{input} -"
+        svg = render_with_tempfile(command, code, stdout: true) do |input|
+          "#{input} -"
         end
 
         svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
       end
 
       def build_command(config)
-        command = 'smcat'
+        command = String.new 'smcat'
 
         CONFIGURATIONS.each do |conf|
-          command << " --#{conf} #{config[conf]}" if config.has_key?(conf)
+          command << " --#{conf} #{config[conf]}" if config.key?(conf)
         end
 
         command

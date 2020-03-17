@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     class Block < Liquid::Block
@@ -9,7 +11,7 @@ module Jekyll
         wrap_class(svg)
       end
 
-      def render_svg(content, config)
+      def render_svg(_, _)
         raise 'Not Implemented'
       end
 

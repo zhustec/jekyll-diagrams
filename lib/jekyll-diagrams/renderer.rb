@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 require 'open3'
 require 'tempfile'
 
 module Jekyll
   module Diagrams
     module Renderer
-      extend self
+      module_function
 
       def render_with_stdin_stdout(command, content)
-        command = yield command if block_given?
-
-        render_with_command(command, :stdout, stdin_data: content, binmode: true)
+        render_with_command(command, :stdout, stdin_data: content,
+                                              binmode: true)
       end
 
       def render_with_stdin(command, content)
-        Tempfile.open(['jekyll_diagrams_output', ".svg"]) do |output|
+        Tempfile.open(['jekyll_diagrams_output', '.svg']) do |output|
           output.close
-          command = yield command, output.path if block_given?
+          extra = yield output.path if block_given?
+          command = "#{command} #{extra}"
 
           render_with_command(command, output.path, stdin_data: content)
         end
@@ -26,13 +28,15 @@ module Jekyll
           File.write(input.path, content)
 
           if stdout == true
-            command = yield command, input.path
+            extra = yield input.path
+            command = "#{command} #{extra}"
 
             render_with_command(command, :stdout)
           else
-            output = Tempfile.open(['jekyll_diagrams_output', ".svg"])
+            output = Tempfile.open(['jekyll_diagrams_output', '.svg'])
             output.close
-            command = yield command, input.path, output.path
+            extra = yield input.path, output.path
+            command = "#{command} #{extra}"
 
             render_with_command(command, output.path)
           end
@@ -42,7 +46,7 @@ module Jekyll
       def render_with_command(command, output, options = {})
         stdout, stderr, status = Open3.capture3(command, options)
 
-        if !status.success?
+        unless status.success?
           raise "#{command} failed: #{stdout.empty? ? stderr : stdout}"
         end
 

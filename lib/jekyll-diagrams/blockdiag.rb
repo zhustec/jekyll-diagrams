@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     class BlockdiagBlock < Block
-      CONFIGURATIONS = %w( config font fontmap size ).freeze
+      CONFIGURATIONS = %w[config font fontmap size].freeze
 
       def render_svg(code, config)
         command = build_command(config)
 
-        render_with_tempfile(command, code) do |command, input, output|
-          "#{command} #{input} -o #{output}"
+        render_with_tempfile(command, code) do |input, output|
+          "#{input} -o #{output}"
         end
       end
 
@@ -17,10 +19,10 @@ module Jekyll
 
       def build_command(config)
         command = "#{block_name} -T svg --nodoctype"
-        command << ' --antialias' if config.has_key?('antialias')
+        command << ' --antialias' if config.key?('antialias')
 
         CONFIGURATIONS.each do |conf|
-          command << " --#{conf}=#{config[conf]}" if config.has_key?(conf)
+          command << " --#{conf}=#{config[conf]}" if config.key?(conf)
         end
 
         command
@@ -29,6 +31,6 @@ module Jekyll
   end
 end
 
-%i(blockdiag seqdiag actdiag nwdiag rackdiag packetdiag).each do |tag|
+%i[blockdiag seqdiag actdiag nwdiag rackdiag packetdiag].each do |tag|
   Liquid::Template.register_tag(tag, Jekyll::Diagrams::BlockdiagBlock)
 end

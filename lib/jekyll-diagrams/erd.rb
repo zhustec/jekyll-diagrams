@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     class ErdBlock < Block
-      CONFIGURATIONS = %w( config edge ).freeze
+      CONFIGURATIONS = %w[config edge].freeze
 
       def render_svg(code, config)
         command = build_command(config)
@@ -11,11 +13,11 @@ module Jekyll
       end
 
       def build_command(config)
-        command = 'erd --fmt=svg'
-        command << ' --dot-entity' if config.has_key?('dot-entity')
+        command = String.new 'erd --fmt=svg'
+        command << ' --dot-entity' if config.key?('dot-entity')
 
         CONFIGURATIONS.each do |conf|
-          command << " --#{conf}=#{config[conf]}" if config.has_key?(conf)
+          command << " --#{conf}=#{config[conf]}" if config.key?(conf)
         end
 
         command

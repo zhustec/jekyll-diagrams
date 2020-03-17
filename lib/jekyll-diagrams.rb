@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'jekyll-diagrams/util'
 require_relative 'jekyll-diagrams/renderer'
 require_relative 'jekyll-diagrams/block'

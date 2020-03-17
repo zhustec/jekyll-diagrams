@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     class SyntraxBlock < Block
-      CONFIGURATIONS = %w( scale style ).freeze
+      CONFIGURATIONS = %w[scale style].freeze
 
       def render_svg(code, config)
         command = build_command(config)
 
-        render_with_tempfile(command, code) do |command, input, output|
-          "#{command} --input #{input} --output #{output}"
+        render_with_tempfile(command, code) do |input, output|
+          "--input #{input} --output #{output}"
         end
       end
 
       def build_command(config)
-        command = 'syntrax'
+        command = String.new 'syntrax'
 
         CONFIGURATIONS.each do |conf|
-          command << " --#{conf} #{config[conf]}" if config.has_key?(conf)
+          command << " --#{conf} #{config[conf]}" if config.key?(conf)
         end
 
         command

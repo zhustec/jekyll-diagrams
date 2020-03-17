@@ -1,7 +1,6 @@
 FROM ubuntu:bionic
 
-RUN set -eux; \
-        apt-get update; \
+RUN apt-get -qq update && \
         apt-get install -y --no-install-recommends \
                 build-essential \
                 git \
@@ -27,17 +26,16 @@ RUN set -eux; \
                 ruby \
                 ruby-dev
 
-RUN set -eux; \
-        cargo install --root /usr/local svgbob_cli; \
-        gem update -N --system; \
-        gem install -N bundler; \
+RUN cargo install --root /usr/local svgbob_cli && \
+        gem update --no-document --system && \
+        gem install --no-document bundler && \
         npm install -g --silent \
                 mermaid.cli \
                 nomnoml \
                 state-machine-cat \
                 vega-cli \
                 vega-lite \
-                wavedrom-cli; \
+                wavedrom-cli && \
         pip3 install \
                 blockdiag \
                 seqdiag \
@@ -45,8 +43,12 @@ RUN set -eux; \
                 nwdiag \
                 syntrax
 
+EXPOSE 4000
+
 WORKDIR /app
 
-RUN gem install -N jekyll jekyll-diagrams
+COPY . .
 
-EXPOSE 4000
+RUN bundle install
+
+RUN bundle exec rake

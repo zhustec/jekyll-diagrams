@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     class GraphvizBlock < Block
@@ -16,21 +18,21 @@ module Jekyll
       end
 
       def build_command(config)
-        command = 'dot -Tsvg'
+        command = String.new 'dot -Tsvg'
 
         CONFIGRATIONS.each do |prefix, conf|
-          next unless config.has_key?(conf)
+          next unless config.key?(conf)
 
           attrs = config[conf]
 
           attrs = case attrs
-          when String
-            attrs
-          when Array
-            attrs.join(" -#{prefix}")
-          when Hash
-            attrs.map { |k, v| "#{k}=#{v}" }.join(" -#{prefix}")
-          end
+                  when String
+                    attrs
+                  when Array
+                    attrs.join(" -#{prefix}")
+                  when Hash
+                    attrs.map { |k, v| "#{k}=#{v}" }.join(" -#{prefix}")
+                  end
 
           command << " -#{prefix}#{attrs}"
         end

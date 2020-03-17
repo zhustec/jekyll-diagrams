@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jekyll
   module Diagrams
     class PlantUMLBlock < Block
@@ -8,7 +10,7 @@ module Jekyll
         svg.sub!(/^<\?xml([^>]|\n)*>\n?/, '')
       end
 
-      def build_command(config)
+      def build_command(_config)
         options = 'java'
         options << ' -Djava.awt.headless=true'
         options << ' -jar '
