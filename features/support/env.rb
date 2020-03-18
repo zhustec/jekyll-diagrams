@@ -3,10 +3,12 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'jekyll'
-require 'minitest'
-require 'tmpdir'
+require 'coveralls'
+Coveralls.wear!
 
+require 'tmpdir'
+require 'minitest'
+require 'jekyll'
 require 'jekyll-diagrams'
 
 TEST_DIR = File.join(Dir.tmpdir, 'jekyll-diagrams-features')

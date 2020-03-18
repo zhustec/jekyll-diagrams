@@ -10,13 +10,14 @@ Rake::TestTask.new(:test) do |t|
   t.test_files = FileList['test/**/*_test.rb']
 end
 
-require 'cucumber/rake/task'
-Cucumber::Rake::Task.new(:features)
+desc 'Run features tests'
+task :features do
+  system 'bundle exec cucumber'
+end
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new(:rubocop)
-
-require 'coveralls/rake/task'
-Coveralls::RakeTask.new
+desc 'Run rubocop'
+task :rubocop do
+  system 'bundle exec rubocop lib'
+end
 
 task default: %i[test features]

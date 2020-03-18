@@ -23,8 +23,7 @@ RUN apt-get -qq update && \
                 python3-cairo \
                 python3-gi \
                 python3-gi-cairo \
-                ruby \
-                ruby-dev
+                ruby-full
 
 RUN cargo install --root /usr/local svgbob_cli && \
         gem update --no-document --system && \

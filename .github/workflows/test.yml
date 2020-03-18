@@ -1,0 +1,82 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        ruby:
+          - 2.6
+          - 2.7
+
+    steps:
+      - name: Checkout reposity
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Install APT stuffs
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get -yqq install cargo \
+              graphviz \
+              default-jre-headless \
+              npm \
+              python3 \
+              python3-pip \
+              python3-setuptools
+
+      # Install packages to "$HOME/.cargo/bin"
+      - name: Install Cargo stuffs
+        run: |
+          cargo install svgbob_cli
+
+      # Install packages to "$HOME/.npm"
+      - name: Install NPM stuffs
+        run: |
+          npm config set prefix "$HOME/.npm"
+          npm install -g mermaid.cli \
+              nomnoml \
+              state-machine-cat \
+              vega-cli \
+              vega-lite \
+              wavedrom-cli
+
+      # Install packages to "$HOME/.local/bin"
+      - name: Install Pip stuffs
+        run: |
+          # Dependencies for syntrax
+          sudo apt-get -yqq install libatk1.0-0 \
+              libatk-bridge2.0-0 \
+              libgtk-3-0 \
+              libx11-xcb1 \
+              libxcomposite1 \
+              libxrandr2 \
+              libxss1 \
+              libpango1.0-dev \
+              libpython3-dev \
+              python3-cairo \
+              python3-gi \
+              python3-gi-cairo
+          pip3 install blockdiag seqdiag actdiag nwdiag syntrax
+
+      - name: Run Test with Rake
+        run: |
+          export PATH="$HOME/.local/bin:$HOME/.npm/bin:$HOME/.cargo/bin:$PATH"
+          bundle install --jobs 4 --retry 3
+          bundle exec rake
+
+      # - name: Coveralls
+      # uses: coverallsapp/github-action@v1.0.1
+      # with:
+      # github-token: ${{ secrets.GITHUB_TOKEN }}
+      # parallel: true
+      # parallel-finished: true

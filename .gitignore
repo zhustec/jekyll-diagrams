@@ -1,5 +1,4 @@
-.bundle
-.jekyll-cache
-_site
-pkg
-Gemfile.lock
+/.bundle
+/Gemfile.lock
+/coverage
+/pkg
