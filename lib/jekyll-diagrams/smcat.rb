@@ -16,7 +16,7 @@ module Jekyll
       end
 
       def build_command(config)
-        command = String.new 'smcat'
+        command = +'smcat'
 
         CONFIGURATIONS.each do |conf|
           command << " --#{conf} #{config[conf]}" if config.key?(conf)

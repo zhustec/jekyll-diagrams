@@ -14,7 +14,7 @@ module Jekyll
       end
 
       def build_command(config)
-        command = String.new 'syntrax'
+        command = +'syntrax'
 
         CONFIGURATIONS.each do |conf|
           command << " --#{conf} #{config[conf]}" if config.key?(conf)

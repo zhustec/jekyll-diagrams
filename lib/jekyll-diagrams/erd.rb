@@ -13,7 +13,7 @@ module Jekyll
       end
 
       def build_command(config)
-        command = String.new 'erd --fmt=svg'
+        command = +'erd --fmt=svg'
         command << ' --dot-entity' if config.key?('dot-entity')
 
         CONFIGURATIONS.each do |conf|

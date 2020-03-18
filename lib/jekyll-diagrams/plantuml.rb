@@ -11,7 +11,7 @@ module Jekyll
       end
 
       def build_command(_config)
-        options = String.new 'java'
+        options = +'java'
         options << ' -Djava.awt.headless=true'
         options << ' -jar '
         options << vendor_path('plantuml.1.2020.1.jar')

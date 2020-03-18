@@ -12,7 +12,7 @@ module Jekyll
       end
 
       def build_command(config)
-        command = String.new 'svgbob'
+        command = +'svgbob'
 
         CONFIGURATIONS.each do |conf|
           command << " --#{conf} #{config[conf]}" if config.key?(conf)

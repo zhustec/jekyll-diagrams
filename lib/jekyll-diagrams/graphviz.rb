@@ -18,7 +18,7 @@ module Jekyll
       end
 
       def build_command(config)
-        command = String.new 'dot -Tsvg'
+        command = +'dot -Tsvg'
 
         CONFIGRATIONS.each do |prefix, conf|
           next unless config.key?(conf)

@@ -15,7 +15,7 @@ module Jekyll
       end
 
       def build_command(config)
-        command = String.new 'vg2svg'
+        command = +'vg2svg'
 
         CONFIGURATIONS.each do |conf|
           command << " --#{conf} #{config[conf]}" if config.key?(conf)

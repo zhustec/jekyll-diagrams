@@ -14,7 +14,7 @@ module Jekyll
       end
 
       def build_command(config)
-        command = String.new 'mmdc'
+        command = +'mmdc'
         command << ' --puppeteerConfigFile '
         command << vendor_path('mermaid_puppeteer_config.json')
         command << ' --transparent' if config.key?('transparent')

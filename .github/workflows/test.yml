@@ -75,8 +75,6 @@ jobs:
           bundle exec rake
 
       # - name: Coveralls
-      # uses: coverallsapp/github-action@v1.0.1
-      # with:
-      # github-token: ${{ secrets.GITHUB_TOKEN }}
-      # parallel: true
-      # parallel-finished: true
+      #   uses: coverallsapp/github-action@master
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
