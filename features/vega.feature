@@ -29,3 +29,4 @@ Feature: Vega
     When I run jekyll build
     Then the file '_site/vega.html' should exist
     And I should see 'diagrams vega' in '_site/vega.html'
+    And I should see svg output in '_site/vega.html'

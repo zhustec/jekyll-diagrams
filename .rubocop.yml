@@ -1,8 +1,13 @@
+Layout/LineLength:
+  Max: 85
+
 Metrics/MethodLength:
-  Enabled: false
+  Max: 20
 
 Naming/FileName:
-  Enabled: false
+  Exclude:
+    - lib/jekyll-diagrams.rb
+    - features/step_definitions/jekyll-diagrams.rb
 
 Style/Documentation:
   Enabled: false

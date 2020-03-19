@@ -3,7 +3,6 @@
 module Jekyll
   module Diagrams
     class Block < Liquid::Block
-      include Renderer
       include Util
 
       def render(context)
@@ -12,7 +11,7 @@ module Jekyll
       end
 
       def render_svg(_, _)
-        raise 'Not Implemented'
+        ''
       end
 
       def read_config(context)

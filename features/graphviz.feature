@@ -19,3 +19,4 @@ Feature: Graphviz
     When I run jekyll build
     Then the file '_site/graphviz.html' should exist
     And I should see 'diagrams graphviz' in '_site/graphviz.html'
+    And I should see svg output in '_site/graphviz.html'

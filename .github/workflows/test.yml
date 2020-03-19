@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         ruby:
+          - 2.5
           - 2.6
           - 2.7
 
@@ -26,7 +27,8 @@ jobs:
       - name: Install APT stuffs
         run: |
           sudo apt-get -qq update
-          sudo apt-get -yqq install cargo \
+          sudo apt-get -yqq install cabal-install \
+              cargo \
               graphviz \
               default-jre-headless \
               npm \
@@ -42,6 +44,14 @@ jobs:
       # Install packages to "$HOME/.npm"
       - name: Install NPM stuffs
         run: |
+          # Dependencies of mermaid
+          sudo apt-get -yqq install libatk1.0-0 \
+              libatk-bridge2.0-0 \
+              libgtk-3-0 \
+              libx11-xcb1 \
+              libxcomposite1 \
+              libxrandr2 \
+              libxss1
           npm config set prefix "$HOME/.npm"
           npm install -g mermaid.cli \
               nomnoml \
@@ -53,15 +63,8 @@ jobs:
       # Install packages to "$HOME/.local/bin"
       - name: Install Pip stuffs
         run: |
-          # Dependencies for syntrax
-          sudo apt-get -yqq install libatk1.0-0 \
-              libatk-bridge2.0-0 \
-              libgtk-3-0 \
-              libx11-xcb1 \
-              libxcomposite1 \
-              libxrandr2 \
-              libxss1 \
-              libpango1.0-dev \
+          # Dependencies of syntrax
+          sudo apt-get -yqq install libpango1.0-dev \
               libpython3-dev \
               python3-cairo \
               python3-gi \

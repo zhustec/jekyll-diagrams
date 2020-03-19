@@ -3,16 +3,17 @@
 module Jekyll
   module Diagrams
     class SMCatBlock < Block
+      XML_REGEX = /^<\?xml(([^>]|\n)*>\n?){2}/.freeze
       CONFIGURATIONS = %w[direction engine input-type].freeze
 
       def render_svg(code, config)
         command = build_command(config)
 
         svg = render_with_tempfile(command, code, stdout: true) do |input|
-          "#{input} -"
+          "#{input} --output-to -"
         end
 
-        svg.sub!(/^<\?xml(([^>]|\n)*>\n?){2}/, '')
+        svg.sub!(XML_REGEX, '')
       end
 
       def build_command(config)

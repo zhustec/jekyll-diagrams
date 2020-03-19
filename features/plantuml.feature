@@ -21,3 +21,4 @@ Feature: PlantUML
     When I run jekyll build
     Then the file '_site/plantuml.html' should exist
     And I should see 'diagrams plantuml' in '_site/plantuml.html'
+    And I should see svg output in '_site/plantuml.html'

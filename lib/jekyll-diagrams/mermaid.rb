@@ -17,7 +17,7 @@ module Jekyll
         command = +'mmdc'
         command << ' --puppeteerConfigFile '
         command << vendor_path('mermaid_puppeteer_config.json')
-        command << ' --transparent' if config.key?('transparent')
+        command << ' --transparent' if config.fetch('transparent', false) != false
 
         CONFIGURATIONS.each do |conf|
           command << " --#{conf} #{config[conf]}" if config.key?(conf)

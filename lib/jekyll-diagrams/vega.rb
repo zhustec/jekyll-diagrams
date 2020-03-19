@@ -6,9 +6,8 @@ module Jekyll
       CONFIGURATIONS = %w[scale].freeze
 
       def render_svg(code, config)
-        if block_name == 'vegalite'
-          code = render_with_stdin_stdout('vl2vg', code)
-        end
+        code = render_with_stdin_stdout('vl2vg', code) if block_name == 'vegalite'
+
         command = build_command(config)
 
         render_with_stdin_stdout(command, code)

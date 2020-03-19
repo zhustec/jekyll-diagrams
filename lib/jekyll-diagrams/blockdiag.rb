@@ -19,7 +19,7 @@ module Jekyll
 
       def build_command(config)
         command = "#{block_name} -T svg --nodoctype"
-        command << ' --antialias' if config.key?('antialias')
+        command << ' --antialias' if config.fetch('antialias', false) != false
 
         CONFIGURATIONS.each do |conf|
           command << " --#{conf}=#{config[conf]}" if config.key?(conf)

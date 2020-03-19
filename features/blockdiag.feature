@@ -17,3 +17,4 @@ Feature: Blockdiag
     When I run jekyll build
     Then the file '_site/blockdiag.html' should exist
     And I should see 'diagrams blockdiag' in '_site/blockdiag.html'
+    And I should see svg output in '_site/blockdiag.html'

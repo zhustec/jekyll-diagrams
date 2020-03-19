@@ -8,12 +8,12 @@ When('I run jekyll build') do
   run_jekyll
 end
 
-Then('the directory {string} should exist') do |dir|
-  assert Dir.exist?(dir)
-end
-
 Then('the file {string} should exist') do |file|
   assert File.exist?(file)
+end
+
+Then('I should see svg output in {string}') do |file|
+  assert_match %r{<svg(.|\r|\n)*?>(.|\r|\n)*</svg>}, File.read(file)
 end
 
 Then('I should see {string} in {string}') do |pattern, file|

@@ -3,11 +3,13 @@
 module Jekyll
   module Diagrams
     class PlantUMLBlock < Block
+      XML_REGEX = /^<\?xml([^>]|\n)*>\n?/.freeze
+
       def render_svg(code, config)
         command = build_command(config)
 
         svg = render_with_stdin_stdout(command, code)
-        svg.sub!(/^<\?xml([^>]|\n)*>\n?/, '')
+        svg.sub!(XML_REGEX, '')
       end
 
       def build_command(_config)

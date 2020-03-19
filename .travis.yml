@@ -8,6 +8,7 @@ cache:
  - npm
 
 rvm:
+  - 2.5
   - 2.6
   - 2.7
 
@@ -24,6 +25,7 @@ addons:
       - npm
       - libatk1.0-0
       - libatk-bridge2.0-0
+      - libgif-dev
       - libgtk-3-0
       - libx11-xcb1
       - libxcomposite1

@@ -1,8 +1,9 @@
 # Jekyll Diagrams
 
 [![Gem](https://img.shields.io/gem/v/jekyll-diagrams.svg?style=flat-square)](https://rubygems.org/gems/jekyll-diagrams)
-[![Travis](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
 [![Depfu](https://img.shields.io/depfu/zhustec/jekyll-diagrams.svg?style=flat-square)](https://depfu.com/repos/zhustec/jekyll-diagrams)
+[![GitHub Action](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Test?label=Github%20Action&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3ATest)
+[![Travis](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
 [![Coveralls](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams?style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams?branch=master)
 [![License](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
 
@@ -11,7 +12,9 @@ Jekyll Diagrams is a jekyll plugins for creating diagrams, currently support for
 **NOTICE:** This plugin render **SVG** format image and directly **embed into html file**, so you don't need to worry about where to store the image. But, please feel free to tell me if you **unlikely** want other image format.
 
 - [Installation](#installation)
-- [Configuration](#configuration)
+- [Configurations](#configurations)
+  - [Site Configurations](#site-configurations)
+  - [Page Configurations](#page-configurations)
 - [Usage](#usage)
   - [Blockdiag](#blockdiag)
   - [Erd](#erd)
@@ -50,9 +53,11 @@ Finally run:
 $ bundle install
 ```
 
-## Configuration
+## Configurations
 
-All configurations are under `jekyll-diagrams`, e.g:
+### Site Configurations
+
+Site configurations can be set in your site's config file under `jekyll-diagrams` key, e.g:
 
 ```yaml
 jekyll-diagrams:
@@ -63,6 +68,27 @@ jekyll-diagrams:
   syntrax:
     # configurations for syntrax
   # and so on
+```
+
+### Page Configurations
+
+You can set configurations in the front matter of each page, this will overwite global config. e.g.
+
+```text
+---
+title: Custom configurations per page
+
+jekyll-diagrams:
+  graphviz:
+    # configurations for graphviz
+  blockdiag:
+    # configurations for blockdiag
+  syntrax:
+    # configurations for syntrax
+  # and so on
+---
+
+# your content
 ```
 
 ## Usage
@@ -156,11 +182,11 @@ Person *--1 `Birth Place`
 
 #### Configurations
 
-| Config       | Default     | Description                                                                                             |
-| ------------ | ----------- | ------------------------------------------------------------------------------------------------------- |
-| `config`     | unspecified | Configuration file                                                                                      |
-| `edge`       | unspecified | Select one type of edge: compound, noedge, ortho, poly, spline                                          |
-| `dot-entity` | unspecified | When set, output will consist of regular dot tables instead of HTML tables. Formatting will be disabled |
+| Config       | Default     | Description                                                                |
+| ------------ | ----------- | -------------------------------------------------------------------------- |
+| `config`     | unspecified | Configuration file                                                         |
+| `edge`       | unspecified | Select one type of edge: compound, noedge, ortho, poly, spline             |
+| `dot-entity` | unspecified | When set, output will consist of regular dot tables instead of HTML tables |
 
 ### Graphviz
 
@@ -189,13 +215,13 @@ digraph {
 
 #### Configurations
 
-| Config             | Default     | Description                 |
-| ------------------ | ----------- | --------------------------- |
-| `default_layout`   | dot         | Set default layout engine   |
-| `graph_attributes` | unspecified | Set default graph attribute |
-| `node_attributes`  | unspecified | Set default node attribute  |
-| `edge_attributes`  | unspecified | Set default edge attribute  |
-| `encoding`         | utf-8       | Set default SVG encoding    |
+| Config             | Default     | Description                  |
+| ------------------ | ----------- | ---------------------------- |
+| `default_layout`   | dot         | Set layout engine            |
+| `graph_attributes` | unspecified | Set default graph attributes |
+| `node_attributes`  | unspecified | Set default node attributes  |
+| `edge_attributes`  | unspecified | Set default edge attributes  |
+| `encoding`         | utf-8       | Set default SVG encoding     |
 
 **NOTICE:** attributes can be `String`(when just one attribute), `Array` or `Hash`.
 
@@ -227,10 +253,10 @@ sequenceDiagram
 
 | Config            | Default | Description                                                   |
 | ----------------- | ------- | ------------------------------------------------------------- |
-| `theme`           | default | Theme of the chart, could be default, forest, dark or neutral |
 | `width`           | 800     | Width of the page                                             |
 | `height`          | 600     | Height of the page                                            |
 | `backgroundColor` | white   | Background color. Example: transparent, red, '#F0F0F0'        |
+| `theme`           | default | Theme of the chart, could be default, forest, dark or neutral |
 
 ### Nomnoml
 
@@ -327,9 +353,9 @@ initial           => "tape player off";
 
 | Config       | Default    | Description                                                                         |
 | ------------ | ---------- | ----------------------------------------------------------------------------------- |
-| `input-type` | `smcat`    | Input type. `smcat|scxml|json`                                                      |
-| `engine`     | `dot`      | Layout engine to use. `dot|circo|fdp|neato|osage|twopi`                             |
-| `direction`  | `top-down` | Direction of the state machine diagram. `top-down|bottom-top|left-right|right-left` |
+| `input-type` | `smcat`    | Input type. `smcat scxml json`                                                      |
+| `engine`     | `dot`      | Layout engine to use. `dot circo fdp neato osage twopi`                             |
+| `direction`  | `top-down` | Direction of the state machine diagram. `top-down bottom-top left-right right-left` |
 
 ### Svgbob
 
