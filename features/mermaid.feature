@@ -1,7 +1,7 @@
 Feature: Mermaid
 
 
-  Scenario: Default configuration
+  Scenario: Basic Rendering
     Given I have a file 'mermaid.md' with content:
       """
       ---
@@ -17,5 +17,4 @@ Feature: Mermaid
       """
     When I run jekyll build
     Then the file '_site/mermaid.html' should exist
-    And I should see 'diagrams mermaid' in '_site/mermaid.html'
     And I should see svg output in '_site/mermaid.html'

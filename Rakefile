@@ -1,28 +1,58 @@
 # frozen_string_literal: true
 
-require 'bundler/gem_tasks'
-
+require 'bundler/gem_helper'
 require 'rake/testtask'
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'test'
-  t.libs << 'lib'
-  t.test_files = FileList['test/**/*_test.rb']
+namespace :docker do
+  desc 'Build docker image'
+  task :build do
+    system 'docker build docker/ -t diagrams'
+  end
+
+  desc 'Run docker image'
+  task :run do
+    system <<~CMD
+      docker run -it --rm \
+          --mount type=bind,source=#{Dir.pwd},target=/app diagrams
+    CMD
+  end
 end
 
-desc 'Run test and show coverage'
-task :coverage do
-  system 'bundle exec coveralls report'
+namespace :gem do
+  Bundler::GemHelper.install_tasks
 end
 
-desc 'Run features tests'
-task :features do
-  system 'bundle exec cucumber --format summary'
-end
-
-desc 'Run rubocop'
+desc 'Run rubocop '
 task :rubocop do
   system 'bundle exec rubocop'
 end
 
-task default: %i[test features]
+namespace :rubocop do
+  desc 'Run rubocop and autofix'
+  task :autofix do
+    system 'bundle exec rubocop -a'
+  end
+end
+
+namespace :test do
+  desc 'Run tests and show coverage'
+  task :coverage do
+    system 'bundle exec coveralls report'
+  end
+
+  desc 'Run tests for features'
+  task :features do
+    system 'bundle exec cucumber'
+  end
+
+  Rake::TestTask.new(:minitest) do |t|
+    t.libs << 'test'
+    t.libs << 'lib'
+    t.test_files = FileList['test/**/*_test.rb']
+  end
+end
+
+desc 'Run features and minitest'
+task test: %w[test:features test:minitest]
+
+task default: :test

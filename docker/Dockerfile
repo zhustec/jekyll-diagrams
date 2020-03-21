@@ -1,4 +1,4 @@
-FROM ubuntu:bionic
+FROM ubuntu:latest
 
 RUN apt-get -qq update && \
         apt-get install -y --no-install-recommends \
@@ -42,12 +42,8 @@ RUN cargo install --root /usr/local svgbob_cli && \
                 nwdiag \
                 syntrax
 
-EXPOSE 4000
-
 WORKDIR /app
 
-COPY . .
+COPY Gemfile .
 
 RUN bundle install
-
-RUN bundle exec rake

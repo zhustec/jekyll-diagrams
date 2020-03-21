@@ -4,8 +4,11 @@ require 'test_helper'
 
 class ErdTest < Minitest::Test
   def setup
-    @block = Jekyll::Diagrams::ErdBlock.send(
-      :new, 'erd', '', Liquid::ParseContext.new
+    @block = Jekyll::Diagrams::ErdBlock.parse(
+      'erd',
+      '',
+      Liquid::Tokenizer.new('test {% enderd %}'),
+      Liquid::ParseContext.new
     )
   end
 

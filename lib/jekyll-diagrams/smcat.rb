@@ -9,8 +9,8 @@ module Jekyll
       def render_svg(code, config)
         command = build_command(config)
 
-        svg = render_with_tempfile(command, code, stdout: true) do |input|
-          "#{input} --output-to -"
+        svg = render_with_tempfile(command, code) do |input, output|
+          "#{input} --output-to #{output}"
         end
 
         svg.sub!(XML_REGEX, '')

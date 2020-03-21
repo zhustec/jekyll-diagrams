@@ -1,24 +1,33 @@
 Feature: PlantUML
 
 
-  Scenario: Default configuration
+  Background: I have a file with PlantUML
     Given I have a file 'plantuml.md' with content:
       """
       ---
       ---
 
       {% plantuml %}
-      @startuml
-      class Car
+      Bob->Alice : hello
+      {% endplantuml %}
+      """
 
-      Driver - Car : drives >
-      Car *- Wheel : have 4 >
-      Car -- Person : < owns
+  Scenario: Basic Rendering
+    Given I have a file 'plantuml.md' with content:
+      """
+      ---
+      ---
 
-      @enduml
+      {% plantuml %}
+      Bob->Alice : hello
       {% endplantuml %}
       """
     When I run jekyll build
     Then the file '_site/plantuml.html' should exist
-    And I should see 'diagrams plantuml' in '_site/plantuml.html'
     And I should see svg output in '_site/plantuml.html'
+
+  Scenario: Remove XML Heading
+    When I run jekyll build
+    Then the file '_site/plantuml.html' should exist
+    And I should not see '<\?xml' in '_site/plantuml.html'
+    And I should not see '<!DOCTYPE' in '_site/plantuml.html'

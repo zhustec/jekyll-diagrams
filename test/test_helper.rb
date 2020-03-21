@@ -11,3 +11,10 @@ require 'minitest/autorun'
 require 'fileutils'
 require 'jekyll'
 require 'jekyll-diagrams'
+
+# Mocking this method for testing
+class Jekyll::Diagrams::Block
+  def render_with_command(command, _output = :stdout, **_options)
+    command
+  end
+end

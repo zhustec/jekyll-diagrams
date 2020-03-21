@@ -27,7 +27,8 @@ module Jekyll
         CONFIGRATIONS.each do |prefix, conf|
           next unless config.key?(conf)
 
-          command << normalized_attrs(config[conf], prefix: " -#{prefix}")
+          command << Diagrams.normalized_attrs(config[conf],
+                                               prefix: " -#{prefix}")
         end
 
         command

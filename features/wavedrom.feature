@@ -1,22 +1,16 @@
 Feature: Wavedrom
 
 
-  Scenario: Default configuration
+  Scenario: Basic Rendering
     Given I have a file 'wavedrom.md' with content:
       """
       ---
       ---
 
       {% wavedrom %}
-      {signal: [
-        {name: 'clk', wave: 'p.....|...'},
-        {name: 'dat', wave: 'x.345x|=.x', data: ['head', 'body', 'tail', 'data']},
-        {name: 'req', wave: '0.1..0|1.0'},
-        {name: 'ack', wave: '1.....|01.'}
-      ]}
+      {signal: [{wave: '.'}]}
       {% endwavedrom %}
       """
     When I run jekyll build
     Then the file '_site/wavedrom.html' should exist
-    And I should see 'diagrams wavedrom' in '_site/wavedrom.html'
     And I should see svg output in '_site/wavedrom.html'

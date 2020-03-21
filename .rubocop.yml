@@ -1,13 +1,18 @@
-Layout/LineLength:
-  Max: 85
+AllCops:
+  TargetRubyVersion: 2.5
 
 Metrics/MethodLength:
-  Max: 20
+  Max: 30
 
 Naming/FileName:
   Exclude:
     - lib/jekyll-diagrams.rb
     - features/step_definitions/jekyll-diagrams.rb
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - test/test_helper.rb
+    - features/support/env.rb
 
 Style/Documentation:
   Enabled: false

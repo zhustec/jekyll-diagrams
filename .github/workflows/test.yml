@@ -6,14 +6,19 @@ on:
 
 jobs:
   build:
+    name: Jekyll ${{ matrix.jekyll }} on Ruby ${{ matrix.ruby }}
+
     runs-on: ubuntu-18.04
 
     strategy:
       matrix:
         ruby:
-          - 2.5
-          - 2.6
-          - 2.7
+          - '2.7'
+          - '2.6'
+          - '2.5'
+        jekyll:
+          - '4.0'
+          - '3.8'
 
     steps:
       - name: Checkout reposity
@@ -24,7 +29,7 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - name: Install APT stuffs
+      - name: Set up Dependencies
         run: |
           sudo apt-get -qq update
           sudo apt-get -yqq install cabal-install \
@@ -36,14 +41,8 @@ jobs:
               python3-pip \
               python3-setuptools
 
-      # Install packages to "$HOME/.cargo/bin"
-      - name: Install Cargo stuffs
-        run: |
           cargo install svgbob_cli
 
-      # Install packages to "$HOME/.npm"
-      - name: Install NPM stuffs
-        run: |
           # Dependencies of mermaid
           sudo apt-get -yqq install libatk1.0-0 \
               libatk-bridge2.0-0 \
@@ -60,9 +59,6 @@ jobs:
               vega-lite \
               wavedrom-cli
 
-      # Install packages to "$HOME/.local/bin"
-      - name: Install Pip stuffs
-        run: |
           # Dependencies of syntrax
           sudo apt-get -yqq install libpango1.0-dev \
               libpython3-dev \
@@ -71,11 +67,16 @@ jobs:
               python3-gi-cairo
           pip3 install blockdiag seqdiag actdiag nwdiag syntrax
 
-      - name: Run Test with Rake
+      - name: Set up Jekyll ${{ matrix.jekyll }}
+        run: |
+          bundle install --jobs 4 --retry 3 --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
+
+      - name: Set up PATH
         run: |
           export PATH="$HOME/.local/bin:$HOME/.npm/bin:$HOME/.cargo/bin:$PATH"
-          bundle install --jobs 4 --retry 3
-          bundle exec rake
+
+      - name: Run Test
+        run: bundle exec rake
 
       # - name: Coveralls
       #   uses: coverallsapp/github-action@master
