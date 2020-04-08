@@ -6,7 +6,6 @@ dist: bionic
 
 cache:
  bundler: true
- cargo: true
  pip: true
 
 rvm:
@@ -22,16 +21,11 @@ jobs:
   fast_finish: true
 
 before_install:
-  - cargo install svgbob_cli
-  - gem update -N --system
-  - gem install -N bundler
+  - gem update -N --system && gem install -N bundler
   - npm install -g --silent mermaid.cli nomnoml state-machine-cat vega-cli vega-lite wavedrom-cli
   - pip3 install syntrax blockdiag seqdiag actdiag nwdiag
 
 install: bundle install --jobs 8 --retry 3
-
-before_script:
-  - export PATH="$HOME/.cargo/bin:$PATH"
 
 script: bundle exec rake
 
@@ -39,8 +33,6 @@ addons:
   apt:
     update: true
     packages:
-      - cabal-install
-      - cargo
       - graphviz
       - npm
       - libgif-dev

@@ -1,0 +1,41 @@
+name: Unit Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    name: Jekyll ${{ matrix.jekyll }} on Ruby ${{ matrix.ruby }}
+
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        ruby:
+          - '2.7'
+          - '2.6'
+          - '2.5'
+        jekyll:
+          - '4.0'
+          - '3.8'
+
+    steps:
+      - name: Checkout reposity
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Set up Jekyll ${{ matrix.jekyll }}
+        run: |
+          bundle install --jobs 4 --retry 3 \
+              --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
+
+      - name: Run Rubocop Check
+        run: bundle exec rake rubocop
+
+      - name: Run Unit Test
+        run: bundle exec rake test:minitest

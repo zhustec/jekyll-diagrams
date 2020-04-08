@@ -1,9 +1,10 @@
 # Jekyll Diagrams
 
 [![Gem](https://img.shields.io/gem/v/jekyll-diagrams.svg?style=flat-square)](https://rubygems.org/gems/jekyll-diagrams)
-[![Github Actions](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Test?label=actions&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3ATest)
+[![Unit Test](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Unit%20Test?label=unit-test&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3AUnit%20Test)
+[![Feature Test](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Feature%20Test?label=feature-test&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3AFeature%20Test)
 [![Travis](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?label=travis&style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
-[![Coveralls](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams?style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams)
+[![Coverage](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams?style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams)
 [![License](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
 
 Jekyll Diagrams is a jekyll plugins for creating diagrams, currently support for [**Blockdiag**](http://blockdiag.com/en/), [**Erd**](https://github.com/BurntSushi/erd), [**GraphViz**](http://graphviz.org/), [**Mermaid**](https://mermaid-js.github.io/mermaid/), [**Nomnoml**](http://nomnoml.com/), [**PlantUML**](https://plantuml.com/), [**Svgbob**](https://ivanceras.github.io/svgbob-editor/), [**Syntrax**](https://kevinpt.github.io/syntrax/), [**Vega**](https://vega.github.io/vega/), [**Vega-Lite**](https://vega.github.io/vega-lite/) and [**WaveDrom**](https://wavedrom.com/). More diagrams support will be added in future versions.
@@ -54,17 +55,10 @@ $ bundle install
 
 ## Configurations
 
-### Site Configurations
-
-Site configurations can be set in your site's config file under `jekyll-diagrams` key, e.g:
+Configurations can be set in your site's config file under `jekyll-diagrams` key as below:
 
 ```yaml
 jekyll-diagrams:
-  global:
-    error_mode:
-      - raise    # Raise an error when render failed
-      - warn     # Display a jekyll warning when render failed
-      - skip     # Skip when render failed
   graphviz:
     # configurations for graphviz
   blockdiag:
@@ -74,9 +68,7 @@ jekyll-diagrams:
   # and so on
 ```
 
-### Page Configurations
-
-You can set configurations in the front matter of each page, this will overwite global config. e.g.
+You can override global config in the front matter of each page, e.g.
 
 ```text
 ---
@@ -85,14 +77,31 @@ title: Custom configurations per page
 jekyll-diagrams:
   graphviz:
     # configurations for graphviz
-  blockdiag:
-    # configurations for blockdiag
-  syntrax:
-    # configurations for syntrax
-  # and so on
 ---
 
-# your content
+# Your content
+```
+
+### Error Mode
+
+You can use `error_mode` to configure how to response to errors. `jekyll-diagrams` respect the global [liquid options](https://jekyllrb.com/docs/configuration/liquid/):
+
+```yaml
+liquid:
+  error_mode: 'mode'
+```
+
+Avaliable options:
+
+- `lax`: Ignore all errors
+- `warn`: Output a warning on the console for each error
+- `strict`: Output an error message and stop the build
+
+You can also override it for just `jekyll-diagrams`:
+
+```yaml
+jekyll-diagrams:
+  error_mode: 'mode'
 ```
 
 ## Usage

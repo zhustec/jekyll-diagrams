@@ -1,4 +1,4 @@
-name: Test
+name: Feature Test
 
 on:
   - push
@@ -32,16 +32,12 @@ jobs:
       - name: Set up Dependencies
         run: |
           sudo apt-get -qq update
-          sudo apt-get -yqq install cabal-install \
-              cargo \
-              graphviz \
+          sudo apt-get -yqq install graphviz \
               default-jre-headless \
               npm \
               python3 \
               python3-pip \
               python3-setuptools
-
-          cargo install svgbob_cli
 
           # Dependencies of mermaid
           sudo apt-get -yqq install libatk1.0-0 \
@@ -73,12 +69,7 @@ jobs:
 
       - name: Set up PATH
         run: |
-          export PATH="$HOME/.local/bin:$HOME/.npm/bin:$HOME/.cargo/bin:$PATH"
+          export PATH="$HOME/.local/bin:$HOME/.npm/bin:$PATH"
 
-      - name: Run Test
-        run: bundle exec rake
-
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Feature Test
+        run: bundle exec rake test:features

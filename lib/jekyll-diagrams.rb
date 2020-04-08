@@ -11,14 +11,21 @@ module Jekyll
       # @param context [Liquid::Context, :registers] Parsed context
       # @return Configuration
       def configuration(context)
-        site_config = context.registers[:site].config.fetch(config_name, {})
-        page_config = context.registers[:page].fetch(config_name, {})
+        site_config = context.registers[:site].config
+        page_config = context.registers[:page]
 
         site_config.merge(page_config)
       end
 
       def config_for(context, name)
-        configuration(context).fetch(name, {})
+        configuration(context).dig(config_name, name) || {}
+      end
+
+      def error_mode(context)
+        liquid_mode = configuration(context).dig('liquid', 'error_mode')
+        custom_mode = configuration(context).dig(config_name, 'error_mode')
+
+        (custom_mode || liquid_mode || :warn).to_sym
       end
 
       # Return file path under vendor path

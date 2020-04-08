@@ -6,14 +6,14 @@ module Jekyll
       include Rendering
 
       def render(context)
-        code = super.to_s
         config = Diagrams.config_for(context, block_name)
-        global_config = Diagrams.config_for(context, 'global')
-        error_mode = global_config.fetch('error_mode', :raise).to_sym
 
-        output = render_svg(code, config)
+        output = render_svg(super.to_s, config)
+
         wrap_class(output)
       rescue StandardError => e
+        error_mode = Diagrams.error_mode(context)
+
         handle_error(e, error_mode)
       end
 
@@ -32,31 +32,14 @@ module Jekyll
       private
 
       def handle_error(error, mode)
-        # require 'pry'
-        # binding.pry
         case mode
-        when :raise
+        when :lax
+          ''
+        when :strict
           raise error
-        when :skip
-          ''
         when :warn
-          handle_warn(error, mode)
-          ''
-        end
-      end
-
-      def handle_warn(error, _mode)
-        case error
-        when ProgramNotFoundError
-          program = error.message.split(' ')[0]
-
-          Jekyll.logger.warn 'Jekyll Diagrams', <<~MESSAGE
-            Executable Not found: #{program}, you need to install it first
-          MESSAGE
-        when RenderingFailedError
-          Jekyll.logger.warn 'Jekyll Diagrams', <<~MESSAGE
-            Render Failed: #{error.message}
-          MESSAGE
+          Jekyll.logger.warn 'Jekyll Diagrams:', error.message
+          error.message
         end
       end
     end

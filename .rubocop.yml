@@ -6,13 +6,14 @@ Metrics/MethodLength:
 
 Naming/FileName:
   Exclude:
-    - lib/jekyll-diagrams.rb
     - features/step_definitions/jekyll-diagrams.rb
+    - lib/jekyll-diagrams.rb
 
 Style/ClassAndModuleChildren:
   Exclude:
-    - test/test_helper.rb
     - features/support/env.rb
+    - spec/spec_helper.rb
+    - test/test_helper.rb
 
 Style/Documentation:
   Enabled: false
