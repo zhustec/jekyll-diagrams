@@ -9,7 +9,6 @@ Coveralls.wear!
 require 'minitest/autorun'
 
 require 'fileutils'
-require 'jekyll'
 require 'jekyll-diagrams'
 
 # Mocking this method for testing

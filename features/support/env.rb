@@ -6,9 +6,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'coveralls'
 Coveralls.wear!
 
-require 'tmpdir'
 require 'minitest'
-require 'jekyll'
+require 'tmpdir'
 require 'jekyll-diagrams'
 
 TEST_DIR = File.join(Dir.tmpdir, 'jekyll-diagrams-features')
@@ -30,7 +29,7 @@ def run_jekyll
   options = Jekyll.configuration(
     source: TEST_DIR,
     quiet: true,
-    liquid: { error_mode: :strict }
+    liquid: { 'error_mode' => 'strict' }
   )
 
   Jekyll::Site.new(options).process

@@ -7,7 +7,6 @@ module Jekyll
 
       def render(context)
         config = Diagrams.config_for(context, block_name)
-
         output = render_svg(super.to_s, config)
 
         wrap_class(output)

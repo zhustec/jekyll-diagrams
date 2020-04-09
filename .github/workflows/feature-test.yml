@@ -65,11 +65,10 @@ jobs:
 
       - name: Set up Jekyll ${{ matrix.jekyll }}
         run: |
-          bundle install --jobs 4 --retry 3 --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
-
-      - name: Set up PATH
-        run: |
-          export PATH="$HOME/.local/bin:$HOME/.npm/bin:$PATH"
+          bundle install --jobs 4 --retry 3 \
+              --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
 
       - name: Run Feature Test
-        run: bundle exec rake test:features
+        run: |
+          export PATH="$HOME/.local/bin:$HOME/.npm/bin:$PATH"
+          bundle exec rake test:features

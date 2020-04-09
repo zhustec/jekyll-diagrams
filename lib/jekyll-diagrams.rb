@@ -1,9 +1,26 @@
 # frozen_string_literal: true
 
+require 'jekyll'
+
 module Jekyll
   module Diagrams
-    ProgramNotFoundError = Class.new(StandardError)
-    RenderingFailedError = Class.new(StandardError)
+    Error = Class.new(StandardError) do
+      def initialize(msg)
+        @msg = msg
+      end
+    end
+
+    CommandNotFoundError = Class.new(Error) do
+      def message
+        "Command Not Found: #{@msg}"
+      end
+    end
+
+    RenderingFailedError = Class.new(Error) do
+      def message
+        "Rendering Failed: #{@msg}"
+      end
+    end
 
     class << self
       # Return configuration of Jekyll Diagrams
@@ -41,14 +58,15 @@ module Jekyll
       end
 
       def normalized_attrs(attrs, prefix:, sep: '=')
-        attrs = case attrs
-                when String
-                  attrs
-                when Array
-                  attrs.join(prefix)
-                when Hash
-                  attrs.map { |k, v| "#{k}#{sep}#{v}" }.join(prefix)
-                end
+        attrs =
+          case attrs
+          when String
+            attrs
+          when Array
+            attrs.join(prefix)
+          when Hash
+            attrs.map { |k, v| "#{k}#{sep}#{v}" }.join(prefix)
+          end
 
         "#{prefix}#{attrs}"
       end
