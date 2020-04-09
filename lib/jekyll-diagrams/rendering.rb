@@ -51,11 +51,11 @@ module Jekyll
         begin
           stdout, stderr, status = Open3.capture3(command, **options)
         rescue Errno::ENOENT
-          raise CommandNotFoundError, command.split(' ')[0]
+          raise Errors::CommandNotFoundError, command.split(' ')[0]
         end
 
         unless status.success?
-          raise RenderingFailedError, <<~MSG
+          raise Errors::RenderingFailedError, <<~MSG
             #{command}:
             #{stderr.empty? ? stdout : stderr}
           MSG

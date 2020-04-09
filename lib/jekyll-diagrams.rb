@@ -4,24 +4,6 @@ require 'jekyll'
 
 module Jekyll
   module Diagrams
-    Error = Class.new(StandardError) do
-      def initialize(msg)
-        @msg = msg
-      end
-    end
-
-    CommandNotFoundError = Class.new(Error) do
-      def message
-        "Command Not Found: #{@msg}"
-      end
-    end
-
-    RenderingFailedError = Class.new(Error) do
-      def message
-        "Rendering Failed: #{@msg}"
-      end
-    end
-
     class << self
       # Return configuration of Jekyll Diagrams
       #
@@ -80,8 +62,10 @@ module Jekyll
   end
 end
 
+require_relative 'jekyll-diagrams/errors'
 require_relative 'jekyll-diagrams/rendering'
 require_relative 'jekyll-diagrams/block'
+
 require_relative 'jekyll-diagrams/blockdiag'
 require_relative 'jekyll-diagrams/erd'
 require_relative 'jekyll-diagrams/graphviz'

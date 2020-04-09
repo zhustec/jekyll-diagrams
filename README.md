@@ -1,9 +1,9 @@
 # Jekyll Diagrams
 
 [![Gem](https://img.shields.io/gem/v/jekyll-diagrams.svg?style=flat-square)](https://rubygems.org/gems/jekyll-diagrams)
-[![Unit Test](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Unit%20Test?label=unit-test&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3AUnit%20Test)
 [![Feature Test](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Feature%20Test?label=feature-test&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3AFeature%20Test)
 [![Travis](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?label=travis&style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
+[![Style Check](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Style%20Check?label=style-check&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3AStyle%20Check)
 [![Coverage](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams?style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams)
 [![License](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
 

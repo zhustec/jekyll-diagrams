@@ -3,8 +3,11 @@
 lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'coveralls'
-Coveralls.wear!
+# Don't use coveralls in Github Actions
+unless ENV['GITHUB_ACTIONS']
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 require 'minitest'
 require 'tmpdir'
