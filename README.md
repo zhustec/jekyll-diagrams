@@ -1,11 +1,11 @@
 # Jekyll Diagrams
 
-[![Gem](https://img.shields.io/gem/v/jekyll-diagrams.svg?style=flat-square)](https://rubygems.org/gems/jekyll-diagrams)
-[![Feature Test](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Feature%20Test?label=feature-test&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3AFeature%20Test)
-[![Travis](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?label=travis&style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
-[![Style Check](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Style%20Check?label=style-check&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3AStyle%20Check)
-[![Coverage](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams?style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams)
-[![License](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
+[![Gem](https://img.shields.io/gem/v/jekyll-diagrams.svg?label=Gem&style=flat-square)](https://rubygems.org/gems/jekyll-diagrams)
+[![Test](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Test?label=Test&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3ATest)
+[![Travis](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?label=Travis&style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
+[![Linter](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Linter?label=Linter&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3ALinter)
+[![Coverage](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams?label=Coverage&style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams)
+[![License](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?label=License&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
 
 Jekyll Diagrams is a jekyll plugins for creating diagrams, currently support for [**Blockdiag**](http://blockdiag.com/en/), [**Erd**](https://github.com/BurntSushi/erd), [**GraphViz**](http://graphviz.org/), [**Mermaid**](https://mermaid-js.github.io/mermaid/), [**Nomnoml**](http://nomnoml.com/), [**PlantUML**](https://plantuml.com/), [**Svgbob**](https://ivanceras.github.io/svgbob-editor/), [**Syntrax**](https://kevinpt.github.io/syntrax/), [**Vega**](https://vega.github.io/vega/), [**Vega-Lite**](https://vega.github.io/vega-lite/) and [**WaveDrom**](https://wavedrom.com/). More diagrams support will be added in future versions.
 
@@ -13,8 +13,7 @@ Jekyll Diagrams is a jekyll plugins for creating diagrams, currently support for
 
 - [Installation](#installation)
 - [Configurations](#configurations)
-  - [Site Configurations](#site-configurations)
-  - [Page Configurations](#page-configurations)
+  - [Error Mode](#error-mode)
 - [Usage](#usage)
   - [Blockdiag](#blockdiag)
   - [Erd](#erd)

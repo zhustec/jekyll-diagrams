@@ -1,4 +1,4 @@
-name: Style Check
+name: Linter
 
 on:
   - push
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Style Check on Ruby ${{ matrix.ruby }}
+    name: Lint on Ruby ${{ matrix.ruby }}
 
     runs-on: ubuntu-18.04
 
@@ -29,5 +29,7 @@ jobs:
       - name: Bundle Install
         run: bundle install --jobs 4 --retry 3
 
-      - name: Style Check With RuboCop
-        run: bundle exec rake rubocop
+      - name: RuboCop Linter
+        uses: andrewmcodes/rubocop-linter-action@v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

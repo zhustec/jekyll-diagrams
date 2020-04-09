@@ -1,4 +1,4 @@
-name: Feature Test
+name: Test
 
 on:
   - push
@@ -28,6 +28,14 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+
+      - name: Bundle Install with Jekyll ${{ matrix.jekyll }}
+        run: |
+          bundle install --jobs 4 --retry 3 \
+              --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
+
+      - name: Run Unit Test
+        run: bundle exec rake test:minitest
 
       - name: Set up Dependencies
         run: |
@@ -62,14 +70,6 @@ jobs:
               python3-gi \
               python3-gi-cairo
           pip3 install blockdiag seqdiag actdiag nwdiag syntrax
-
-      - name: Bundle Install with Jekyll ${{ matrix.jekyll }}
-        run: |
-          bundle install --jobs 4 --retry 3 \
-              --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
-
-      - name: Run Unit Test
-        run: bundle exec rake test:minitest
 
       - name: Run Feature Test
         run: |
