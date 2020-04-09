@@ -56,8 +56,7 @@ module Jekyll
 
         unless status.success?
           raise Errors::RenderingFailedError, <<~MSG
-            #{command}:
-            #{stderr.empty? ? stdout : stderr}
+            #{command}: #{stderr.empty? ? stdout : stderr}
           MSG
         end
 

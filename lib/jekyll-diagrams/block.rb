@@ -7,14 +7,17 @@ module Jekyll
 
       def render(context)
         config = Diagrams.config_for(context, block_name)
-        output = render_svg(super.to_s, config)
 
+        output = render_svg(super.to_s, config)
         wrap_class(output)
       rescue StandardError => e
         error_mode = Diagrams.error_mode(context)
 
-        handle_error(e, error_mode)
+        output = handle_error(e, error_mode)
+        wrap_class(output)
       end
+
+      private
 
       def render_svg(_code, _config)
         ''
@@ -28,17 +31,19 @@ module Jekyll
         CONTENT
       end
 
-      private
-
       def handle_error(error, mode)
+        topic = 'Jekyll Diagrams:'
+        msg = error.message
+
         case mode
         when :lax
+          Jekyll.logger.info topic, msg
           ''
-        when :strict
-          raise error
         when :warn
-          Jekyll.logger.warn 'Jekyll Diagrams:', error.message
-          error.message
+          Jekyll.logger.warn topic, msg
+          msg
+        when :strict
+          Jekyll.logger.abort_with topic, msg
         end
       end
     end
