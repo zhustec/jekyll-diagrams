@@ -1,11 +1,17 @@
 FROM ubuntu:latest
 
+ARG USER="diagrams"
+ARG UID="1000"
+ARG GID="1000"
+
+USER root
+
 RUN apt-get -qq update && \
-        apt-get install -y --no-install-recommends \
+        apt-get install -yq --no-install-recommends \
                 build-essential \
                 git \
-                cabal-install \
-                cargo \
+                sudo \
+                vim \
                 default-jre-headless \
                 graphviz \
                 npm \
@@ -23,27 +29,44 @@ RUN apt-get -qq update && \
                 python3-cairo \
                 python3-gi \
                 python3-gi-cairo \
-                ruby-full
+                ruby-full && \
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/*
 
-RUN cargo install --root /usr/local svgbob_cli && \
-        gem update --no-document --system && \
-        gem install --no-document bundler && \
-        npm install -g --silent \
+RUN useradd -s /bin/bash -m --no-user-group --uid $UID $USER
+
+USER $USER
+
+ENV HOME=/home/$USER
+ENV GEM_HOME=$HOME/.gem/ruby/2.5.0 \
+    LOCAL_PATH=$HOME/.local \
+    NPM_PREFIX=$HOME/.npm
+ENV PATH=$GEM_HOME/bin:$LOCAL_PATH/bin:$NPM_PREFIX/bin:$PATH
+
+RUN gem install --no-document --user-install bundler && \
+        npm config set prefix $HOME/.npm && \
+        npm install --global --silent \
                 mermaid.cli \
                 nomnoml \
                 state-machine-cat \
                 vega-cli \
                 vega-lite \
                 wavedrom-cli && \
-        pip3 install \
-                blockdiag \
-                seqdiag \
+        pip3 install --quiet --user \
                 actdiag \
+                blockdiag \
                 nwdiag \
+                seqdiag \
                 syntrax
 
-WORKDIR /app
+WORKDIR $HOME/work
 
 COPY Gemfile .
+
+USER root
+
+RUN chown $USER:users $HOME/work -R
+
+USER $USER
 
 RUN bundle install

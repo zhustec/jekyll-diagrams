@@ -2,6 +2,7 @@
 
 require 'bundler/gem_helper'
 require 'rake/testtask'
+require 'rubocop/rake_task'
 
 namespace :docker do
   desc 'Build docker image'
@@ -12,8 +13,7 @@ namespace :docker do
   desc 'Run docker image'
   task :run do
     system <<~CMD
-      docker run -it --rm \
-          --mount type=bind,source=#{Dir.pwd},target=/app diagrams
+      docker run -it --rm --volume #{Dir.pwd}:/home/diagrams/work diagrams
     CMD
   end
 end
@@ -22,24 +22,14 @@ namespace :gem do
   Bundler::GemHelper.install_tasks
 end
 
-desc 'Run rubocop '
-task :rubocop do
-  system 'bundle exec rubocop'
-end
+RuboCop::RakeTask.new(:rubocop)
 
-namespace :rubocop do
-  desc 'Run rubocop and autofix'
-  task :autofix do
-    system 'bundle exec rubocop -a'
-  end
+desc 'Run tests and show coverage'
+task :coverage do
+  system 'bundle exec coveralls report'
 end
 
 namespace :test do
-  desc 'Run tests and show coverage'
-  task :coverage do
-    system 'bundle exec coveralls report'
-  end
-
   desc 'Run tests for features'
   task :features do
     system 'bundle exec cucumber'

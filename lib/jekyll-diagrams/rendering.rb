@@ -51,14 +51,14 @@ module Jekyll
         begin
           stdout, stderr, status = Open3.capture3(command, **options)
         rescue Errno::ENOENT
-          raise ProgramNotFoundError, command
+          raise Errors::CommandNotFoundError, command.split(' ')[0]
         end
 
         unless status.success?
-          raise RenderingFailedError, <<~MESSAGE
+          raise Errors::RenderingFailedError, <<~MSG
             #{command}:
-            #{stdout.blank? ? stderr : stdout}
-          MESSAGE
+            #{stderr.empty? ? stdout : stderr}
+          MSG
         end
 
         output == :stdout ? stdout : File.read(output)

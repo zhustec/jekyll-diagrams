@@ -1,4 +1,4 @@
-name: Test
+name: Feature Test
 
 on:
   - push
@@ -21,7 +21,7 @@ jobs:
           - '3.8'
 
     steps:
-      - name: Checkout reposity
+      - name: Checkout Reposity
         uses: actions/checkout@v2
 
       - name: Set up Ruby ${{ matrix.ruby }}
@@ -32,16 +32,12 @@ jobs:
       - name: Set up Dependencies
         run: |
           sudo apt-get -qq update
-          sudo apt-get -yqq install cabal-install \
-              cargo \
-              graphviz \
+          sudo apt-get -yqq install graphviz \
               default-jre-headless \
               npm \
               python3 \
               python3-pip \
               python3-setuptools
-
-          cargo install svgbob_cli
 
           # Dependencies of mermaid
           sudo apt-get -yqq install libatk1.0-0 \
@@ -67,18 +63,15 @@ jobs:
               python3-gi-cairo
           pip3 install blockdiag seqdiag actdiag nwdiag syntrax
 
-      - name: Set up Jekyll ${{ matrix.jekyll }}
+      - name: Bundle Install with Jekyll ${{ matrix.jekyll }}
         run: |
-          bundle install --jobs 4 --retry 3 --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
+          bundle install --jobs 4 --retry 3 \
+              --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
 
-      - name: Set up PATH
+      - name: Run Unit Test
+        run: bundle exec rake test:minitest
+
+      - name: Run Feature Test
         run: |
-          export PATH="$HOME/.local/bin:$HOME/.npm/bin:$HOME/.cargo/bin:$PATH"
-
-      - name: Run Test
-        run: bundle exec rake
-
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+          export PATH="$HOME/.local/bin:$HOME/.npm/bin:$PATH"
+          bundle exec rake test:features
