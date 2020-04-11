@@ -2,16 +2,28 @@
 
 module Jekyll
   module Diagrams
-    class Block < Liquid::Block
+    class BaseRenderer
       include Rendering
 
-      def render(context)
-        config = Diagrams.config_for(context, block_name)
+      class << self
+        def render(context, content, block_name)
+          new(context, content, block_name).render
+        end
+      end
 
-        output = render_svg(super.to_s, config)
+      def initialize(context, content, block_name)
+        @context = context
+        @content = content
+        @block_name = block_name
+      end
+
+      def render
+        config = Utils.config_for(@context, @block_name)
+
+        output = render_svg(@content, config)
         wrap_class(output)
       rescue StandardError => e
-        error_mode = Diagrams.error_mode(context)
+        error_mode = Utils.error_mode(@context)
 
         output = handle_error(e, error_mode)
         wrap_class(output)
@@ -25,14 +37,14 @@ module Jekyll
 
       def wrap_class(content)
         <<~CONTENT
-          <div class='jekyll-diagrams diagrams #{block_name}'>
+          <div class='jekyll-diagrams diagrams #{@block_name}'>
             #{content}
           </div>"
         CONTENT
       end
 
       def handle_error(error, mode)
-        topic = 'Jekyll Diagrams:'
+        topic = 'Jekyll Diagrams'
         msg = error.message
 
         case mode

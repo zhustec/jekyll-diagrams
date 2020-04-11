@@ -1,21 +1,12 @@
 # frozen_string_literal: true
 
+require_relative 'nomnoml/renderer'
+require_relative 'nomnoml/block'
+
 module Jekyll
   module Diagrams
-    class NomnomlBlock < Block
-      def render_svg(code, config)
-        command = build_command(config)
-
-        render_with_tempfile(command, code) do |input, output|
-          "#{input} #{output}"
-        end
-      end
-
-      def build_command(_config)
-        'nomnoml'
-      end
+    module Nomnoml
+      Liquid::Template.register_tag(:nomnoml, Block)
     end
   end
 end
-
-Liquid::Template.register_tag(:nomnoml, Jekyll::Diagrams::NomnomlBlock)

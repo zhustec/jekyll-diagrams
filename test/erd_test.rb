@@ -4,22 +4,21 @@ require 'test_helper'
 
 class ErdTest < Minitest::Test
   def setup
-    @block = Jekyll::Diagrams::ErdBlock.parse(
-      'erd',
+    @renderer = Jekyll::Diagrams::Erd::Renderer.new(
+      Liquid::ParseContext.new,
       '',
-      Liquid::Tokenizer.new('test {% enderd %}'),
-      Liquid::ParseContext.new
+      'erd'
     )
   end
 
   def test_build_command_with_default_config
     config = {}
-    assert_equal 'erd --fmt=svg', @block.build_command(config)
+    assert_equal 'erd --fmt=svg', @renderer.build_command(config)
 
     config = { 'edge' => 'compound' }
-    assert_match 'edge', @block.build_command(config)
+    assert_match 'edge', @renderer.build_command(config)
 
     config = { 'dot-entity' => true }
-    assert_match 'dot-entity', @block.build_command(config)
+    assert_match 'dot-entity', @renderer.build_command(config)
   end
 end
