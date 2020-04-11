@@ -3,9 +3,7 @@
 module Jekyll
   module Diagrams
     module PlantUMLFilter
-      def as_plantuml(input)
-        PlantUMLRenderer.render(@context, input, 'plantuml')
-      end
+      include BasicFilter
     end
   end
 end

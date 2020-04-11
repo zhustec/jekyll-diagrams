@@ -3,9 +3,7 @@
 module Jekyll
   module Diagrams
     module ErdFilter
-      def as_erd(input)
-        ErdRenderer.render(@context, input, 'erd')
-      end
+      include BasicFilter
     end
   end
 end

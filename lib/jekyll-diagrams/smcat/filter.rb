@@ -3,9 +3,7 @@
 module Jekyll
   module Diagrams
     module SMCatFilter
-      def as_smcat(input)
-        SMCatRenderer.render(@context, input, 'smcat')
-      end
+      include BasicFilter
     end
   end
 end

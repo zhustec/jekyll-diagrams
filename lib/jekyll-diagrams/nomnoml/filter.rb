@@ -3,9 +3,7 @@
 module Jekyll
   module Diagrams
     module NomnomlFilter
-      def as_nomnoml(input)
-        NomnomlRenderer.render(@context, input, 'nomnoml')
-      end
+      include BasicFilter
     end
   end
 end

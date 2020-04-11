@@ -27,10 +27,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jekyll', '>= 3.8', '< 5.0'
 
   spec.add_development_dependency 'bundler', '>= 1.15.0', '< 3.0'
-  spec.add_development_dependency 'coveralls', '>= 0.8', '< 1.0'
   spec.add_development_dependency 'cucumber', '>= 3.0', '< 4.0'
   spec.add_development_dependency 'minitest', '>= 5.10', '< 6.0'
   spec.add_development_dependency 'pry', '>= 0.10', '< 1.0'
   spec.add_development_dependency 'rake', '>= 12.0', '< 14.0'
   spec.add_development_dependency 'rubocop', '>= 0.70', '< 1.0'
+  spec.add_development_dependency 'simplecov', '>= 0.18.0', '< 1.0'
+  spec.add_development_dependency 'simplecov-lcov'
 end

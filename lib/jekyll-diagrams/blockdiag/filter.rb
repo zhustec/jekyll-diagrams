@@ -2,12 +2,11 @@
 
 module Jekyll
   module Diagrams
-    module BlockdiagFilter
-      %i[blockdiag seqdiag actdiag nwdiag rackdiag packetdiag].each do |filter|
-        define_method "as_#{filter}" do |input|
-          BlockdiagRenderer.render(@context, input, filter)
-        end
-      end
+    %i[blockdiag seqdiag actdiag nwdiag rackdiag packetdiag].each do |name|
+      filter = "#{name.capitalize}Filter"
+
+      Diagrams.const_set(filter, Module.new)
+      Diagrams.const_get(filter).include(BasicFilter)
     end
   end
 end

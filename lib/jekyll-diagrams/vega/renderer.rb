@@ -2,28 +2,32 @@
 
 module Jekyll
   module Diagrams
-    class VegaRenderer < BasicRenderer
-      CONFIGURATIONS = %w[scale].freeze
+    %i[vega vegalite].each do |name|
+      renderer = Class.new(BasicRenderer) do
+        const_set :CONFIGURATIONS, %w[scale].freeze
 
-      def render_svg(code, config)
-        if @block_name == 'vegalite'
-          code = render_with_stdin_stdout('vl2vg', code)
+        def render_svg(code, config)
+          if @block_name == 'vegalite'
+            code = render_with_stdin_stdout('vl2vg', code)
+          end
+
+          command = build_command(config)
+
+          render_with_stdin_stdout(command, code)
         end
 
-        command = build_command(config)
+        def build_command(config)
+          command = +'vg2svg'
 
-        render_with_stdin_stdout(command, code)
-      end
+          self.class.const_get(:CONFIGURATIONS).each do |conf|
+            command << " --#{conf} #{config[conf]}" if config.key?(conf)
+          end
 
-      def build_command(config)
-        command = +'vg2svg'
-
-        CONFIGURATIONS.each do |conf|
-          command << " --#{conf} #{config[conf]}" if config.key?(conf)
+          command
         end
-
-        command
       end
+
+      Diagrams.const_set "#{name.capitalize}Renderer", renderer
     end
   end
 end

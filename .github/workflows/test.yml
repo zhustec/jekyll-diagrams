@@ -75,3 +75,15 @@ jobs:
         run: |
           export PATH="$HOME/.local/bin:$HOME/.npm/bin:$PATH"
           bundle exec rake test:features
+
+      - name: Coveralls Parallel
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true

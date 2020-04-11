@@ -2,12 +2,11 @@
 
 module Jekyll
   module Diagrams
-    module VegaFilter
-      %i[vega vegalite].each do |filter|
-        define_method "as_#{filter}" do |input|
-          VegaRenderer.render(@context, input, filter)
-        end
-      end
+    %i[vega vegalite].each do |name|
+      filter = "#{name.capitalize}Filter"
+
+      Diagrams.const_set(filter, Module.new)
+      Diagrams.const_get(filter).include(BasicFilter)
     end
   end
 end

@@ -3,9 +3,7 @@
 module Jekyll
   module Diagrams
     module GraphvizFilter
-      def as_graphviz(input)
-        GraphvizRenderer.render(@context, input, 'graphviz')
-      end
+      include BasicFilter
     end
   end
 end

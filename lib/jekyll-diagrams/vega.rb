@@ -7,9 +7,8 @@ require_relative 'vega/filter'
 module Jekyll
   module Diagrams
     %i[vega vegalite].each do |tag|
-      Liquid::Template.register_tag(tag, VegaBlock)
+      Liquid::Template.register_tag(tag, const_get("#{tag.capitalize}Block"))
+      Liquid::Template.register_filter(const_get("#{tag.capitalize}Filter"))
     end
-
-    Liquid::Template.register_filter(VegaFilter)
   end
 end

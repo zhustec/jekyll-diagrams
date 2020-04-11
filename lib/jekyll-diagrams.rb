@@ -22,6 +22,7 @@ require_relative 'jekyll-diagrams/rendering'
 
 require_relative 'jekyll-diagrams/basic_renderer'
 require_relative 'jekyll-diagrams/basic_block'
+require_relative 'jekyll-diagrams/basic_filter'
 
 require_relative 'jekyll-diagrams/blockdiag'
 require_relative 'jekyll-diagrams/erd'

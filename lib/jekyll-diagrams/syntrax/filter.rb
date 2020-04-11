@@ -3,9 +3,7 @@
 module Jekyll
   module Diagrams
     module SyntraxFilter
-      def as_syntrax(input)
-        SyntraxRenderer.render(@context, input, 'syntrax')
-      end
+      include BasicFilter
     end
   end
 end

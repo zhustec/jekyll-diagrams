@@ -3,9 +3,7 @@
 module Jekyll
   module Diagrams
     module SvgbobFilter
-      def as_svgbob(input)
-        SvgbobRenderer.render(@context, input, 'svgbob')
-      end
+      include BasicFilter
     end
   end
 end

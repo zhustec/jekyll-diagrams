@@ -7,9 +7,8 @@ require_relative 'blockdiag/filter'
 module Jekyll
   module Diagrams
     %i[blockdiag seqdiag actdiag nwdiag rackdiag packetdiag].each do |tag|
-      Liquid::Template.register_tag(tag, BlockdiagBlock)
+      Liquid::Template.register_tag(tag, const_get("#{tag.capitalize}Block"))
+      Liquid::Template.register_filter(const_get("#{tag.capitalize}Filter"))
     end
-
-    Liquid::Template.register_filter(BlockdiagFilter)
   end
 end

@@ -2,7 +2,8 @@
 
 module Jekyll
   module Diagrams
-    class VegaBlock < BasicBlock
+    %i[vega vegalite].each do |name|
+      Diagrams.const_set "#{name.capitalize}Block", Class.new(BasicBlock)
     end
   end
 end
