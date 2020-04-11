@@ -1,4 +1,4 @@
-Feature: Syntrax
+Feature: Syntrax Filter
 
 
   Scenario: Basic Rendering
@@ -7,14 +7,16 @@ Feature: Syntrax
       ---
       ---
 
-      {% syntrax %}
+      {% capture diagram %}
       indentstack(10,
         line(opt('-'), choice('0', line('1-9', loop(None, '0-9'))),
           opt('.', loop('0-9', None))),
 
         line(opt(choice('e', 'E'), choice(None, '+', '-'), loop('0-9', None)))
       )
-      {% endsyntrax %}
+      {% endcapture %}
+
+      {{ diagram | as_syntrax }}
       """
     When I run jekyll build
     Then the file '_site/syntrax.html' should exist

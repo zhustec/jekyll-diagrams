@@ -1,4 +1,4 @@
-Feature: Nomnoml
+Feature: Nomnoml Filter
 
 
   Scenario: Basic Rendering
@@ -7,9 +7,11 @@ Feature: Nomnoml
       ---
       ---
 
-      {% nomnoml %}
+      {% capture diagram %}
       [Jekyll Diagrams Feature Test]
-      {% endnomnoml %}
+      {% endcapture %}
+
+      {{ diagram | as_nomnoml }}
       """
     When I run jekyll build
     Then the file '_site/nomnoml.html' should exist

@@ -43,6 +43,6 @@ namespace :test do
 end
 
 desc 'Run features and minitest'
-task test: %w[test:features test:minitest]
+task test: %w[test:minitest test:features]
 
 task default: :test

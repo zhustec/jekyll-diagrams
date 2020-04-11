@@ -1,4 +1,4 @@
-Feature: Blockdiag
+Feature: Blockdiag Filter
 
 
   Scenario: Basic Rendering
@@ -7,12 +7,14 @@ Feature: Blockdiag
       ---
       ---
 
-      {% blockdiag %}
+      {% capture diagram %}
       blockdiag {
          A -> B -> C -> D;
          A -> E -> F -> G;
       }
-      {% endblockdiag %}
+      {% endcapture %}
+
+      {{ diagram | as_blockdiag }}
       """
     When I run jekyll build
     Then the file '_site/blockdiag.html' should exist

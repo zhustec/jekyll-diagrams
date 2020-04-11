@@ -1,4 +1,4 @@
-Feature: PlantUML
+Feature: PlantUML Block
 
 
   Background: I have a file with PlantUML
@@ -13,20 +13,11 @@ Feature: PlantUML
       """
 
   Scenario: Basic Rendering
-    Given I have a file 'plantuml.md' with content:
-      """
-      ---
-      ---
-
-      {% plantuml %}
-      Bob->Alice : hello
-      {% endplantuml %}
-      """
     When I run jekyll build
     Then the file '_site/plantuml.html' should exist
     And I should see svg output in '_site/plantuml.html'
 
-  Scenario: Remove XML Heading
+  Scenario: It Remove XML Heading
     When I run jekyll build
     Then the file '_site/plantuml.html' should exist
     And I should not see '<\?xml' in '_site/plantuml.html'

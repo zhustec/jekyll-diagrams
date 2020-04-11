@@ -15,7 +15,7 @@ require 'fileutils'
 require 'jekyll-diagrams'
 
 # Mocking this method for testing
-class Jekyll::Diagrams::Block
+class Jekyll::Diagrams::Renderer
   def render_with_command(command, _output = :stdout, **_options)
     command
   end
