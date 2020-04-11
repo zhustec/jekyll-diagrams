@@ -1,4 +1,4 @@
-name: Linter
+name: Lint
 
 on:
   - push
@@ -25,9 +25,6 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-
-      - name: Bundle Install
-        run: bundle install --jobs 4 --retry 3
 
       - name: RuboCop Linter
         uses: andrewmcodes/rubocop-linter-action@v3.0.0

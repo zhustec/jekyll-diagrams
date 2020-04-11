@@ -1,6 +1,8 @@
 require 'simplecov-lcov'
 
-SimpleCov::Formatter::LcovFormatter.config do |c|
+include SimpleCov::Formatter
+
+LcovFormatter.config do |c|
   c.report_with_single_file = true
   c.output_directory = 'coverage'
   c.lcov_file_name = 'lcov.info'
@@ -14,9 +16,5 @@ SimpleCov.start do
   add_filter '/spec'
   add_filter '/vendor'
 
-  if ENV['CI']
-    formatter SimpleCov::Formatter::LcovFormatter
-  else
-    formatter SimpleCov::Formatter::HTMLFormatter
-  end
+  formatter MultiFormatter.new([HTMLFormatter, LcovFormatter])
 end
