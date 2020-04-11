@@ -2,19 +2,17 @@
 
 module Jekyll
   module Diagrams
-    module Wavedrom
-      class Renderer < BaseRenderer
-        def render_svg(code, config)
-          command = build_command(config)
+    class WavedromRenderer < BasicRenderer
+      def render_svg(code, config)
+        command = build_command(config)
 
-          render_with_tempfile(command, code) do |input, output|
-            "--input #{input} --svg #{output}"
-          end
+        render_with_tempfile(command, code) do |input, output|
+          "--input #{input} --svg #{output}"
         end
+      end
 
-        def build_command(_config)
-          'wavedrom-cli'
-        end
+      def build_command(_config)
+        'wavedrom-cli'
       end
     end
   end

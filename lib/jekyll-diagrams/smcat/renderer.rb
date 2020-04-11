@@ -2,30 +2,28 @@
 
 module Jekyll
   module Diagrams
-    module SMCat
-      class Renderer < BaseRenderer
-        XML_REGEX = /^<\?xml(([^>]|\n)*>\n?){2}/.freeze
-        CONFIGURATIONS = %w[direction engine input-type].freeze
+    class SMCatRenderer < BasicRenderer
+      XML_REGEX = /^<\?xml(([^>]|\n)*>\n?){2}/.freeze
+      CONFIGURATIONS = %w[direction engine input-type].freeze
 
-        def render_svg(code, config)
-          command = build_command(config)
+      def render_svg(code, config)
+        command = build_command(config)
 
-          svg = render_with_tempfile(command, code) do |input, output|
-            "#{input} --output-to #{output}"
-          end
-
-          svg.sub!(XML_REGEX, '')
+        svg = render_with_tempfile(command, code) do |input, output|
+          "#{input} --output-to #{output}"
         end
 
-        def build_command(config)
-          command = +'smcat'
+        svg.sub!(XML_REGEX, '')
+      end
 
-          CONFIGURATIONS.each do |conf|
-            command << " --#{conf} #{config[conf]}" if config.key?(conf)
-          end
+      def build_command(config)
+        command = +'smcat'
 
-          command
+        CONFIGURATIONS.each do |conf|
+          command << " --#{conf} #{config[conf]}" if config.key?(conf)
         end
+
+        command
       end
     end
   end

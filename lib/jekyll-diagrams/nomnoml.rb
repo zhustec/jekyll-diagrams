@@ -2,11 +2,11 @@
 
 require_relative 'nomnoml/renderer'
 require_relative 'nomnoml/block'
+require_relative 'nomnoml/filter'
 
 module Jekyll
   module Diagrams
-    module Nomnoml
-      Liquid::Template.register_tag(:nomnoml, Block)
-    end
+    Liquid::Template.register_tag(:nomnoml, NomnomlBlock)
+    Liquid::Template.register_filter(NomnomlFilter)
   end
 end

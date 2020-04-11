@@ -1,4 +1,4 @@
-Feature: Vega
+Feature: Vega Block
 
 
   Scenario: Basic Vega Rendering

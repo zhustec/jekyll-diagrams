@@ -4,10 +4,8 @@ require 'test_helper'
 
 class ErdTest < Minitest::Test
   def setup
-    @renderer = Jekyll::Diagrams::Erd::Renderer.new(
-      Liquid::ParseContext.new,
-      '',
-      'erd'
+    @renderer = Jekyll::Diagrams::ErdRenderer.new(
+      Liquid::ParseContext.new, '', 'erd'
     )
   end
 

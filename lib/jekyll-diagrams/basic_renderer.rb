@@ -2,7 +2,7 @@
 
 module Jekyll
   module Diagrams
-    class BaseRenderer
+    class BasicRenderer
       include Rendering
 
       class << self
@@ -32,7 +32,7 @@ module Jekyll
       private
 
       def render_svg(_code, _config)
-        ''
+        raise NotImplementedError
       end
 
       def wrap_class(content)
@@ -44,18 +44,18 @@ module Jekyll
       end
 
       def handle_error(error, mode)
-        topic = 'Jekyll Diagrams'
-        msg = error.message
+        topic = Diagrams.logger_topic
 
         case mode
         when :lax
-          Jekyll.logger.info topic, msg
+          Jekyll.logger.info topic, error
+          Jekyll.logger.info '', 'skip'
           ''
         when :warn
-          Jekyll.logger.warn topic, msg
-          msg
+          Jekyll.logger.warn topic, error
+          error
         when :strict
-          Jekyll.logger.abort_with topic, msg
+          Jekyll.logger.abort_with topic, error
         end
       end
     end

@@ -2,11 +2,11 @@
 
 require_relative 'mermaid/renderer'
 require_relative 'mermaid/block'
+require_relative 'mermaid/filter'
 
 module Jekyll
   module Diagrams
-    module Mermaid
-      Liquid::Template.register_tag(:mermaid, Block)
-    end
+    Liquid::Template.register_tag(:mermaid, MermaidBlock)
+    Liquid::Template.register_filter(MermaidFilter)
   end
 end

@@ -2,11 +2,11 @@
 
 require_relative 'smcat/renderer'
 require_relative 'smcat/block'
+require_relative 'smcat/filter'
 
 module Jekyll
   module Diagrams
-    module SMCat
-      Liquid::Template.register_tag(:smcat, Block)
-    end
+    Liquid::Template.register_tag(:smcat, SMCatBlock)
+    Liquid::Template.register_filter(SMCatFilter)
   end
 end

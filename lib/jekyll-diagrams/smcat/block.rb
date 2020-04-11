@@ -2,12 +2,7 @@
 
 module Jekyll
   module Diagrams
-    module SMCat
-      class Block < Liquid::Block
-        def render(context)
-          Renderer.render(context, super.to_s, block_name)
-        end
-      end
+    class SMCatBlock < BasicBlock
     end
   end
 end

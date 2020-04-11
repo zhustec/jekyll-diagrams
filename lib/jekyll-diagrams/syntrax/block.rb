@@ -2,12 +2,7 @@
 
 module Jekyll
   module Diagrams
-    module Syntrax
-      class Block < Liquid::Block
-        def render(context)
-          Renderer.render(context, super.to_s, block_name)
-        end
-      end
+    class SyntraxBlock < BasicBlock
     end
   end
 end

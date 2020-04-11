@@ -2,34 +2,32 @@
 
 module Jekyll
   module Diagrams
-    module Erd
-      class Renderer < BaseRenderer
-        XML_REGEX = /^<\?xml(([^>]|\n)*>\n?){2}/.freeze
-        CONFIGURATIONS = %w[config edge].freeze
-        SWITCHES = {
-          'dot-entity' => false
-        }.freeze
+    class ErdRenderer < BasicRenderer
+      XML_REGEX = /^<\?xml(([^>]|\n)*>\n?){2}/.freeze
+      CONFIGURATIONS = %w[config edge].freeze
+      SWITCHES = {
+        'dot-entity' => false
+      }.freeze
 
-        def render_svg(code, config)
-          command = build_command(config)
+      def render_svg(code, config)
+        command = build_command(config)
 
-          svg = render_with_stdin_stdout(command, code)
-          svg.sub!(XML_REGEX, '')
+        svg = render_with_stdin_stdout(command, code)
+        svg.sub!(XML_REGEX, '')
+      end
+
+      def build_command(config)
+        command = +'erd --fmt=svg'
+
+        SWITCHES.merge(config.slice(*SWITCHES.keys)).each do |switch, value|
+          command << " --#{switch}" if value != false
         end
 
-        def build_command(config)
-          command = +'erd --fmt=svg'
-
-          SWITCHES.merge(config.slice(*SWITCHES.keys)).each do |switch, value|
-            command << " --#{switch}" if value != false
-          end
-
-          CONFIGURATIONS.each do |conf|
-            command << " --#{conf}=#{config[conf]}" if config.key?(conf)
-          end
-
-          command
+        CONFIGURATIONS.each do |conf|
+          command << " --#{conf}=#{config[conf]}" if config.key?(conf)
         end
+
+        command
       end
     end
   end

@@ -8,6 +8,10 @@ module Jekyll
       def config_name
         'jekyll-diagrams'
       end
+
+      def logger_topic
+        'Jekyll Diagrams:'
+      end
     end
   end
 end
@@ -15,7 +19,9 @@ end
 require_relative 'jekyll-diagrams/errors'
 require_relative 'jekyll-diagrams/utils'
 require_relative 'jekyll-diagrams/rendering'
-require_relative 'jekyll-diagrams/renderer'
+
+require_relative 'jekyll-diagrams/basic_renderer'
+require_relative 'jekyll-diagrams/basic_block'
 
 require_relative 'jekyll-diagrams/blockdiag'
 require_relative 'jekyll-diagrams/erd'

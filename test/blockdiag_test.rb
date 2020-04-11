@@ -4,10 +4,8 @@ require 'test_helper'
 
 class BlockdiagTest < Minitest::Test
   def setup
-    @renderer = Jekyll::Diagrams::Blockdiag::Renderer.new(
-      Liquid::ParseContext.new,
-      '',
-      'blockdiag'
+    @renderer = Jekyll::Diagrams::BlockdiagRenderer.new(
+      Liquid::ParseContext.new, '', 'blockdiag'
     )
   end
 

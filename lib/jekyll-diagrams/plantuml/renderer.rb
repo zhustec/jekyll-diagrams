@@ -2,23 +2,21 @@
 
 module Jekyll
   module Diagrams
-    module PlantUML
-      class Renderer < BaseRenderer
-        XML_REGEX = /^<\?xml([^>]|\n)*>\n?/.freeze
+    class PlantUMLRenderer < BasicRenderer
+      XML_REGEX = /^<\?xml([^>]|\n)*>\n?/.freeze
 
-        def render_svg(code, config)
-          command = build_command(config)
+      def render_svg(code, config)
+        command = build_command(config)
 
-          svg = render_with_stdin_stdout(command, code)
-          svg.sub!(XML_REGEX, '')
-        end
+        svg = render_with_stdin_stdout(command, code)
+        svg.sub!(XML_REGEX, '')
+      end
 
-        def build_command(_config)
-          jar = Utils.vendor_path('plantuml.1.2020.1.jar')
+      def build_command(_config)
+        jar = Utils.vendor_path('plantuml.1.2020.1.jar')
 
-          options = +Utils.run_jar(jar)
-          options << ' -tsvg -pipe'
-        end
+        options = +Utils.run_jar(jar)
+        options << ' -tsvg -pipe'
       end
     end
   end

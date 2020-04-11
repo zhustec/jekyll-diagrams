@@ -4,10 +4,8 @@ require 'test_helper'
 
 class SvgbobTest < Minitest::Test
   def setup
-    @renderer = Jekyll::Diagrams::Svgbob::Renderer.new(
-      Liquid::ParseContext.new,
-      '',
-      'svgbob'
+    @renderer = Jekyll::Diagrams::SvgbobRenderer.new(
+      Liquid::ParseContext.new, '', 'svgbob'
     )
   end
 

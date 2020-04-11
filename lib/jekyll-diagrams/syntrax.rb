@@ -2,11 +2,11 @@
 
 require_relative 'syntrax/renderer'
 require_relative 'syntrax/block'
+require_relative 'syntrax/filter'
 
 module Jekyll
   module Diagrams
-    module Syntrax
-      Liquid::Template.register_tag(:syntrax, Block)
-    end
+    Liquid::Template.register_tag(:syntrax, SyntraxBlock)
+    Liquid::Template.register_filter(SyntraxFilter)
   end
 end

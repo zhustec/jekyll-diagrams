@@ -2,11 +2,11 @@
 
 require_relative 'plantuml/renderer'
 require_relative 'plantuml/block'
+require_relative 'plantuml/filter'
 
 module Jekyll
   module Diagrams
-    module PlantUML
-      Liquid::Template.register_tag(:plantuml, Block)
-    end
+    Liquid::Template.register_tag(:plantuml, PlantUMLBlock)
+    Liquid::Template.register_filter(PlantUMLFilter)
   end
 end

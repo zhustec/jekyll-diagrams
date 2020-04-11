@@ -21,9 +21,10 @@ module Jekyll
 
         def error_mode(context)
           key = 'error_mode'
+          config = configuration(context)
 
-          liquid_mode = configuration(context).dig('liquid', key)
-          custom_mode = configuration(context).dig(Diagrams.config_name, key)
+          liquid_mode = config.dig('liquid', key)
+          custom_mode = config.dig(Diagrams.config_name, key)
 
           (custom_mode || liquid_mode || :warn).to_sym
         end

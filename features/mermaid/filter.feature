@@ -1,4 +1,4 @@
-Feature: Mermaid
+Feature: Mermaid Filter
 
 
   Scenario: Basic Rendering
@@ -7,13 +7,15 @@ Feature: Mermaid
       ---
       ---
 
-      {% mermaid %}
+      {% capture diagram %}
       sequenceDiagram
           participant John
           participant Alice
           Alice->>John: Hello John, how are you?
           John-->>Alice: Great!
-      {% endmermaid %}
+      {% endcapture %}
+
+      {{ diagram | as_mermaid }}
       """
     When I run jekyll build
     Then the file '_site/mermaid.html' should exist
