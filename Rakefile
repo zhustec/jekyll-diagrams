@@ -1,13 +1,24 @@
 # frozen_string_literal: true
 
 require 'bundler/gem_helper'
-require 'rake/testtask'
+require 'cucumber/rake/task'
+require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+
+task default: %i[spec]
+
+Cucumber::Rake::Task.new(:cucumber)
+RSpec::Core::RakeTask.new(:spec)
+RuboCop::RakeTask.new(:rubocop)
+
+namespace :gem do
+  Bundler::GemHelper.install_tasks
+end
 
 namespace :docker do
   desc 'Build docker image'
   task :build do
-    system 'docker build docker/ -t diagrams'
+    system 'docker build . -t diagrams'
   end
 
   desc 'Run docker image'
@@ -17,32 +28,3 @@ namespace :docker do
     CMD
   end
 end
-
-namespace :gem do
-  Bundler::GemHelper.install_tasks
-end
-
-RuboCop::RakeTask.new(:rubocop)
-
-desc 'Run tests and show coverage'
-task :coverage do
-  system 'bundle exec coveralls report'
-end
-
-namespace :test do
-  desc 'Run tests for features'
-  task :features do
-    system 'bundle exec cucumber'
-  end
-
-  Rake::TestTask.new(:minitest) do |t|
-    t.libs << 'test'
-    t.libs << 'lib'
-    t.test_files = FileList['test/**/*_test.rb']
-  end
-end
-
-desc 'Run features and minitest'
-task test: %w[test:minitest test:features]
-
-task default: :test

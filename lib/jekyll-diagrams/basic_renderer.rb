@@ -6,15 +6,16 @@ module Jekyll
       include Rendering
 
       class << self
-        def render(context, content, block_name)
-          new(context, content, block_name).render
+        def render(context, content, diagram = nil)
+          new(context, content, diagram).render
         end
       end
 
-      def initialize(context, content, block_name)
+      def initialize(context, content, diagram = nil)
         @context = context
         @content = content
-        @block_name = block_name
+        @block_name = diagram || self.class.name.split('::').last
+                                     .sub(/Renderer$/, '').downcase
       end
 
       def render
@@ -23,10 +24,7 @@ module Jekyll
         output = render_svg(@content, config)
         wrap_class(output)
       rescue StandardError => e
-        error_mode = Utils.error_mode(@context)
-
-        output = handle_error(e, error_mode)
-        wrap_class(output)
+        wrap_class(Utils.handle_error(@context, e))
       end
 
       private
@@ -41,22 +39,6 @@ module Jekyll
             #{content}
           </div>"
         CONTENT
-      end
-
-      def handle_error(error, mode)
-        topic = Diagrams.logger_topic
-
-        case mode
-        when :lax
-          Jekyll.logger.info topic, error
-          Jekyll.logger.info '', 'skip'
-          ''
-        when :warn
-          Jekyll.logger.warn topic, error
-          error
-        when :strict
-          Jekyll.logger.abort_with topic, error
-        end
       end
     end
   end

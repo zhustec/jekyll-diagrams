@@ -3,25 +3,38 @@
 module Jekyll
   module Diagrams
     module BasicFilter
-      def self.included(filter)
-        # Jekyll::...::GraphvizFilter -> 'Graphviz'
-        base = filter.name.split('::').last.sub(/Filter$/, '')
-        # 'Graphviz' -> 'GraphvizRenderer'
-        renderer_name = "#{base}Renderer"
-        # 'graphviz'
-        tag = base.downcase
+      def self.included(filter_module)
+        # Jekyll::...::BasicFilter -> 'Basic'
+        name = filter_module.name.split('::').last.sub(/Filter$/, '')
+        # 'basic'
+        diagram = name.downcase
 
-        # Examples
-        #
-        #   define_method 'as_graphviz' do |inout|
-        #     renderer = Diagrams.const_get('GraphvizRenderer')
-        #     renderer.render(@context, input, tag)
-        #   end
-        #
-        filter.module_eval do
-          define_method "as_#{tag}" do |input|
-            renderer = Diagrams.const_get(renderer_name)
-            renderer.render(@context, input, tag)
+        filter_module.module_eval do
+          class << self
+            def renderer
+              @renderer ||= Diagrams.const_get(renderer_name)
+            rescue NameError => e
+              # uninitialized constant SomeConstant
+              raise Errors::RendererNotFoundError, e.message.split(' ').last
+            end
+
+            def renderer_name
+              @renderer_name ||=
+                "#{name.split('::').last.sub(/Filter$/, '')}Renderer"
+            end
+
+            def diagram_name
+              @diagram_name ||=
+                name.split('::').last.sub(/Filter$/, '').downcase
+            end
+          end
+
+          define_method "as_#{diagram}" do |input|
+            filter_module.renderer.render(
+              @context, input, filter_module.diagram_name
+            )
+          rescue Errors::RendererNotFoundError => e
+            Utils.handle_error(context, e)
           end
         end
       end

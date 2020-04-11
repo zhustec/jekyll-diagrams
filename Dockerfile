@@ -4,8 +4,6 @@ ARG USER="diagrams"
 ARG UID="1000"
 ARG GID="1000"
 
-USER root
-
 RUN apt-get -qq update && \
         apt-get install -yq --no-install-recommends \
                 build-essential \
@@ -61,11 +59,12 @@ RUN gem install --no-document --user-install bundler && \
 
 WORKDIR $HOME/work
 
-COPY Gemfile .
+COPY Gemfile Gemfile.lock jekyll-diagrams.gemspec ./
+COPY lib/jekyll-diagrams/version.rb ./lib/jekyll-diagrams/version.rb
 
 USER root
 
-RUN chown $USER:users $HOME/work -R
+RUN chown -R $USER:users $HOME/work
 
 USER $USER
 

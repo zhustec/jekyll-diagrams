@@ -1,4 +1,5 @@
 /.bundle
+/.jekyll-cache
 /.yardoc
 /Gemfile.lock
 /coverage
