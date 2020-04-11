@@ -9,7 +9,7 @@ module Jekyll
     %i[blockdiag seqdiag actdiag nwdiag rackdiag packetdiag].each do |tag|
       Liquid::Template.register_tag(tag, BlockdiagBlock)
     end
-    
+
     Liquid::Template.register_filter(BlockdiagFilter)
   end
 end

@@ -9,7 +9,7 @@ module Jekyll
     %i[vega vegalite].each do |tag|
       Liquid::Template.register_tag(tag, VegaBlock)
     end
-    
+
     Liquid::Template.register_filter(VegaFilter)
   end
 end
