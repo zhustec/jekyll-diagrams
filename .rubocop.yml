@@ -1,12 +1,28 @@
+require:
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.5
 
+Metrics/AbcSize:
+  Exclude:
+    - lib/jekyll-diagrams/basic_*.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - jekyll-diagrams.gemspec
+    - spec/**/*
+
 Metrics/MethodLength:
   Max: 30
+  Exclude:
+    - lib/jekyll-diagrams/basic_*.rb
 
 Naming/FileName:
   Exclude:
     - features/step_definitions/jekyll-diagrams.rb
+    - spec/jekyll-diagrams_spec.rb
+    - test/jekyll-diagrams_test.rb
     - lib/jekyll-diagrams.rb
 
 Style/ClassAndModuleChildren:
@@ -16,4 +32,7 @@ Style/ClassAndModuleChildren:
     - test/test_helper.rb
 
 Style/Documentation:
+  Enabled: false
+
+RSpec/FilePath:
   Enabled: false

@@ -3,13 +3,8 @@
 lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-# Don't use coveralls in Github Actions
-unless ENV['GITHUB_ACTIONS']
-  require 'coveralls'
-  Coveralls.wear!
-end
-
-require 'minitest'
+require 'simplecov'
+require 'rspec'
 require 'tmpdir'
 require 'jekyll-diagrams'
 
@@ -31,8 +26,7 @@ end
 def run_jekyll
   options = Jekyll.configuration(
     source: TEST_DIR,
-    quiet: true,
-    liquid: { 'error_mode' => 'strict' }
+    quiet: true
   )
 
   Jekyll::Site.new(options).process

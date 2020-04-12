@@ -6,7 +6,7 @@ dist: bionic
 
 cache:
  bundler: true
- pip: true
+ # pip: true
 
 rvm:
   - 2.7
@@ -27,7 +27,7 @@ before_install:
 
 install: bundle install --jobs 8 --retry 3
 
-script: bundle exec rake
+script: bundle exec rake cucumber
 
 addons:
   apt:

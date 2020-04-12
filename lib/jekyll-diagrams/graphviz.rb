@@ -1,40 +1,12 @@
 # frozen_string_literal: true
 
+require_relative 'graphviz/renderer'
+require_relative 'graphviz/block'
+require_relative 'graphviz/filter'
+
 module Jekyll
   module Diagrams
-    class GraphvizBlock < Block
-      XML_REGEX = /^<\?xml(([^>]|\n)*>\n?){2}/.freeze
-      CONFIGRATIONS = {
-        'K' => 'default_layout',
-        'G' => 'graph_attributes',
-        'N' => 'node_attributes',
-        'E' => 'edge_attributes'
-      }.freeze
-
-      def render_svg(code, config)
-        command = build_command(config)
-
-        svg = render_with_stdin_stdout(command, code).force_encoding(
-          config.fetch('encoding', 'utf-8')
-        )
-
-        svg.sub!(XML_REGEX, '')
-      end
-
-      def build_command(config)
-        command = +'dot -Tsvg'
-
-        CONFIGRATIONS.each do |prefix, conf|
-          next unless config.key?(conf)
-
-          command << Diagrams.normalized_attrs(config[conf],
-                                               prefix: " -#{prefix}")
-        end
-
-        command
-      end
-    end
+    Liquid::Template.register_tag(:graphviz, GraphvizBlock)
+    Liquid::Template.register_filter(GraphvizFilter)
   end
 end
-
-Liquid::Template.register_tag(:graphviz, Jekyll::Diagrams::GraphvizBlock)
