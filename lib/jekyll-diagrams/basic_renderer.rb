@@ -37,7 +37,7 @@ module Jekyll
         <<~CONTENT
           <div class='jekyll-diagrams diagrams #{@block_name}'>
             #{content}
-          </div>"
+          </div>
         CONTENT
       end
     end
