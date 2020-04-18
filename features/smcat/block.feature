@@ -2,7 +2,7 @@ Feature: SMCat Block
 
 
   Background: I have a file with SMCat
-    Given I have a file 'smcat.md' with content:
+    Given I have a file named 'smcat.md' with:
       """
       ---
       ---

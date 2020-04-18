@@ -5,40 +5,33 @@ module Jekyll
     class BasicRenderer
       include Rendering
 
-      class << self
-        def render(context, content, diagram = nil)
-          new(context, content, diagram).render
+      def self.render(context, content, options = {})
+        new(context, content, options).render
+      end
+
+      def initialize(context, content, options = {})
+        @context = context
+        @content = content
+        @diagram = options.fetch(:diagram_name) do
+          self.class.name.split('::').last.sub(/Renderer$/, '').downcase
         end
       end
 
-      def initialize(context, content, diagram = nil)
-        @context = context
-        @content = content
-        @block_name = diagram || self.class.name.split('::').last
-                                     .sub(/Renderer$/, '').downcase
-      end
-
       def render
-        config = Utils.config_for(@context, @block_name)
-
-        output = render_svg(@content, config)
-        wrap_class(output)
-      rescue StandardError => e
-        wrap_class(Utils.handle_error(@context, e))
+        output = render_svg(@content, configuration)
+        Utils.wrap_class(output, @diagram)
+      rescue StandardError => error
+        Utils.wrap_class(Utils.handle_error(@context, error), @diagram)
       end
 
       private
 
-      def render_svg(_code, _config)
-        raise NotImplementedError
+      def configuration
+        Utils.config_for(@context, @diagram)
       end
 
-      def wrap_class(content)
-        <<~CONTENT
-          <div class='jekyll-diagrams diagrams #{@block_name}'>
-            #{content}
-          </div>
-        CONTENT
+      def render_svg(_code, _config)
+        raise NotImplementedError
       end
     end
   end

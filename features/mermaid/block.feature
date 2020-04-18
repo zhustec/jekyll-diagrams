@@ -2,7 +2,7 @@ Feature: Mermaid Block
 
 
   Scenario: Basic Rendering
-    Given I have a file 'mermaid.md' with content:
+    Given I have a file named 'mermaid.md' with:
       """
       ---
       ---

@@ -1,8 +1,9 @@
-FROM ubuntu:latest
+ARG RUBY_VERSION="2.7.0"
+
+FROM ruby:$RUBY_VERSION
 
 ARG USER="diagrams"
 ARG UID="1000"
-ARG GID="1000"
 
 RUN apt-get -qq update && \
         apt-get install -yq --no-install-recommends \
@@ -26,8 +27,7 @@ RUN apt-get -qq update && \
                 python3-setuptools \
                 python3-cairo \
                 python3-gi \
-                python3-gi-cairo \
-                ruby-full && \
+                python3-gi-cairo && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/*
 
@@ -36,7 +36,7 @@ RUN useradd -s /bin/bash -m --no-user-group --uid $UID $USER
 USER $USER
 
 ENV HOME=/home/$USER
-ENV GEM_HOME=$HOME/.gem/ruby/2.5.0 \
+ENV GEM_HOME=$HOME/.gem/ruby/$RUBY_VERSION \
     LOCAL_PATH=$HOME/.local \
     NPM_PREFIX=$HOME/.npm
 ENV PATH=$GEM_HOME/bin:$LOCAL_PATH/bin:$NPM_PREFIX/bin:$PATH
@@ -69,3 +69,5 @@ RUN chown -R $USER:users $HOME/work
 USER $USER
 
 RUN bundle install
+
+ENTRYPOINT ["/bin/bash"]

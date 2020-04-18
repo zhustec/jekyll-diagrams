@@ -10,6 +10,8 @@ jobs:
 
     runs-on: ubuntu-18.04
 
+    if: github.event_name != 'pull_request' || github.repository_owner != github.actor
+
     strategy:
       matrix:
         ruby:

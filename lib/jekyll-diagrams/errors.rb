@@ -18,6 +18,7 @@ module Jekyll
       CommandNotFoundError = Class.new(BasicError)
       RenderingFailedError = Class.new(BasicError)
       RendererNotFoundError = Class.new(BasicError)
+      UnkownErrorModeError = Class.new(BasicError)
     end
   end
 end

@@ -2,7 +2,7 @@ Feature: PlantUML Block
 
 
   Background: I have a file with PlantUML
-    Given I have a file 'plantuml.md' with content:
+    Given I have a file named 'plantuml.md' with:
       """
       ---
       ---

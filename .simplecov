@@ -12,9 +12,10 @@ SimpleCov.start do
   enable_coverage :branch
 
   add_filter %r{^/features}
-  add_filter %r{^/test}
-  add_filter %r{^/spec}
-  add_filter %r{^/vendor}
+
+  add_group 'Fundamental', %r{^/lib/jekyll-diagrams(?:/\w+)?.rb}
+  add_group 'Diagram', %r{^/lib/jekyll-diagrams/\w+/\w+.rb}
+  add_group 'Spec', %r{^/spec}
 
   formatter MultiFormatter.new([HTMLFormatter, LcovFormatter])
 end

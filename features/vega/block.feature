@@ -2,7 +2,7 @@ Feature: Vega Block
 
 
   Scenario: Basic Vega Rendering
-    Given I have a file 'vega.md' with content:
+    Given I have a file named 'vega.md' with:
       """
       ---
       ---
@@ -23,7 +23,7 @@ Feature: Vega Block
     And I should see svg output in '_site/vega.html'
 
   Scenario: Basic Vegalite Rendering
-    Given I have a file 'vegalite.md' with content:
+    Given I have a file named 'vegalite.md' with:
       """
       ---
       ---

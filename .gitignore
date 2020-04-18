@@ -5,3 +5,5 @@
 /coverage
 /pkg
 /tmp
+*.gem
+*.swp

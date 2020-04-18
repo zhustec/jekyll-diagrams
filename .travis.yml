@@ -5,8 +5,8 @@ os: linux
 dist: bionic
 
 cache:
- bundler: true
- # pip: true
+  bundler: true
+  pip: true
 
 rvm:
   - 2.7
@@ -20,6 +20,8 @@ gemfile:
 jobs:
   fast_finish: true
 
+if: type != pull_request || head_repo != repo
+
 before_install:
   - gem update -N --system && gem install -N bundler
   - npm install -g --silent mermaid.cli nomnoml state-machine-cat vega-cli vega-lite wavedrom-cli
@@ -27,7 +29,7 @@ before_install:
 
 install: bundle install --jobs 8 --retry 3
 
-script: bundle exec rake cucumber
+script: bundle exec rake features
 
 addons:
   apt:

@@ -7,47 +7,45 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
     stub_const('TestBlock', Class.new(described_class))
   end
 
-  describe '.renderer' do
-    context 'when the renderer is not found' do
-      it 'raise an RendererNotFoundError error' do
-        error = Jekyll::Diagrams::Errors::RendererNotFoundError
-
-        expect { TestBlock.renderer }.to raise_error error
-      end
-    end
-
-    context 'when the renderer is found' do
-      let :renderer do
-        Class.new do
-          def self.render(_context, input, _name)
-            input
-          end
-        end
-      end
-
-      before do
-        stub_const('Jekyll::Diagrams::TestRenderer', renderer)
-      end
-
-      it 'return the renderer class' do
-        expect(TestBlock.renderer).to eq renderer
-      end
-    end
-  end
-
-  describe '.diagrams_name' do
-    subject { TestBlock.diagram_name }
-
-    it { is_expected.to eq 'test' }
-  end
-
   describe '.renderer_name' do
     subject { TestBlock.renderer_name }
 
     it { is_expected.to eq 'TestRenderer' }
   end
 
+  describe '.renderer' do
+    subject { TestBlock.renderer }
+
+    context 'when the renderer is not found' do
+      it 'raise an renderer not found error' do
+        expect { TestBlock.renderer }.to raise_error(
+          Jekyll::Diagrams::Errors::RendererNotFoundError
+        )
+      end
+    end
+
+    context 'when the renderer is found' do
+      before { stub_const('TestRenderer', Class.new) }
+
+      it { is_expected.to be TestRenderer }
+    end
+  end
+
   describe '#render' do
+    context 'when the renderer is not found' do
+      it 'raise renderer not found error' do
+        allow(Jekyll::Diagrams::Utils).to receive(:handle_error)
+
+        Liquid::Template.register_tag(:test, TestBlock)
+
+        content = '{% test %}test{% endtest %}'
+        context = Liquid::Template.parse(content)
+        context.render(context_with_config)
+
+        expect(Jekyll::Diagrams::Utils).to have_received(:handle_error)
+      end
+    end
+
     context 'when the renderer is found' do
       before do
         renderer = Class.new do
@@ -56,7 +54,7 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
           end
         end
 
-        stub_const('Jekyll::Diagrams::TestRenderer', renderer)
+        stub_const('TestRenderer', renderer)
 
         Liquid::Template.register_tag(:test, TestBlock)
       end
@@ -65,7 +63,7 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
         content = '{% test %}test{% endtest %}'
         context = Liquid::Template.parse(content)
 
-        expect(context.render).to eq 'test'
+        expect(context.render(context_with_config)).to eq 'test'
       end
     end
   end

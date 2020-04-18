@@ -2,7 +2,7 @@ Feature: Nomnoml Block
 
 
   Scenario: Basic Rendering
-    Given I have a file 'nomnoml.md' with content:
+    Given I have a file named 'nomnoml.md' with:
       """
       ---
       ---
