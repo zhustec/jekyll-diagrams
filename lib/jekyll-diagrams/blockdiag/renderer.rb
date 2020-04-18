@@ -18,7 +18,7 @@ module Jekyll
         end
 
         def build_command(config)
-          command = +"#{@block_name} -T svg --nodoctype"
+          command = +"#{@name} -T svg --nodoctype"
 
           switches = self.class.const_get(:SWITCHES)
 
