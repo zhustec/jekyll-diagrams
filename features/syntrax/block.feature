@@ -2,7 +2,7 @@ Feature: Syntrax Block
 
 
   Scenario: Basic Rendering
-    Given I have a file 'syntrax.md' with content:
+    Given I have a file named 'syntrax.md' with:
       """
       ---
       ---

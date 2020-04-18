@@ -2,7 +2,7 @@ Feature: Wavedrom Block
 
 
   Scenario: Basic Rendering
-    Given I have a file 'wavedrom.md' with content:
+    Given I have a file named 'wavedrom.md' with:
       """
       ---
       ---

@@ -22,14 +22,15 @@ Naming/FileName:
   Exclude:
     - features/step_definitions/jekyll-diagrams.rb
     - spec/jekyll-diagrams_spec.rb
-    - test/jekyll-diagrams_test.rb
     - lib/jekyll-diagrams.rb
+
+Naming/RescuedExceptionsVariableName:
+  PreferredName: error
 
 Style/ClassAndModuleChildren:
   Exclude:
     - features/support/env.rb
     - spec/spec_helper.rb
-    - test/test_helper.rb
 
 Style/Documentation:
   Enabled: false

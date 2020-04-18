@@ -2,7 +2,7 @@ Feature: Graphviz Configuration
 
 
   Scenario: Global Configuration
-    Given I have a file '_config.yml' with content:
+    Given I have a file named '_config.yml' with:
       """
       jekyll-diagrams:
         graphviz:
@@ -12,7 +12,7 @@ Feature: Graphviz Configuration
           node_attributes:
             color: blue
       """
-    And I have a file 'graphviz.md' with content:
+    And I have a file named 'graphviz.md' with:
       """
       ---
       ---
@@ -33,14 +33,14 @@ Feature: Graphviz Configuration
     And I should see '<ellipse .*? stroke="#0000ff"' in '_site/graphviz.html'
 
   Scenario: Page Configuration Will Overwite Site Configuration
-    Given I have a file '_config.yml' with content:
+    Given I have a file named '_config.yml' with:
       """
       jekyll-diagrams:
         graphviz:
           edge_attributes:
             color: green
       """
-    And I have a file 'graphviz.md' with content:
+    And I have a file named 'graphviz.md' with:
       """
       ---
       jekyll-diagrams:

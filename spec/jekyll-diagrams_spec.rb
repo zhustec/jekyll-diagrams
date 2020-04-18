@@ -14,4 +14,10 @@ RSpec.describe Jekyll::Diagrams do
 
     it { is_expected.to eq 'Jekyll Diagrams:' }
   end
+
+  describe '.defaut_error_mode' do
+    subject { described_class.default_error_mode }
+
+    it { is_expected.to eq :warn }
+  end
 end

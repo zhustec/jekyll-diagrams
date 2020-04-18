@@ -12,6 +12,10 @@ module Jekyll
       def logger_topic
         'Jekyll Diagrams:'
       end
+
+      def default_error_mode
+        :warn
+      end
     end
   end
 end
@@ -22,7 +26,6 @@ require_relative 'jekyll-diagrams/rendering'
 
 require_relative 'jekyll-diagrams/basic_renderer'
 require_relative 'jekyll-diagrams/basic_block'
-require_relative 'jekyll-diagrams/basic_filter'
 
 require_relative 'jekyll-diagrams/blockdiag'
 require_relative 'jekyll-diagrams/erd'

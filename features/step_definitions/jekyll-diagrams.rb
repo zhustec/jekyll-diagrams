@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Given('I have a file {string} with content:') do |file, content|
+Given('I have a file named {string} with:') do |file, content|
   File.write(file, content)
 end
 

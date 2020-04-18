@@ -34,7 +34,7 @@ module Jekyll
         end
       end
 
-      Diagrams.const_set "#{name.capitalize}Renderer", renderer
+      const_set "#{name.capitalize}Renderer", renderer
     end
   end
 end

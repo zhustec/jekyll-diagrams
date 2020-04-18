@@ -2,7 +2,7 @@ Feature: Graphviz Block
 
 
   Background: I have a file with Graghviz
-    Given I have a file 'graphviz.md' with content:
+    Given I have a file named 'graphviz.md' with:
       """
       ---
       ---

@@ -63,44 +63,54 @@ RSpec.describe Jekyll::Diagrams::Utils do
     let(:error) { StandardError.new('TestError') }
 
     context 'when error mode is lax' do
-      subject do
-        described_class.handle_error(
-          context_with_config(liquid: { 'error_mode' => 'lax' }), error
-        )
+      it 'show error info and skip this rendering' do
+        expect(
+          described_class.handle_error(
+            context_with_config(liquid: { 'error_mode' => 'lax' }), error
+          )
+        ).to eq ''
       end
-
-      it { is_expected.to eq '' }
     end
 
     context 'when error mode is warn' do
-      subject do
-        described_class.handle_error(
-          context_with_config(liquid: { 'error_mode' => 'warn' }), error
-        )
+      it 'show warn message about error' do
+        expect(
+          described_class.handle_error(
+            context_with_config(liquid: { 'error_mode' => 'warn' }), error
+          )
+        ).to eq error
       end
-
-      it { is_expected.to eq error }
     end
 
     context 'when error mode is strict' do
-      subject :error_report do
-        described_class.handle_error(
-          context_with_config(liquid: { 'error_mode' => 'strict' }), error
-        )
+      it 'abort with an error' do
+        expect do
+          described_class.handle_error(
+            context_with_config(liquid: { 'error_mode' => 'strict' }), error
+          )
+        end.to raise_error(SystemExit).and output(/TestError/).to_stderr
       end
+    end
 
-      it { expect { error_report }.to raise_error SystemExit }
+    context 'with unkown error mode' do
+      it 'raise unkown error mode error' do
+        expect do
+          described_class.handle_error(
+            context_with_config(liquid: { 'error_mode' => 'unkown' }), error
+          )
+        end.to raise_error(Jekyll::Diagrams::Errors::UnkownErrorModeError)
+      end
     end
   end
 
   describe '.vendor_path' do
-    context 'when has no input' do
+    context 'with no input' do
       subject { described_class.vendor_path }
 
       it { is_expected.to end_with 'vendor/' }
     end
 
-    context 'when the input is "test_file' do
+    context 'with the input is "test_file' do
       subject { described_class.vendor_path('test_file') }
 
       it { is_expected.to end_with 'vendor/test_file' }
@@ -142,5 +152,12 @@ RSpec.describe Jekyll::Diagrams::Utils do
 
       it { is_expected.to eq ' --scales 2 --color red' }
     end
+  end
+
+  describe '.wrap_class' do
+    subject { described_class.wrap_class('content', 'active') }
+
+    it { is_expected.to match(/class=.*active/) }
+    it { is_expected.to match('content') }
   end
 end

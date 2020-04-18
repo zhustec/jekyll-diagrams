@@ -31,35 +31,30 @@ module Jekyll
         liquid_mode = config.dig('liquid', key)
         custom_mode = config.dig(Diagrams.config_name, key)
 
-        (custom_mode || liquid_mode || :warn).to_sym
+        (custom_mode || liquid_mode || Diagrams.default_error_mode).to_sym
       end
 
       def handle_error(context, error)
         topic = Diagrams.logger_topic
+        mode = error_mode(context)
 
-        puts topic
-
-        case error_mode(context)
+        case mode
         when :lax
-          Jekyll.logger.info topic, error
-          Jekyll.logger.info '', 'skip'
           ''
         when :warn
           Jekyll.logger.warn topic, error
           error
         when :strict
           Jekyll.logger.abort_with topic, error
+        else
+          raise Errors::UnkownErrorModeError, mode
         end
       end
 
-      # Return file path under vendor path
-      #
-      # @param file [String] If not given, return directory path
       def vendor_path(file = '')
         File.join(File.expand_path('../../vendor', __dir__), file)
       end
 
-      # @param jar [String] Jar path to run
       def run_jar(jar)
         "java -Djava.awt.headless=true -jar #{jar} "
       end
@@ -76,6 +71,14 @@ module Jekyll
           end
 
         "#{prefix}#{attrs}"
+      end
+
+      def wrap_class(content, class_names)
+        <<~CONTENT
+          <div class='#{Diagrams.config_name} diagrams #{class_names}'>
+            #{content}
+          </div>
+        CONTENT
       end
     end
   end

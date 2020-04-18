@@ -2,7 +2,7 @@ Feature: Blockdiag Block
 
 
   Scenario: Basic Rendering
-    Given I have a file 'blockdiag.md' with content:
+    Given I have a file named 'blockdiag.md' with:
       """
       ---
       ---
