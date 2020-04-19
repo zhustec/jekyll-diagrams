@@ -14,9 +14,7 @@ Metrics/BlockLength:
     - spec/**/*
 
 Metrics/MethodLength:
-  Max: 30
-  Exclude:
-    - lib/jekyll-diagrams/basic_*.rb
+  Max: 15
 
 Naming/FileName:
   Exclude:
@@ -35,5 +33,14 @@ Style/ClassAndModuleChildren:
 Style/Documentation:
   Enabled: false
 
+RSpec/ExampleLength:
+  Max: 10
+
 RSpec/FilePath:
   Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 2

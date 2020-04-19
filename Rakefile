@@ -22,11 +22,13 @@ end
 namespace :docker do
   desc 'Build docker image'
   task :build do
-    `#{docker} build . -t diagrams`
+    system "#{docker} build . -t diagrams"
   end
 
   desc 'Run docker image'
   task :run do
-    `#{docker} run -it --rm --volume #{Dir.pwd}:/home/diagrams/work diagrams`
+    system <<~CMD
+      #{docker} run -it --rm --volume #{Dir.pwd}:/home/diagrams/work  diagrams
+    CMD
   end
 end

@@ -69,3 +69,5 @@ RUN chown -R $USER:users $HOME/work
 USER $USER
 
 RUN bundle install
+
+ENTRYPOINT ["/bin/bash"]

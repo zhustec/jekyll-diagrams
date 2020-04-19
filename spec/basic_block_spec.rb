@@ -32,6 +32,20 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
   end
 
   describe '#render' do
+    context 'when the renderer is not found' do
+      it 'raise renderer not found error' do
+        allow(Jekyll::Diagrams::Utils).to receive(:handle_error).and_return('f')
+
+        Liquid::Template.register_tag(:test, TestBlock)
+
+        content = '{% test %}test{% endtest %}'
+        context = Liquid::Template.parse(content)
+        context.render(context_with_config)
+
+        expect(Jekyll::Diagrams::Utils).to have_received(:handle_error)
+      end
+    end
+
     context 'when the renderer is found' do
       before do
         renderer = Class.new do
@@ -48,7 +62,7 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
       it 'render the content with the renderer' do
         content = '{% test %}test{% endtest %}'
         context = Liquid::Template.parse(content)
-        # require 'pry'; binding.pry
+
         expect(context.render(context_with_config)).to eq 'test'
       end
     end

@@ -14,8 +14,13 @@ module Jekyll
       end
 
       def render(context)
-        self.class.renderer.render(context, super.to_s, block_name)
-      rescue StandardError => error
+        self.class.renderer.render(
+          context, super.to_s, {
+            diagram_name: self.class.name.split('::').last
+                              .sub(/Block$/, '').downcase
+          }
+        )
+      rescue Errors::RendererNotFoundError => error
         Utils.handle_error(context, error)
       end
     end
