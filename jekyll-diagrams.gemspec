@@ -21,11 +21,36 @@ Gem::Specification.new do |spec|
   spec.test_files    = Dir['features/**/*', 'spec/**/*', 'test/**/*']
   spec.require_path  = 'lib'
 
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.5')
+  spec.metadata      = {
+    'source_code_uri' => 'https://github.com/zhustec/jekyll-diagrams',
+    'bug_tracker_uri' => 'https://github.com/zhustec/jekyll-diagrams',
+    'changelog_uri' => 'https://github.com/zhustec/jekyll-diagrams/releases',
+    'homepage_uri' => spec.homepage
+  }
+
+  spec.post_install_message = "
+    __________________________________________________________
+    ..........................................................
+
+    Thank you for installing jekyll-diagrams.
+
+    But it doesn't mean that you can use all diagrams for now,
+    You still need to install some dependencies by your self.
+
+    Refer to the link below for more details:
+
+    https://github.com/zhustec/jekyll-diagrams#readme
+
+    ..........................................................
+    __________________________________________________________
+  "
+
+  spec.required_ruby_version = '>= 2.5'
 
   spec.add_dependency 'jekyll', '>= 3.8', '< 5.0'
 
   spec.add_development_dependency 'cucumber'
+  spec.add_development_dependency 'factory_bot'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
