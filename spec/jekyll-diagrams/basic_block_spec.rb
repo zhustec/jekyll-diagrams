@@ -31,12 +31,35 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
     end
   end
 
+  describe '#initialize' do
+    before do
+      Liquid::Template.register_tag(:test, TestBlock)
+    end
+
+    it 'parse inline options' do
+      context = Liquid::Template.parse <<~CONTENT
+        {% test a1="v1" a2="k2=v2" %}
+          test
+        {% endtest %}
+      CONTENT
+
+      # TODO: Get rid of this strange line
+      options = context.root.nodelist.first
+                       .instance_variable_get(:@inline_options)
+
+      expect(options).to include('a1' => 'v1')
+      expect(options).to include('a2' => 'k2=v2')
+    end
+  end
+
   describe '#render' do
+    before do
+      Liquid::Template.register_tag(:test, TestBlock)
+    end
+
     context 'when the renderer is not found' do
       it 'raise renderer not found error' do
         allow(Jekyll::Diagrams::Utils).to receive(:handle_error)
-
-        Liquid::Template.register_tag(:test, TestBlock)
 
         content = '{% test %}test{% endtest %}'
         context = Liquid::Template.parse(content)
@@ -55,8 +78,6 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
         end
 
         stub_const('TestRenderer', renderer)
-
-        Liquid::Template.register_tag(:test, TestBlock)
       end
 
       it 'render the content with the renderer' do

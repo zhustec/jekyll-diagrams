@@ -12,6 +12,7 @@ module Jekyll
       def initialize(context, content, options = {})
         @context = context
         @content = content
+        @inline_options = options.fetch(:inline_options, {})
         @diagram = options.fetch(:diagram_name) do
           self.class.name.split('::').last.sub(/Renderer$/, '').downcase
         end
@@ -27,7 +28,7 @@ module Jekyll
       private
 
       def configuration
-        Utils.config_for(@context, @diagram)
+        Utils.config_for(@context, @diagram).merge(@inline_options)
       end
 
       def render_svg(_code, _config)
