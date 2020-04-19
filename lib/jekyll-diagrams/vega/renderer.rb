@@ -7,7 +7,7 @@ module Jekyll
         const_set :CONFIGURATIONS, %w[scale].freeze
 
         def render_svg(code, config)
-          if @block_name == 'vegalite'
+          if @diagram == 'vegalite'
             code = render_with_stdin_stdout('vl2vg', code)
           end
 
