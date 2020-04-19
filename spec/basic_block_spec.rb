@@ -34,7 +34,7 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
   describe '#render' do
     context 'when the renderer is not found' do
       it 'raise renderer not found error' do
-        allow(Jekyll::Diagrams::Utils).to receive(:handle_error).and_return('f')
+        allow(Jekyll::Diagrams::Utils).to receive(:handle_error)
 
         Liquid::Template.register_tag(:test, TestBlock)
 
