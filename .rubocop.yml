@@ -43,7 +43,7 @@ RSpec/MessageChain:
   Enabled: false
 
 RSpec/MultipleExpectations:
-  Max: 2
+  Max: 3
 
 RSpec/SubjectStub:
   Enabled: false

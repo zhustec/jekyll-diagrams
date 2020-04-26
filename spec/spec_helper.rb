@@ -3,6 +3,7 @@
 require 'simplecov'
 require 'rspec'
 require 'factory_bot'
+require 'pry-byebug'
 
 require 'jekyll-diagrams'
 

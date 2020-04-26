@@ -160,4 +160,16 @@ RSpec.describe Jekyll::Diagrams::Utils do
     it { is_expected.to match(/class=.*active/) }
     it { is_expected.to match('content') }
   end
+
+  describe '.parse_inline_options' do
+    it 'parse inline options' do
+      input = 'a1=v1 a2="v2" a3="k3 v3"'
+
+      options = described_class.parse_inline_options(input)
+
+      expect(options).to include(a1: 'v1')
+      expect(options).to include(a2: 'v2')
+      expect(options).to include(a3: 'k3 v3')
+    end
+  end
 end

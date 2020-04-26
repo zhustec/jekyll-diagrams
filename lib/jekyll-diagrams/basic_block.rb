@@ -13,14 +13,28 @@ module Jekyll
         @renderer_name ||= name.sub(/Block$/, 'Renderer')
       end
 
+      def initialize(tag_name, markup, _tokens)
+        super
+
+        @markup = markup.strip
+      end
+
       def render(context)
+        # rubocop:disable Style/GuardClause
+        if "#{@markup} " =~ Utils::INLINE_OPTIONS_SYNTAX
+          inline_options = Utils.parse_inline_options(@markup)
+        else
+          raise Errors::InlineOptionsSyntaxError, @markup
+        end
+        # rubocop:enable Style/GuardClause
+
         self.class.renderer.render(
           context, super.to_s, {
-            diagram_name: self.class.name.split('::').last
-                              .sub(/Block$/, '').downcase
+            diagram_name: block_name,
+            inline_options: inline_options
           }
         )
-      rescue Errors::RendererNotFoundError => error
+      rescue Errors::BasicError => error
         Utils.handle_error(context, error)
       end
     end

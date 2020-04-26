@@ -19,6 +19,7 @@ module Jekyll
       RenderingFailedError = Class.new(BasicError)
       RendererNotFoundError = Class.new(BasicError)
       UnkownErrorModeError = Class.new(BasicError)
+      InlineOptionsSyntaxError = Class.new(BasicError)
     end
   end
 end

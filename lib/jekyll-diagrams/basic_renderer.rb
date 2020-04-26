@@ -12,22 +12,23 @@ module Jekyll
       def initialize(context, content, options = {})
         @context = context
         @content = content
-        @diagram = options.fetch(:diagram_name) do
+        @inline_options = options.fetch(:inline_options, {})
+        @diagram_name = options.fetch(:diagram_name) do
           self.class.name.split('::').last.sub(/Renderer$/, '').downcase
         end
       end
 
       def render
         output = render_svg(@content, configuration)
-        Utils.wrap_class(output, @diagram)
+        Utils.wrap_class(output, @diagram_name)
       rescue StandardError => error
-        Utils.wrap_class(Utils.handle_error(@context, error), @diagram)
+        Utils.wrap_class(Utils.handle_error(@context, error), @diagram_name)
       end
 
       private
 
       def configuration
-        Utils.config_for(@context, @diagram)
+        Utils.config_for(@context, @diagram_name).merge(@inline_options)
       end
 
       def render_svg(_code, _config)
