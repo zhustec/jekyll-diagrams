@@ -20,11 +20,13 @@ module Jekyll
       end
 
       def render(context)
+        # rubocop:disable Style/GuardClause
         if "#{@markup} " =~ Utils::INLINE_OPTIONS_SYNTAX
           inline_options = Utils.parse_inline_options(@markup)
         else
           raise Errors::InlineOptionsSyntaxError, @markup
         end
+        # rubocop:enable Style/GuardClause
 
         self.class.renderer.render(
           context, super.to_s, {

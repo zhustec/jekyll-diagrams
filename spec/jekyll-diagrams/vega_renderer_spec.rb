@@ -22,7 +22,7 @@ RSpec.describe Jekyll::Diagrams::VegaRenderer do
         allow(renderer).to receive(:build_command)
         allow(renderer).to receive(:render_with_stdin_stdout).and_return(+'')
 
-        renderer.instance_variable_set(:@diagram, 'vegalite')
+        renderer.instance_variable_set(:@diagram_name, 'vegalite')
         renderer.render_svg('', {})
 
         expect(renderer).to have_received(:render_with_stdin_stdout).twice
