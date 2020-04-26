@@ -8,14 +8,12 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
   end
 
   describe '.renderer_name' do
-    subject { TestBlock.renderer_name }
-
-    it { is_expected.to eq 'TestRenderer' }
+    it 'return the renderer name matching the block' do
+      expect(TestBlock.renderer_name).to eq 'TestRenderer'
+    end
   end
 
   describe '.renderer' do
-    subject { TestBlock.renderer }
-
     context 'when the renderer is not found' do
       it 'raise an renderer not found error' do
         expect { TestBlock.renderer }.to raise_error(
@@ -27,34 +25,52 @@ RSpec.describe Jekyll::Diagrams::BasicBlock do
     context 'when the renderer is found' do
       before { stub_const('TestRenderer', Class.new) }
 
-      it { is_expected.to be TestRenderer }
-    end
-  end
-
-  describe '#initialize' do
-    before do
-      Liquid::Template.register_tag(:test, TestBlock)
-    end
-
-    it 'parse inline options' do
-      context = Liquid::Template.parse <<~CONTENT
-        {% test a1="v1" a2="k2=v2" %}
-          test
-        {% endtest %}
-      CONTENT
-
-      # TODO: Get rid of this strange line
-      options = context.root.nodelist.first
-                       .instance_variable_get(:@inline_options)
-
-      expect(options).to include('a1' => 'v1')
-      expect(options).to include('a2' => 'k2=v2')
+      it 'return the renderer matching the block' do
+        expect(TestBlock.renderer).to be TestRenderer
+      end
     end
   end
 
   describe '#render' do
     before do
       Liquid::Template.register_tag(:test, TestBlock)
+    end
+
+    context 'when inline options is not valid' do
+      before do
+        allow(Jekyll::Diagrams::Utils).to receive(:handle_error)
+
+        template = Liquid::Template.parse <<~CONTENT
+          {% test a1=v1=2 %} test {% endtest %}
+        CONTENT
+
+        template.render(context_with_config)
+      end
+
+      it 'raise inline options syntax error' do
+        expect(Jekyll::Diagrams::Utils).to have_received(:handle_error).with(
+          anything, kind_of(Jekyll::Diagrams::Errors::InlineOptionsSyntaxError)
+        )
+      end
+    end
+
+    context 'when inline options is valid' do
+      before do
+        allow(described_class).to receive_message_chain(:renderer, :render)
+        allow(Jekyll::Diagrams::Utils).to receive(:parse_inline_options)
+
+        template = Liquid::Template.parse <<~CONTENT
+          {% test a1=v1 a2="v2" a3="k3 v3" %} test {% endtest %}
+        CONTENT
+
+        template.render(context_with_config)
+      end
+
+      it 'call Utils.parse_inline_options' do
+        expect(Jekyll::Diagrams::Utils).to have_received(
+          :parse_inline_options
+        ).with('a1=v1 a2="v2" a3="k3 v3"')
+      end
     end
 
     context 'when the renderer is not found' do

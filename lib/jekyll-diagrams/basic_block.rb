@@ -3,8 +3,6 @@
 module Jekyll
   module Diagrams
     class BasicBlock < Liquid::Block
-      INLINE_OPTIONS_REGEXP = /(\w+)="([^"]+)"/.freeze
-
       def self.renderer
         @renderer ||= const_get(renderer_name)
       rescue NameError => error
@@ -18,18 +16,23 @@ module Jekyll
       def initialize(tag_name, markup, _tokens)
         super
 
-        @inline_options = Hash[markup.scan(INLINE_OPTIONS_REGEXP)]
+        @markup = markup.strip
       end
 
       def render(context)
+        if "#{@markup} " =~ Utils::INLINE_OPTIONS_SYNTAX
+          inline_options = Utils.parse_inline_options(@markup)
+        else
+          raise Errors::InlineOptionsSyntaxError, @markup
+        end
+
         self.class.renderer.render(
           context, super.to_s, {
-            diagram_name: self.class.name.split('::').last
-                              .sub(/Block$/, '').downcase,
-            inline_options: @inline_options
+            diagram_name: block_name,
+            inline_options: inline_options
           }
         )
-      rescue Errors::RendererNotFoundError => error
+      rescue Errors::BasicError => error
         Utils.handle_error(context, error)
       end
     end
