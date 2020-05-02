@@ -1,4 +1,4 @@
-daysUntilStale: 60
+daysUntilStale: 50
 daysUntilClose: 10
 exemptLabels:
   - pinned

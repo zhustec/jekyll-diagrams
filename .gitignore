@@ -1,9 +1,16 @@
-/.bundle
-/.jekyll-cache
+/.bundle/
 /.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
 /Gemfile.lock
-/coverage
-/pkg
-/tmp
-*.gem
+
+/.jekyll-cache
+
 *.swp
+
+# rspec failure tracking
+.rspec_status

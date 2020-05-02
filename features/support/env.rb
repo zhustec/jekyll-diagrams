@@ -4,14 +4,11 @@ lib = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'simplecov'
-require 'rspec'
-require 'factory_bot'
 
+require 'rspec'
 require 'tmpdir'
 
 require 'jekyll-diagrams'
-
-World(FactoryBot::Syntax::Methods)
 
 TEST_DIR = File.join(Dir.tmpdir, 'jekyll-diagrams-features')
 

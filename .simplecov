@@ -13,9 +13,5 @@ SimpleCov.start do
 
   add_filter %r{^/features}
 
-  add_group 'Fundamental', %r{^/lib/jekyll-diagrams(?:/\w+)?.rb}
-  add_group 'Diagram', %r{^/lib/jekyll-diagrams/\w+/\w+.rb}
-  add_group 'Spec', %r{^/spec}
-
   formatter MultiFormatter.new([HTMLFormatter, LcovFormatter])
 end

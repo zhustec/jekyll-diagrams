@@ -4,9 +4,14 @@ require:
 AllCops:
   TargetRubyVersion: 2.5
 
-Metrics/AbcSize:
-  Exclude:
-    - lib/jekyll-diagrams/basic_*.rb
+Lint/RaiseException:
+  Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
 
 Metrics/BlockLength:
   Exclude:
@@ -18,32 +23,22 @@ Metrics/MethodLength:
 
 Naming/FileName:
   Exclude:
-    - features/step_definitions/jekyll-diagrams.rb
-    - spec/jekyll-diagrams_spec.rb
     - lib/jekyll-diagrams.rb
 
 Naming/RescuedExceptionsVariableName:
   PreferredName: error
 
-Style/ClassAndModuleChildren:
-  Exclude:
-    - features/support/env.rb
-    - spec/spec_helper.rb
-
 Style/Documentation:
   Enabled: false
 
-RSpec/ExampleLength:
-  Max: 10
+Style/ExponentialNotation:
+  Enabled: true
 
-RSpec/FilePath:
-  Enabled: false
+Style/HashEachMethods:
+  Enabled: true
 
-RSpec/MessageChain:
-  Enabled: false
+Style/HashTransformKeys:
+  Enabled: true
 
-RSpec/MultipleExpectations:
-  Max: 3
-
-RSpec/SubjectStub:
-  Enabled: false
+Style/HashTransformValues:
+  Enabled: true
