@@ -17,7 +17,9 @@ module LiquidDiagrams
     end
 
     def config
-      origin_config.merge(JekyllDiagrams.configuration(@context))
+      jekyll_config = JekyllDiagrams.configuration(@context, block_name) || {}
+
+      origin_config.merge(jekyll_config)
     end
 
     def handle_error(error)
@@ -36,18 +38,22 @@ module JekyllDiagrams
       'Jekyll Diagrams:'
     end
 
-    def configuration(context)
+    def jekyll_configuration(context)
       site_config = context.registers[:site].config
       page_config = context.registers[:page]
 
       site_config.merge(page_config)
     end
 
-    def error_mode(context)
-      config = configuration(context)
+    def configuration(context, key = nil)
+      config = jekyll_configuration(context).fetch(config_name, {})
 
-      liquid_mode = config.dig('liquid', 'error_mode')
-      custom_mode = config.dig(config_name, 'error_mode')
+      config.dup.delete(key) if key
+    end
+
+    def error_mode(context)
+      liquid_mode = jekyll_configuration(context).dig('liquid', 'error_mode')
+      custom_mode = configuration(context, 'error_mode')
 
       (custom_mode || liquid_mode || :warn).to_sym
     end

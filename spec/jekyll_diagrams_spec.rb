@@ -15,6 +15,16 @@ RSpec.describe JekyllDiagrams do
     it { is_expected.to eq 'Jekyll Diagrams:' }
   end
 
+  describe '.jekyll_configuration' do
+    it 'read jekyll configurations from context' do
+    end
+  end
+
+  describe '.configuration' do
+    it 'read configurations from jekyll configurations' do
+    end
+  end
+
   describe '.error_mode' do
     context 'when not specified' do
       subject do

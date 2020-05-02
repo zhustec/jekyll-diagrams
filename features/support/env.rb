@@ -28,7 +28,8 @@ end
 def run_jekyll
   options = Jekyll.configuration(
     source: TEST_DIR,
-    quiet: true
+    quiet: true,
+    liquid: { error_mode: :strict }
   )
 
   Jekyll::Site.new(options).process
