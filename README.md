@@ -2,7 +2,7 @@
 
 [![Gem](https://img.shields.io/gem/v/jekyll-diagrams.svg?label=Gem&style=flat-square)](https://rubygems.org/gems/jekyll-diagrams)
 [![Test](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Test?label=Test&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3ATest)
-[![Feature](https://img.shields.io/travis/zhustec/jekyll-diagrams.svg?label=Feature&style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
+[![Feature](https://img.shields.io/travis/com/zhustec/jekyll-diagrams.svg?label=Feature&style=flat-square)](https://travis-ci.com/zhustec/jekyll-diagrams)
 [![Linter](https://img.shields.io/github/workflow/status/zhustec/jekyll-diagrams/Linter?label=Linter&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/actions?query=workflow%3ALinter)
 [![Coverage](https://img.shields.io/coveralls/github/zhustec/jekyll-diagrams?label=Coverage&style=flat-square)](https://coveralls.io/github/zhustec/jekyll-diagrams)
 [![License](https://img.shields.io/github/license/zhustec/jekyll-diagrams.svg?label=License&style=flat-square)](https://github.com/zhustec/jekyll-diagrams/blob/master/LICENSE)
@@ -107,9 +107,9 @@ jekyll-diagrams:
   error_mode: 'mode'
 ```
 
-## Usage
+## Configurations
 
-Please refer to [Liquid Diagrams Configurations](https://github.com/zhustec/liquid-diagrams/blob/master/CONFIGURATIONS.md)
+Form more configurations please refer to [Liquid Diagrams](https://github.com/zhustec/liquid-diagrams)
 
 ## Contributing
 

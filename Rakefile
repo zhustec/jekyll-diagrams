@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
 require 'bundler/gem_helper'
+
 require 'cucumber/rake/task'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 
-def docker
-  `uname -r`.include?('Microsoft') ? 'docker.exe' : 'docker'
-end
+docker = `uname -r`.include?('Microsoft') ? 'docker.exe' : 'docker'
 
 task default: %i[spec]
 
 Cucumber::Rake::Task.new(:features)
+
 RSpec::Core::RakeTask.new(:spec)
+
 RuboCop::RakeTask.new(:rubocop)
 
 namespace :gem do

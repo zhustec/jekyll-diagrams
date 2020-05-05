@@ -30,9 +30,9 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.5'
 
   spec.add_dependency 'jekyll', '>= 3.8', '< 5.0'
-  spec.add_dependency 'liquid-diagrams', '~> 0.2'
+  spec.add_dependency 'liquid-diagrams', '~> 0.3'
 
-  spec.add_development_dependency 'cucumber'
+  spec.add_development_dependency 'cucumber', '>= 3.0'
   spec.add_development_dependency 'pry-byebug', '~> 3.0'
   spec.add_development_dependency 'rake', '>= 12.0', '< 14.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
