@@ -10,16 +10,16 @@ LiquidDiagrams.register_diagrams(LiquidDiagrams.diagrams)
 module LiquidDiagrams
   class BasicBlock
     alias origin_render render
-    alias origin_config config
+    alias origin_read_config read_config
 
     def render(context)
       JekyllDiagrams.wrap_class(origin_render(context), block_name)
     end
 
-    def config
+    def read_config
       jekyll_config = JekyllDiagrams.configuration(@context, block_name) || {}
 
-      origin_config.merge(jekyll_config)
+      jekyll_config.merge(origin_read_config)
     end
 
     def handle_error(error)

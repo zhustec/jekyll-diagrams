@@ -1,1 +1,7 @@
-default: -r features features
+<%
+format = ENV['CI'] ? 'summary' : 'pretty'
+opts = "-r features --format #{format}"
+%>
+
+default: <%= opts %> --tags "not @slow"
+all: <%= opts %>

@@ -1,7 +1,8 @@
-Feature: Graphviz Block
+@diagrams
+Feature: Graphviz
 
 
-  Background: I have a file with Graghviz
+  Background:
     Given I have a file named 'graphviz.md' with:
       """
       ---
@@ -18,9 +19,3 @@ Feature: Graphviz Block
     When I run jekyll build
     Then the file '_site/graphviz.html' should exist
     And I should see svg output in '_site/graphviz.html'
-
-  Scenario: It Remove XML Heading
-    When I run jekyll build
-    Then the file '_site/graphviz.html' should exist
-    And I should not see '<\?xml' in '_site/graphviz.html'
-    And I should not see '<!DOCTYPE' in '_site/graphviz.html'

@@ -1,7 +1,8 @@
-Feature: PlantUML Block
+@diagrams
+Feature: PlantUML
 
 
-  Background: I have a file with PlantUML
+  Background:
     Given I have a file named 'plantuml.md' with:
       """
       ---
@@ -16,9 +17,3 @@ Feature: PlantUML Block
     When I run jekyll build
     Then the file '_site/plantuml.html' should exist
     And I should see svg output in '_site/plantuml.html'
-
-  Scenario: It Remove XML Heading
-    When I run jekyll build
-    Then the file '_site/plantuml.html' should exist
-    And I should not see '<\?xml' in '_site/plantuml.html'
-    And I should not see '<!DOCTYPE' in '_site/plantuml.html'

@@ -1,4 +1,5 @@
-Feature: Wavedrom Block
+@diagrams
+Feature: Wavedrom
 
 
   Scenario: Basic Rendering

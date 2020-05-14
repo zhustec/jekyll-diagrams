@@ -1,4 +1,5 @@
-Feature: Mermaid Block
+@diagrams
+Feature: Mermaid
 
 
   Scenario: Basic Rendering

@@ -1,4 +1,5 @@
-Feature: Syntrax Block
+@diagrams
+Feature: Syntrax
 
 
   Scenario: Basic Rendering

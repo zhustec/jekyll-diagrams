@@ -1,7 +1,8 @@
-Feature: SMCat Block
+@diagrams
+Feature: Smcat
 
 
-  Background: I have a file with SMCat
+  Background:
     Given I have a file named 'smcat.md' with:
       """
       ---
@@ -16,9 +17,3 @@ Feature: SMCat Block
     When I run jekyll build
     Then the file '_site/smcat.html' should exist
     And I should see svg output in '_site/smcat.html'
-
-  Scenario: It Remove XML Heading
-    When I run jekyll build
-    Then the file '_site/smcat.html' should exist
-    And I should not see '<\?xml' in '_site/smcat.html'
-    And I should not see '<!DOCTYPE' in '_site/smcat.html'

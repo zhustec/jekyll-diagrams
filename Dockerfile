@@ -1,16 +1,15 @@
-ARG RUBY_VERSION="2.7.0"
+ARG BASE_IMAGE="ubuntu:latest"
 
-FROM ruby:$RUBY_VERSION
+FROM $BASE_IMAGE
 
-ARG USER="diagrams"
-ARG UID="1000"
+ARG USER_NAME="diagrams"
+ARG USER_UID="1000"
+ARG WORK_DIR="/work"
 
-RUN apt-get -qq update && \
-        apt-get install -yq --no-install-recommends \
+RUN set -eux ; \
+        apt-get -qq update ; \
+        DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
                 build-essential \
-                git \
-                sudo \
-                vim \
                 default-jre-headless \
                 graphviz \
                 npm \
@@ -23,51 +22,39 @@ RUN apt-get -qq update && \
                 libxss1 \
                 libpango1.0-dev \
                 libpython3-dev \
-                python3-pip \
-                python3-setuptools \
                 python3-cairo \
                 python3-gi \
-                python3-gi-cairo && \
-        apt-get clean && \
+                python3-gi-cairo \
+                python3-pip \
+                python3-setuptools \
+                ruby-full ; \
+        apt-get clean ; \
         rm -rf /var/lib/apt/lists/*
 
-RUN useradd -s /bin/bash -m --no-user-group --uid $UID $USER
-
-USER $USER
-
-ENV HOME=/home/$USER
-ENV GEM_HOME=$HOME/.gem/ruby/$RUBY_VERSION \
-    LOCAL_PATH=$HOME/.local \
-    NPM_PREFIX=$HOME/.npm
-ENV PATH=$GEM_HOME/bin:$LOCAL_PATH/bin:$NPM_PREFIX/bin:$PATH
-
-RUN gem install --no-document --user-install bundler && \
-        npm config set prefix $HOME/.npm && \
-        npm install --global --silent \
+RUN set -eux ; \
+        gem update --no-document --system ; \
+        gem install --no-document bundler ; \
+        pip3 install actdiag blockdiag nwdiag seqdiag syntrax ; \
+        npm install --global yarn ; \
+        yarn global add \
+                bit-field \
                 mermaid.cli \
                 nomnoml \
+                netlistsvg \
                 state-machine-cat \
                 vega-cli \
                 vega-lite \
-                wavedrom-cli && \
-        pip3 install --quiet --user \
-                actdiag \
-                blockdiag \
-                nwdiag \
-                seqdiag \
-                syntrax
+                wavedrom-cli
 
-WORKDIR $HOME/work
+WORKDIR $WORK_DIR
 
-COPY Gemfile Gemfile.lock jekyll-diagrams.gemspec ./
-COPY lib/jekyll-diagrams/version.rb ./lib/jekyll-diagrams/version.rb
-
-USER root
-
-RUN chown -R $USER:users $HOME/work
-
-USER $USER
+COPY jekyll-diagrams.gemspec Gemfile Gemfile.lock ./
+COPY lib/jekyll_diagrams/version.rb lib/jekyll_diagrams/version.rb
 
 RUN bundle install
 
-ENTRYPOINT ["/bin/bash"]
+RUN set -eux ; \
+        useradd -s /bin/bash -m -N -u $USER_UID $USER_NAME ; \
+        chown -R $USER_NAME:users $WORK_DIR
+
+USER $USER_NAME

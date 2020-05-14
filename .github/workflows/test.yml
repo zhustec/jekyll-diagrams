@@ -31,12 +31,15 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - name: Bundle Install with Jekyll ${{ matrix.jekyll }}
+      - name: Lint with Rubocop
+        run: gem install rubocop rubocop-rspec && rubocop
+
+      - name: Bundle Install
         run: |
           bundle install --jobs 4 --retry 3 \
               --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
 
-      - name: Run Unit Test
+      - name: Run Test
         run: bundle exec rake
 
       - name: Coveralls Parallel
@@ -45,7 +48,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel: true
 
-      - name: Coveralls finished
+      - name: Coveralls Finished
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
