@@ -26,6 +26,26 @@ RSpec.describe Jekyll::Diagrams::PlantUMLRenderer do
 
       it { is_expected.to match 'plantuml' }
       it { is_expected.to match '-tsvg -pipe' }
+      it { is_expected.not_to match '-Dplantuml.include.path=' }
+    end
+
+    context 'when a custom jar path is set' do      
+      subject { renderer.build_command(config) }
+      
+      let(:config) { {"jar_path" => '/foo/bar/some.jar'} }
+
+      it { is_expected.to match '/foo/bar/some.jar' }
+      it { is_expected.to match '-tsvg -pipe' }
+    end
+
+    context 'when a custom inlude path is set' do      
+      subject { renderer.build_command(config) }
+      
+      let(:config) { {"include_path" => 'buzz/include/'} }
+      
+      it { is_expected.to match '-Dplantuml.include.path=' }
+      it { is_expected.to match 'buzz/include/' }
+      it { is_expected.to match '-tsvg -pipe' }
     end
   end
 end
