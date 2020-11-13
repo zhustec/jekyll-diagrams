@@ -55,8 +55,17 @@ module Jekyll
         File.join(File.expand_path('../../vendor', __dir__), file)
       end
 
-      def run_jar(jar)
-        "java -Djava.awt.headless=true -jar #{jar} "
+      # Create a comand to run a jar file using the JVM.
+      #
+      # @param jar String The path to the jar file, as string.
+      # @param [jvm_opts] Hash Options passed to the JVM on startup.
+      def run_jar(jar, jvm_opts = {})
+        default_jvm_opts = {"java.awt.headless": "true"}
+        jvm_options_args = default_jvm_opts
+          .merge(jvm_opts)
+          .map {|key, value| "-D#{key}=#{value}"}
+          .join(" ")
+        "java #{jvm_options_args} -jar #{jar} "
       end
 
       def normalized_attrs(attrs, prefix:, sep: '=')

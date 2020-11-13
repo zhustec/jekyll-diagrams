@@ -7,3 +7,6 @@
 /tmp
 *.gem
 *.swp
+
+# macOS system files
+.DS_Store

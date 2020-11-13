@@ -346,6 +346,34 @@ Car -- Person : < owns
 {% endplantuml %}
 ```
 
+#### Configuration
+
+| Config       | Default    | Description                                                                         |
+| ------------ | ---------- | ----------------------------------------------------------------------------------- |
+| `jar_path` | (use internal version) | Path to a custom plantuml jar that should be used to render diagrams. 
+If passed a string, the path is relative to the site base directory. 
+To give an abolute path, set this to a Hash with key "absolute". |
+| `include_path` | (no include path set) | Path to the base directry for files included in diagrams, relative to the site base directory. |
+
+##### Configuration example
+
+Referencing a jar file relative to the site dir:
+```yaml
+jekyll-diagrams:
+  plantuml: 
+    include_path: _plantuml/includes
+    jar_path: _plantuml/plantuml.1.2020.19.jar
+```
+
+Using an abolute path to the plantuml jar file, no include base dir set:
+```yaml
+jekyll-diagrams:
+  plantuml: 
+    jar_path: 
+      absolute: /somewhere/on/your/system/plantuml.jar
+```
+
+
 ### State Machine Cat
 
 #### Prerequisites
