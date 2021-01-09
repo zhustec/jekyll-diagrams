@@ -8,7 +8,7 @@ jobs:
   build:
     name: Lint on Ruby ${{ matrix.ruby }}
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     if: github.event_name != 'pull_request' || github.repository_owner != github.actor
 
@@ -28,8 +28,8 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - name: Bundle Install
-        run: bundle install --jobs 4 --retry 3
-
-      - name: RuboCop Linter
-        run: bundle exec rake rubocop
+      - name: Run RuboCop Linter
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+          bundle exec rake rubocop

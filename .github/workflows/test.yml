@@ -8,7 +8,7 @@ jobs:
   build:
     name: Jekyll ${{ matrix.jekyll }} on Ruby ${{ matrix.ruby }}
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     if: github.event_name != 'pull_request' || github.repository_owner != github.actor
 
@@ -19,8 +19,8 @@ jobs:
           - '2.6'
           - '2.5'
         jekyll:
-          - '4.0'
-          - '3.8'
+          - '4.x'
+          - '3.x'
 
     steps:
       - name: Checkout Reposity
@@ -31,8 +31,9 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
 
-      - name: Bundle Install with Jekyll ${{ matrix.jekyll }}
+      - name: Bundle with Jekyll ${{ matrix.jekyll }}
         run: |
+          gem install bundler
           bundle install --jobs 4 --retry 3 \
               --gemfile=gemfiles/${{ matrix.jekyll }}.gemfile
 
