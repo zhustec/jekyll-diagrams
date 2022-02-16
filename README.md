@@ -256,10 +256,10 @@ digraph {
 
 #### Prerequisites
 
-Install `mermaid.cli`.
+Install `mermaid-cli`.
 
 ```bash
-$ npm install -g mermaid.cli
+$ npm install -g @mermaid-js/mermaid-cli
 ```
 
 **Notice:** You may need to install some missing libraries, follow the output of `mmdc`.
