@@ -26,5 +26,13 @@ RSpec.describe Jekyll::Diagrams::MermaidRenderer do
 
       it { is_expected.to match 'mmdc --puppeteerConfigFile' }
     end
+
+    context 'when command_path is set' do
+      subject { renderer.build_command(config) }
+
+      let(:config) { {'command' => '/path/to/command'} }
+
+      it { is_expected.to match '/path/to/command --puppeteerConfigFile' }
+    end
   end
 end

@@ -278,12 +278,13 @@ sequenceDiagram
 
 #### Configurations
 
-| Config            | Default | Description                                                   |
-| ----------------- | ------- | ------------------------------------------------------------- |
-| `width`           | 800     | Width of the page                                             |
-| `height`          | 600     | Height of the page                                            |
-| `backgroundColor` | white   | Background color. Example: transparent, red, '#F0F0F0'        |
-| `theme`           | default | Theme of the chart, could be default, forest, dark or neutral |
+| Config             | Default | Description                                                                           |
+| ----------------- | ------- | ------------------------------------------------------------------------------------- |
+| `width`           | 800     | Width of the page                                                                     |
+| `height`          | 600     | Height of the page                                                                    |
+| `backgroundColor` | white   | Background color. Example: transparent, red, '#F0F0F0'                                |
+| `theme`           | default | Theme of the chart, could be default, forest, dark or neutral                         |
+| `command`         | mmdc    | The path to the mermaid-cli command. It uses the globally installed 'mmdc' by default |
 
 ### Nomnoml
 

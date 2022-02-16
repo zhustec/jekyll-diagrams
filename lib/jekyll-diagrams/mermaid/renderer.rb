@@ -15,7 +15,8 @@ module Jekyll
       end
 
       def build_command(config)
-        command = +'mmdc --puppeteerConfigFile '
+        base_command = config.fetch('command', 'mmdc')
+        command = base_command + ' --puppeteerConfigFile '
         command << Utils.vendor_path('mermaid_puppeteer_config.json')
 
         CONFIGURATIONS.each do |conf|
