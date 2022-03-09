@@ -13,7 +13,7 @@ module Jekyll
       end
 
       def build_command(_config)
-        jar = Utils.vendor_path('plantuml.1.2020.1.jar')
+        jar = Utils.vendor_path('plantuml-1.2022.2.jar')
 
         options = +Utils.run_jar(jar)
         options << ' -tsvg -pipe'
